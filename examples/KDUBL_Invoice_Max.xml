@@ -10,22 +10,17 @@
             <ext:ExtensionContent>
                 <kdubl:PiaozoneExtension>
                     <kdubl:LineExtensions>
-
                         <kdubl:LineExtension>
                             <kdubl:LineID>1</kdubl:LineID>
                             <!-- 多税支持 -->
                             <kdubl:TaxExtensions>
-
                                 <kdubl:TaxExtension>
                                     <kdubl:InternalTaxCode>SST01</kdubl:InternalTaxCode>
                                 </kdubl:TaxExtension>
-
                                 <kdubl:TaxExtension>
                                     <kdubl:InternalTaxCode>SST_TOURISM</kdubl:InternalTaxCode>
                                 </kdubl:TaxExtension>
-
                             </kdubl:TaxExtensions>
-
                         </kdubl:LineExtension>
                     </kdubl:LineExtensions>
                 </kdubl:PiaozoneExtension>
