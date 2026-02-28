@@ -4,25 +4,108 @@
          xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
          xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
          xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0">
+
     <ext:UBLExtensions>
         <ext:UBLExtension>
             <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
             <ext:ExtensionContent>
                 <kdubl:PiaozoneExtension>
+
+                    <!-- ===== 1. 发票文档引用 (对应 UBL BillingReference / AdditionalDocumentReference) ===== -->
+                    <kdubl:InvoiceDocumentReference>
+                        <!-- 子发票类型码，用于细分发票类型（如信用票据、借记票据等） -->
+                        <kdubl:SubInvoiceTypeCode>T03</kdubl:SubInvoiceTypeCode>
+                        <!-- 发票签发原因码，由各国税务规范定义 -->
+                        <kdubl:DocumentIssuanceReasonCode>DBNS01</kdubl:DocumentIssuanceReasonCode>
+                        <!-- 发票签发原因说明文本 -->
+                        <kdubl:DocumentIssuanceReason>Price calculation error - additional charge</kdubl:DocumentIssuanceReason>
+                        <!-- 原始发票金额（被冲销/调整的原始票据金额） -->
+                        <kdubl:OriginalAmount currencyID="THB">4357.04</kdubl:OriginalAmount>
+                        <!-- 差额金额（本次调整的金额，正数为补收，负数为退款） -->
+                        <kdubl:DifferenceAmount currencyID="THB">100.00</kdubl:DifferenceAmount>
+                    </kdubl:InvoiceDocumentReference>
+
+                    <!-- ===== 2. 卖方地址扩展 (对应 UBL AccountingSupplierParty/Party/PostalAddress) ===== -->
+                    <kdubl:SupplierAddressInfo>
+                        <!-- 次区划代码（街道/次区划级别，对应泰国行政区划 Subdistrict） -->
+                        <kdubl:SubdistrictCode>10360400</kdubl:SubdistrictCode>
+                        <!-- 次区划名称 -->
+                        <kdubl:SubdistrictName>Donmeung</kdubl:SubdistrictName>
+                        <!-- 区划代码（区级，对应泰国行政区划 District，补充 UBL CitySubdivisionName） -->
+                        <kdubl:CitySubdivisionCode>1033</kdubl:CitySubdivisionCode>
+                    </kdubl:SupplierAddressInfo>
+
+                    <!-- ===== 3. 买方地址扩展 (对应 UBL AccountingCustomerParty/Party/PostalAddress) ===== -->
+                    <kdubl:CustomerAddressInfo>
+                        <!-- 次区划代码（街道/次区划级别，对应泰国行政区划 Subdistrict） -->
+                        <kdubl:SubdistrictCode>10360400</kdubl:SubdistrictCode>
+                        <!-- 次区划名称 -->
+                        <kdubl:SubdistrictName>Donmeung</kdubl:SubdistrictName>
+                        <!-- 区划代码（区级，对应泰国行政区划 District，补充 UBL CitySubdivisionName） -->
+                        <kdubl:CitySubdivisionCode>1033</kdubl:CitySubdivisionCode>
+                    </kdubl:CustomerAddressInfo>
+
+                    <!-- ===== 4. 预付款税务扩展 (对应 UBL PrepaidPayment + TaxTotal，沙特 KSA 规范专用) ===== -->
+                    <kdubl:PrepaidPaymentExtension>
+                        <cac:TaxTotal>
+                            <!-- 预付款关联发票的总增值税额 (BT-110) -->
+                            <cbc:TaxAmount currencyID="SAR">1.50</cbc:TaxAmount>
+                            <cac:TaxSubtotal>
+                                <!-- KSA-31 预付款关联发票中特定税种的含税基础金额之和 (BT-116) -->
+                                <cbc:TaxableAmount currencyID="SAR">10.00</cbc:TaxableAmount>
+                                <!-- KSA-32 预付款增值税分类税额 (BT-117) -->
+                                <cbc:TaxAmount currencyID="SAR">1.50</cbc:TaxAmount>
+                                <cac:TaxCategory>
+                                    <!-- KSA-33 预付款增值税分类码 (BT-118)，S = 标准税率 -->
+                                    <cbc:ID>S</cbc:ID>
+                                    <!-- KSA-34 预付款关联发票的增值税税率百分比 (BT-119) -->
+                                    <cbc:Percent>15.00</cbc:Percent>
+                                    <cac:TaxScheme>
+                                        <cbc:ID>VAT</cbc:ID>
+                                    </cac:TaxScheme>
+                                </cac:TaxCategory>
+                            </cac:TaxSubtotal>
+                        </cac:TaxTotal>
+                    </kdubl:PrepaidPaymentExtension>
+
+                    <!-- ===== 5. 行项目扩展集合 (对应 UBL InvoiceLine 的国家级扩展字段) ===== -->
                     <kdubl:LineExtensions>
+
+                        <!-- 行项目扩展，LineID 与 InvoiceLine/ID 一一对应 -->
                         <kdubl:LineExtension>
+                            <!-- 关联发票行号 (对应 InvoiceLine/ID) -->
                             <kdubl:LineID>1</kdubl:LineID>
-                            <!-- 多税支持 -->
+                            <!-- KSA-12 含税行金额 = LineExtensionAmount(100) + TaxTotal/TaxAmount(15) -->
+                            <kdubl:TaxInclusiveLineExtensionAmount currencyID="SAR">115.00</kdubl:TaxInclusiveLineExtensionAmount>
+                            <!-- 行税务扩展：建立行税额与内部税码的映射关系 -->
                             <kdubl:TaxExtensions>
                                 <kdubl:TaxExtension>
-                                    <kdubl:InternalTaxCode>SST01</kdubl:InternalTaxCode>
-                                </kdubl:TaxExtension>
-                                <kdubl:TaxExtension>
-                                    <kdubl:InternalTaxCode>SST_TOURISM</kdubl:InternalTaxCode>
+                                    <!-- 税务索引，与 InvoiceLine/TaxTotal/TaxSubtotal 的顺序对应 -->
+                                    <kdubl:TaxIndex>1</kdubl:TaxIndex>
+                                    <!-- 内部税码（SA_VAT_S = 沙特标准增值税） -->
+                                    <kdubl:InternalTaxCode>SA_VAT_S</kdubl:InternalTaxCode>
                                 </kdubl:TaxExtension>
                             </kdubl:TaxExtensions>
                         </kdubl:LineExtension>
+
+                        <kdubl:LineExtension>
+                            <!-- 关联发票行号 (对应 InvoiceLine/ID) -->
+                            <kdubl:LineID>2</kdubl:LineID>
+                            <!-- KSA-12 含税行金额 = LineExtensionAmount(100) + TaxTotal/TaxAmount(0) -->
+                            <kdubl:TaxInclusiveLineExtensionAmount currencyID="SAR">100.00</kdubl:TaxInclusiveLineExtensionAmount>
+                            <!-- 行税务扩展：建立行税额与内部税码的映射关系 -->
+                            <kdubl:TaxExtensions>
+                                <kdubl:TaxExtension>
+                                    <!-- 税务索引，与 InvoiceLine/TaxTotal/TaxSubtotal 的顺序对应 -->
+                                    <kdubl:TaxIndex>1</kdubl:TaxIndex>
+                                    <!-- 内部税码（SA_VAT_E = 沙特增值税豁免） -->
+                                    <kdubl:InternalTaxCode>SA_VAT_E</kdubl:InternalTaxCode>
+                                </kdubl:TaxExtension>
+                            </kdubl:TaxExtensions>
+                        </kdubl:LineExtension>
+
                     </kdubl:LineExtensions>
+
                 </kdubl:PiaozoneExtension>
             </ext:ExtensionContent>
         </ext:UBLExtension>
