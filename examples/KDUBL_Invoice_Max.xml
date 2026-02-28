@@ -32,7 +32,7 @@
     <!-- Values in invoice are examples values only. -->
     <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
     <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
-    <cbc:ProfileID>urn:www.piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
 
     <!-- 发票头信息 -->
     <!--    Invoice Number-->

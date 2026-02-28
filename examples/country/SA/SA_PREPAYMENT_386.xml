@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- KSA (Saudi Arabia) Phase2 Prepayment Invoice - KDUBL format -->
+<!-- InvoiceTypeCode 386 with PrepaidPayment reference -->
+<!-- cac:PrepaidPayment maps to PUF PrepaidPaymentExtension (KSA-26~34) -->
+<!-- VAT details read from kdubl:PiaozoneExtension/kdubl:PrepaidPaymentExtension/cac:TaxTotal -->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0">
+
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
+            <ext:ExtensionContent>
+                <kdubl:PiaozoneExtension>
+
+                    <kdubl:PrepaidPaymentExtension>
+                        <cac:TaxTotal>
+                            <!-- Total VAT Amount -->
+                            <cbc:TaxAmount currencyID="SAR">1.50</cbc:TaxAmount>
+                            <cac:TaxSubtotal>
+                                <!-- KSA-31 The sum total of VAT category taxable amount (BT-116) subject to specific VAT Category code of the associated Prepayment invoice(s).-->
+                                <cbc:TaxableAmount currencyID="SAR">10.00</cbc:TaxableAmount>
+                                <!-- KSA-32 Prepayment VAT Category Tax Amount -->
+                                <cbc:TaxAmount currencyID="SAR">1.50</cbc:TaxAmount>
+                                <cac:TaxCategory>
+                                    <!-- KSA-33 Prepayment VAT Category Code -->
+                                    <cbc:ID>S</cbc:ID>
+                                    <!-- KSA-34 The VAT category code (BT-118) of the associated Prepayment invoice(s). -->
+                                    <cbc:Percent>15.00</cbc:Percent>
+                                    <cac:TaxScheme>
+                                        <cbc:ID>VAT</cbc:ID>
+                                    </cac:TaxScheme>
+                                </cac:TaxCategory>
+                            </cac:TaxSubtotal>
+                        </cac:TaxTotal>
+                    </kdubl:PrepaidPaymentExtension>
+                    <kdubl:LineExtensions>
+                        <kdubl:LineExtension>
+                            <kdubl:LineID>1</kdubl:LineID>
+                            <!-- KSA-12: TaxInclusiveLineExtensionAmount = LineExtensionAmount(100) + TaxTotal/TaxAmount(15) -->
+                            <kdubl:TaxInclusiveLineExtensionAmount currencyID="SAR">115.00</kdubl:TaxInclusiveLineExtensionAmount>
+                            <kdubl:TaxExtensions>
+                                <kdubl:TaxExtension>
+                                    <kdubl:TaxIndex>1</kdubl:TaxIndex>
+                                    <kdubl:InternalTaxCode>SA_VAT_S</kdubl:InternalTaxCode>
+                                </kdubl:TaxExtension>
+                            </kdubl:TaxExtensions>
+                        </kdubl:LineExtension>
+                    </kdubl:LineExtensions>
+                </kdubl:PiaozoneExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- BT-1 Invoice Number -->
+    <cbc:ID>SA-INV-2026-002</cbc:ID>
+    <!-- BT-2 Invoice Issue Date -->
+    <cbc:IssueDate>2026-02-26</cbc:IssueDate>
+    <cbc:IssueTime>12:00:00+03:00</cbc:IssueTime>
+    <cbc:DueDate>2026-03-26</cbc:DueDate>
+    <!-- BT-3 Invoice Type Code: 386 = Prepayment Invoice -->
+    <cbc:InvoiceTypeCode>386</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>SAR</cbc:DocumentCurrencyCode>
+    <!-- BT-10 Buyer Reference (required by PEPPOL EN16931) -->
+    <cbc:BuyerReference>SA-REF-001</cbc:BuyerReference>
+
+    <!-- KSA-2 Transaction Code: 0200010 for prepayment invoice -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">0200010</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
+        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Seller/Supplier Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <!-- BT-29 SA Seller Party ID: CRN -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SA:CRN">12222222</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Supplier Registration Name</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Street Name</cbc:StreetName>
+                <!-- KSA-17 Building number -->
+                <cbc:BuildingNumber>1234</cbc:BuildingNumber>
+                <!-- KSA-23 Plot identification -->
+                <cbc:PlotIdentification>0000</cbc:PlotIdentification>
+                <!-- KSA-3 District -->
+                <cbc:CitySubdivisionName>District</cbc:CitySubdivisionName>
+                <cbc:CityName>City</cbc:CityName>
+                <cbc:PostalZone>00000</cbc:PostalZone>
+                <cbc:CountrySubentity>Province</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>SA</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>SA313144092200003</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Supplier Registration Name</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer/Customer Information -->
+    <cac:AccountingCustomerParty>
+        <cbc:SupplierAssignedAccountID>Customer Number</cbc:SupplierAssignedAccountID>
+        <cac:Party>
+            <!-- BT-46 SA Buyer Party ID: OTH -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SA:OTH">123456</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Buyer Name</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Street Name</cbc:StreetName>
+                <!-- KSA-18 Building number -->
+                <cbc:BuildingNumber>1234</cbc:BuildingNumber>
+                <!-- KSA-19 Plot identification -->
+                <cbc:PlotIdentification>0000</cbc:PlotIdentification>
+                <!-- KSA-4 District -->
+                <cbc:CitySubdivisionName>District</cbc:CitySubdivisionName>
+                <cbc:CityName>City</cbc:CityName>
+                <cbc:PostalZone>00000</cbc:PostalZone>
+                <cbc:CountrySubentity>Province</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>SA</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>SA32xxxxxxxx00003</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Buyer Name</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-02-26</cbc:ActualDeliveryDate>
+    </cac:Delivery>
+
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>SA1234567891234567891</cbc:ID>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>SWIFTCODE</cbc:ID>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- PrepaidPayment: references an associated prepayment invoice (KSA-26~34) -->
+    <!-- UBL 2.1 顺序: PaymentMeans → PrepaidPayment → AllowanceCharge -->
+    <!-- cbc:ID = KSA-26 Prepayment ID (sequential invoice number of the prepayment invoice) -->
+    <!-- cbc:PaidAmount = paid amount -->
+    <!-- cbc:ReceivedDate = KSA-28 Prepayment Issue Date -->
+    <!-- cbc:PaidTime = KSA-29 Prepayment Issue Time -->
+    <!-- cbc:InstructionID = description/name of the prepayment -->
+    <cac:PrepaidPayment>
+        <cbc:ID>46531</cbc:ID>
+        <cbc:PaidAmount currencyID="SAR">11.50</cbc:PaidAmount>
+        <cbc:ReceivedDate>2021-07-31</cbc:ReceivedDate>
+        <cbc:PaidTime>12:28:17</cbc:PaidTime>
+        <cbc:InstructionID>Prepayment adjustment</cbc:InstructionID>
+    </cac:PrepaidPayment>
+
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="SAR">15.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="SAR">100.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="SAR">15.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>15.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="SAR">100.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="SAR">100.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="SAR">115.00</cbc:TaxInclusiveAmount>
+        <!-- cbc:PrepaidAmount = the total prepaid amount (standard UBL field in LegalMonetaryTotal) -->
+        <cbc:PrepaidAmount currencyID="SAR">11.50</cbc:PrepaidAmount>
+        <cbc:PayableAmount currencyID="SAR">103.50</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="SAR">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+            <cbc:Amount currencyID="SAR">10.00</cbc:Amount>
+        </cac:AllowanceCharge>
+        <!-- KSA-11 Line VAT Amount -->
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="SAR">15.00</cbc:TaxAmount>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Name>Article 1</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID schemeID="UNCL5305">S</cbc:ID>
+                <cbc:Percent>15</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="SAR">110.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
