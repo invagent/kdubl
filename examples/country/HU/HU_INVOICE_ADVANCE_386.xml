@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Hungary Invoice with Advance Payment Deduction - KDUBL format -->
+<!-- InvoiceTypeCode 386, HUF, 27% VAT -->
+<!-- Line 1: main goods 600000 HUF; Line 2: advance payment deduction -500000 HUF -->
+<!-- Net taxable: 100000 HUF, Tax: 27000 HUF, Total: 127000 HUF -->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0">
+
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
+            <ext:ExtensionContent>
+                <kdubl:PiaozoneExtension>
+                    <!-- HU: Invoice appearance -->
+                    <kdubl:InvoiceAppearance>ELECTRONIC</kdubl:InvoiceAppearance>
+                    <!-- HU: Customer VAT status -->
+                    <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>
+                    <!-- HU: Line-level extensions -->
+                    <kdubl:LineExtensions>
+                        <!-- Main goods line -->
+                        <kdubl:LineExtension>
+                            <kdubl:LineID>1</kdubl:LineID>
+                            <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
+                        </kdubl:LineExtension>
+                        <!-- Advance payment deduction line -->
+                        <kdubl:LineExtension>
+                            <kdubl:LineID>2</kdubl:LineID>
+                            <!-- HU: Advance lines cannot be expressed in natural unit -->
+                            <kdubl:LineExpressionIndicator>false</kdubl:LineExpressionIndicator>
+                            <!-- HU: Advance payment details -->
+                            <kdubl:AdvancePayment>
+                                <!-- Indicates this line represents an advance payment deduction -->
+                                <kdubl:AdvanceIndicator>true</kdubl:AdvanceIndicator>
+                                <!-- Serial number of the original advance payment invoice -->
+                                <kdubl:AdvanceOriginalInvoice>HU20260121001</kdubl:AdvanceOriginalInvoice>
+                                <!-- Date the advance payment was made -->
+                                <kdubl:AdvancePaymentDate>2026-01-15</kdubl:AdvancePaymentDate>
+                                <!-- Exchange rate for advance payment (1.00 for same currency) -->
+                                <kdubl:AdvanceExchangeRate>1.00</kdubl:AdvanceExchangeRate>
+                            </kdubl:AdvancePayment>
+                        </kdubl:LineExtension>
+                    </kdubl:LineExtensions>
+                </kdubl:PiaozoneExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>HU20260121003</cbc:ID>
+    <!-- Invoice Issue Date -->
+    <cbc:IssueDate>2026-01-21</cbc:IssueDate>
+    <cbc:IssueTime>00:00:00+01:00</cbc:IssueTime>
+    <!-- Invoice Type Code: 386 = Advance Payment Invoice -->
+    <cbc:InvoiceTypeCode>386</cbc:InvoiceTypeCode>
+    <!-- Invoice Document Currency -->
+    <cbc:DocumentCurrencyCode>HUF</cbc:DocumentCurrencyCode>
+
+    <!-- HU: Invoice type name → InvoiceTypeCode/@name in PUF (same mechanism as SA SubInvoiceTypeCode) -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NORMAL</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Seller Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Supplier Name</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Supplier street name</cbc:StreetName>
+                <cbc:CityName>Supplier city name</cbc:CityName>
+                <cbc:PostalZone>1342</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>HU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>HU23542378214</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Supplier Name</cbc:RegistrationName>
+                <cbc:CompanyID>23542378214</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer Information -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <!-- HU: Buyer group member tax number -->
+                <cbc:ID schemeID="HU:GroupMemberTaxpayerId">23545565414</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Buyer name</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Buyer street name</cbc:StreetName>
+                <cbc:CityName>Buyer city name</cbc:CityName>
+                <cbc:PostalZone>1342</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>HU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>HU23544565214</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Buyer name</cbc:RegistrationName>
+                <!-- HU: Buyer main taxpayer number -->
+                <cbc:CompanyID schemeID="HU:TaxpayerId">23544565214</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Tax Total: 27% VAT on net 100000 HUF (600000 - 500000) = 27000 HUF -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="HUF">27000.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="HUF">100000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="HUF">27000.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>27.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Invoice Totals: net 100000 HUF (600000 - 500000), tax 27000, total 127000 -->
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="HUF">100000.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="HUF">100000.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="HUF">127000.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="HUF">127000.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Main goods -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="EA">1.00</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="HUF">600000.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="HUF">162000.00</cbc:TaxAmount>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Name>Item 1</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>27.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="HUF">600000.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Advance payment deduction (negative amount) -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <!-- Advance payment lines typically have no quantity -->
+        <cbc:LineExtensionAmount currencyID="HUF">-500000.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <!-- Hungarian: "Előleg" = Advance payment; AAA000567 = original advance invoice number -->
+            <cbc:Name>Előleg (HU20260121001 számla)</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>27.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+    </cac:InvoiceLine>
+
+</Invoice>
