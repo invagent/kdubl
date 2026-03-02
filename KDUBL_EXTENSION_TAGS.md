@@ -372,17 +372,15 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 
 ```xml
 <kdubl:LineModification>
-    <kdubl:LineOperation>CREATE</kdubl:LineOperation>
     <kdubl:LineNumberReference>2</kdubl:LineNumberReference>
 </kdubl:LineModification>
 ```
 
-| 子标签 | 可选值 | 说明 |
-|--------|--------|------|
-| `kdubl:LineOperation` | `CREATE` / `MODIFY` / `DELETE` | 该行相对于原始发票的操作类型 |
-| `kdubl:LineNumberReference` | 正整数 | 延续原始发票行号的连续编号。原始发票有行 1，则改票新增行的引用号为 2 |
+| 子标签 | 说明 |
+|--------|------|
+| `kdubl:LineNumberReference` | 延续原始发票行号的连续编号。原始发票有行 1，则改票新增行的引用号为 2 |
 
-**PUF 对应**：`lineModificationReferenceLineOperation` / `lineModificationReferenceLineNumberReference`
+**PUF 对应**：`lineModificationReferenceLineNumberReference`
 
 **完整红票行扩展示例：**
 
@@ -392,7 +390,6 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
         <kdubl:LineID>1</kdubl:LineID>
         <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
         <kdubl:LineModification>
-            <kdubl:LineOperation>CREATE</kdubl:LineOperation>
             <kdubl:LineNumberReference>2</kdubl:LineNumberReference>
         </kdubl:LineModification>
     </kdubl:LineExtension>
@@ -450,41 +447,68 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 
 适用于开票货币（`DocumentCurrencyCode`）与计税货币（`TaxCurrencyCode`）不同的场景，如 EUR 开票 / HUF 计税。
 
-#### 4.4.1 `kdubl:TaxCurrencyAmounts` — 计税货币发票合计
+#### 4.4.1 `kdubl:TaxCurrencyLegalMonetaryTotal` — 计税货币发票合计
 
 ```xml
-<kdubl:TaxCurrencyAmounts>
-    <kdubl:TaxCurrencyTaxExclusiveAmount currencyID="HUF">90417.50</kdubl:TaxCurrencyTaxExclusiveAmount>
-    <kdubl:TaxCurrencyTaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyTaxInclusiveAmount>
-    <kdubl:TaxCurrencyPayableAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyPayableAmount>
-</kdubl:TaxCurrencyAmounts>
+<kdubl:TaxCurrencyLegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="HUF">90417.50</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="HUF">90417.50</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="HUF">114830.23</cbc:TaxInclusiveAmount>
+    <cbc:AllowanceTotalAmount currencyID="HUF">0.00</cbc:AllowanceTotalAmount>
+    <cbc:ChargeTotalAmount currencyID="HUF">0.00</cbc:ChargeTotalAmount>
+    <cbc:PayableRoundingAmount currencyID="HUF">0.00</cbc:PayableRoundingAmount>
+    <cbc:PayableAmount currencyID="HUF">114830.23</cbc:PayableAmount>
+</kdubl:TaxCurrencyLegalMonetaryTotal>
 ```
 
-| 子标签 | 含义 | PUF 对应 |
-|--------|------|---------|
-| `TaxCurrencyTaxExclusiveAmount` | 不含税总金额（计税货币） | `puf:TaxCurrencyTaxExclusiveAmount` |
-| `TaxCurrencyTaxInclusiveAmount` | 含税总金额（计税货币） | `puf:TaxCurrencyTaxInclusiveAmount` |
-| `TaxCurrencyPayableAmount` | 应付总金额（计税货币） | `puf:TaxCurrencyPayableAmount` |
+| 子标签（cbc:） | 含义 | PUF 对应 |
+|--------------|------|---------|
+| `LineExtensionAmount` | 所有行不含税金额之和（计税货币） | `puf:TaxCurrencyLineExtensionAmount` |
+| `TaxExclusiveAmount` | 不含税总金额（计税货币） | `puf:TaxCurrencyTaxExclusiveAmount` |
+| `TaxInclusiveAmount` | 含税总金额（计税货币） | `puf:TaxCurrencyTaxInclusiveAmount` |
+| `AllowanceTotalAmount` | 表头折扣合计（计税货币） | — |
+| `ChargeTotalAmount` | 表头收费合计（计税货币） | — |
+| `PayableRoundingAmount` | 舍入金额（计税货币） | — |
+| `PayableAmount` | 应付总金额（计税货币） | `puf:TaxCurrencyPayableAmount` |
 
-#### 4.4.2 `kdubl:TaxSubtotalExtensions` — 各税率档的计税货币金额
+> **说明**：子元素使用标准 UBL `cbc:` 命名空间，与 `cac:LegalMonetaryTotal` 的子元素结构相同，以计税货币（如 HUF）表示对应金额。
+
+#### 4.4.2 `kdubl:TaxTotalExtensions` — 各 TaxTotal 的税率档含税总额
+
+与 UBL body 中的双 `TaxTotal` 一一对应，每个 `kdubl:TaxTotalExtension` 对应一个 `cac:TaxTotal`，在其中为每个税率档补充含税总额。
 
 ```xml
-<kdubl:TaxSubtotalExtensions>
-    <kdubl:TaxSubtotalExtension>
-        <kdubl:TaxCurrencyTaxableAmount currencyID="HUF">90417.50</kdubl:TaxCurrencyTaxableAmount>
-        <kdubl:TaxCurrencyTaxAmount currencyID="HUF">24412.73</kdubl:TaxCurrencyTaxAmount>
-        <kdubl:TaxInclusiveAmount currencyID="EUR">317.50</kdubl:TaxInclusiveAmount>
-        <kdubl:TaxCurrencyTaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyTaxInclusiveAmount>
-    </kdubl:TaxSubtotalExtension>
-</kdubl:TaxSubtotalExtensions>
+<kdubl:TaxTotalExtensions>
+    <!-- 第一个 TaxTotal 的扩展（开票货币 EUR） -->
+    <kdubl:TaxTotalExtension>
+        <kdubl:TaxSubtotalExtensions>
+            <kdubl:TaxSubtotalExtension>
+                <!-- 该税率档含税总额（开票货币 EUR） -->
+                <kdubl:TaxInclusiveAmount currencyID="EUR">317.50</kdubl:TaxInclusiveAmount>
+            </kdubl:TaxSubtotalExtension>
+        </kdubl:TaxSubtotalExtensions>
+    </kdubl:TaxTotalExtension>
+    <!-- 第二个 TaxTotal 的扩展（计税货币 HUF） -->
+    <kdubl:TaxTotalExtension>
+        <kdubl:TaxSubtotalExtensions>
+            <kdubl:TaxSubtotalExtension>
+                <!-- 该税率档含税总额（计税货币 HUF） -->
+                <kdubl:TaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxInclusiveAmount>
+            </kdubl:TaxSubtotalExtension>
+        </kdubl:TaxSubtotalExtensions>
+    </kdubl:TaxTotalExtension>
+</kdubl:TaxTotalExtensions>
 ```
 
-| 子标签 | 含义 | PUF 对应 |
-|--------|------|---------|
-| `TaxCurrencyTaxableAmount` | 该税率档不含税金额（计税货币） | `puf:TaxCurrencyTaxableAmount` |
-| `TaxCurrencyTaxAmount` | 该税率档税额（计税货币） | `puf:TaxCurrencyTaxAmount` |
-| `TaxInclusiveAmount` | 该税率档含税总额（开票货币） | `puf:TaxInclusiveAmount` |
-| `TaxCurrencyTaxInclusiveAmount` | 该税率档含税总额（计税货币） | `puf:TaxCurrencyTaxInclusiveAmount` |
+| 标签 | 含义 |
+|------|------|
+| `kdubl:TaxTotalExtensions` | 所有 TaxTotal 扩展的容器 |
+| `kdubl:TaxTotalExtension` | 单个 TaxTotal 的扩展，与 UBL body 中的 `cac:TaxTotal` 顺序对应 |
+| `kdubl:TaxSubtotalExtensions` | 该 TaxTotal 内各税率档扩展的容器 |
+| `kdubl:TaxSubtotalExtension` | 单税率档扩展，与 `cac:TaxSubtotal` 顺序对应 |
+| `kdubl:TaxInclusiveAmount` | 该税率档含税总额，`currencyID` 随所属 TaxTotal 货币变化（EUR/HUF） |
+
+> **说明**：外币发票 UBL body 中包含两个 `TaxTotal`（第一个用开票货币含完整 `TaxSubtotal`，第二个用计税货币仅含总税额）。`TaxTotalExtensions` 为每个 TaxTotal 下的每个税率档补充含税总额，供 PUF 格式输出使用。
 
 #### 4.4.3 外币发票行级扩展字段
 
@@ -591,28 +615,23 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 | `kdubl:ModificationIndex` | HU | 红票 381 | `modificationIndex` |
 | `kdubl:ModifyWithoutMaster` | HU | 红票 381 | `modifyWithoutMaster` |
 | `kdubl:LineModification` | HU | 红票行 | 行修改信息容器 |
-| `kdubl:LineOperation` | HU | 红票行 | `lineModificationReferenceLineOperation` |
 | `kdubl:LineNumberReference` | HU | 红票行 | `lineModificationReferenceLineNumberReference` |
 | `kdubl:AdvancePayment` | HU | 预付款抵扣行 | 预付款信息容器 |
 | `kdubl:AdvanceIndicator` | HU | 预付款抵扣行 | `advanceIndicator` |
 | `kdubl:AdvanceOriginalInvoice` | HU | 预付款抵扣行 | `advanceOriginalInvoice` |
 | `kdubl:AdvancePaymentDate` | HU | 预付款抵扣行 | `advancePaymentDate` |
 | `kdubl:AdvanceExchangeRate` | HU | 预付款抵扣行 | `advanceExchangeRate` |
-| `kdubl:TaxCurrencyAmounts` | HU | 外币发票 | `puf:LegalMonetaryTotalExtension` 容器 |
-| `kdubl:TaxCurrencyTaxExclusiveAmount` | HU | 外币发票 | `puf:TaxCurrencyTaxExclusiveAmount` |
-| `kdubl:TaxCurrencyTaxInclusiveAmount` | HU | 外币发票 | `puf:TaxCurrencyTaxInclusiveAmount` |
-| `kdubl:TaxCurrencyPayableAmount` | HU | 外币发票 | `puf:TaxCurrencyPayableAmount` |
-| `kdubl:TaxSubtotalExtensions` | HU | 外币发票 | `puf:TaxSubtotalExtension` 容器 |
-| `kdubl:TaxSubtotalExtension` | HU | 外币发票 | 单税率档扩展 |
-| `kdubl:TaxCurrencyTaxableAmount` | HU | 外币发票（税率档） | `puf:TaxCurrencyTaxableAmount` |
-| `kdubl:TaxCurrencyTaxAmount` | HU | 外币发票（税率档） | `puf:TaxCurrencyTaxAmount` |
-| `kdubl:TaxInclusiveAmount` | HU | 外币发票（税率档） | `puf:TaxInclusiveAmount` |
-| `kdubl:TaxCurrencyTaxInclusiveAmount` | HU | 外币发票（税率档） | `puf:TaxCurrencyTaxInclusiveAmount` |
+| `kdubl:TaxTotalExtensions` | HU | 外币发票 | 所有 TaxTotal 扩展的容器，与 UBL body 双 TaxTotal 对应 |
+| `kdubl:TaxTotalExtension` | HU | 外币发票 | 单个 TaxTotal 的扩展，顺序与 `cac:TaxTotal` 一致 |
+| `kdubl:TaxSubtotalExtensions` | HU | 外币发票 | TaxTotal 内各税率档扩展的容器 |
+| `kdubl:TaxSubtotalExtension` | HU | 外币发票 | 单税率档扩展，顺序与 `cac:TaxSubtotal` 一致 |
+| `kdubl:TaxInclusiveAmount` | HU | 外币发票（税率档） | 该税率档含税总额，货币随所属 TaxTotal 变化（EUR/HUF） |
+| `kdubl:TaxCurrencyLegalMonetaryTotal` | HU | 外币发票 | 计税货币发票合计，使用标准 `cbc:` 子元素（结构同 `LegalMonetaryTotal`） |
 | `kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount` | HU | 外币发票行 | `puf:TaxCurrencyTaxInclusiveLineExtensionAmount` |
 | `kdubl:TaxCurrencyLineExtensionAmount` | HU | 外币发票行 | `puf:TaxCurrencyLineExtensionAmount` |
 | `kdubl:TaxInclusiveLineExtensionAmount` | HU | 外币发票行 | `puf:TaxInclusiveLineExtensionAmount` |
 
 ---
 
-*最后更新：2026-02-28*
+*最后更新：2026-03-02*
 *覆盖测试文件：`sa/SA_*.xml`（SA Phase2）· `hu/HU_*.xml`（HU RTIR）*

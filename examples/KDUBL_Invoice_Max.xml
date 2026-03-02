@@ -68,16 +68,64 @@
                         </cac:TaxTotal>
                     </kdubl:PrepaidPaymentExtension>
 
-                    <!-- ===== 5. 行项目扩展集合 (对应 UBL InvoiceLine 的国家级扩展字段) ===== -->
+                    <!-- ===== 5. 发票呈现方式 (HU - 匈牙利专用，发票在开票方与受票方之间的分发方式) ===== -->
+                    <kdubl:InvoiceAppearance>ELECTRONIC</kdubl:InvoiceAppearance>
+
+                    <!-- ===== 6. 买方增值税状态 (HU - 匈牙利专用，决定买方信息允许内容与校验规则) ===== -->
+                    <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>
+
+                    <!-- ===== 7. 改票序号 (HU - 仅红票/改票 381 使用，从 1 开始递增) ===== -->
+                    <kdubl:ModificationIndex>1</kdubl:ModificationIndex>
+
+                    <!-- ===== 8. 原始发票是否已上报 RTIR (HU - 仅红票/改票 381 使用) ===== -->
+                    <!-- false = 原始发票已上报；true = 原始发票未上报（主记录缺失） -->
+                    <kdubl:ModifyWithoutMaster>false</kdubl:ModifyWithoutMaster>
+
+                    <!-- ===== 9. 税额合计扩展 (HU - 外币发票，对应 UBL 双 TaxTotal 的补充金额) ===== -->
+                    <!-- 与 UBL body 中的两个 TaxTotal 一一对应：第一个对应开票货币，第二个对应计税货币 -->
+                    <kdubl:TaxTotalExtensions>
+                        <!-- 第一个 TaxTotal 的扩展（开票货币 EUR） -->
+                        <kdubl:TaxTotalExtension>
+                            <kdubl:TaxSubtotalExtensions>
+                                <kdubl:TaxSubtotalExtension>
+                                    <!-- 该税率档含税总额（开票货币 EUR） -->
+                                    <kdubl:TaxInclusiveAmount currencyID="EUR">317.50</kdubl:TaxInclusiveAmount>
+                                </kdubl:TaxSubtotalExtension>
+                            </kdubl:TaxSubtotalExtensions>
+                        </kdubl:TaxTotalExtension>
+                        <!-- 第二个 TaxTotal 的扩展（计税货币 HUF） -->
+                        <kdubl:TaxTotalExtension>
+                            <kdubl:TaxSubtotalExtensions>
+                                <kdubl:TaxSubtotalExtension>
+                                    <!-- 该税率档含税总额（计税货币 HUF） -->
+                                    <kdubl:TaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxInclusiveAmount>
+                                </kdubl:TaxSubtotalExtension>
+                            </kdubl:TaxSubtotalExtensions>
+                        </kdubl:TaxTotalExtension>
+                    </kdubl:TaxTotalExtensions>
+
+                    <!-- ===== 10. 计税货币发票合计 (HU - 外币发票，DocumentCurrencyCode != TaxCurrencyCode 时使用) ===== -->
+                    <!-- 使用标准 UBL cbc: 子元素，以计税货币（如 HUF）表示发票合计金额 -->
+                    <kdubl:TaxCurrencyLegalMonetaryTotal>
+                        <cbc:LineExtensionAmount currencyID="HUF">90417.50</cbc:LineExtensionAmount>
+                        <cbc:TaxExclusiveAmount currencyID="HUF">90417.50</cbc:TaxExclusiveAmount>
+                        <cbc:TaxInclusiveAmount currencyID="HUF">114830.23</cbc:TaxInclusiveAmount>
+                        <cbc:AllowanceTotalAmount currencyID="HUF">0.00</cbc:AllowanceTotalAmount>
+                        <cbc:ChargeTotalAmount currencyID="HUF">0.00</cbc:ChargeTotalAmount>
+                        <cbc:PayableRoundingAmount currencyID="HUF">0.00</cbc:PayableRoundingAmount>
+                        <cbc:PayableAmount currencyID="HUF">114830.23</cbc:PayableAmount>
+                    </kdubl:TaxCurrencyLegalMonetaryTotal>
+
+                    <!-- ===== 11. 行项目扩展集合 (对应 UBL InvoiceLine 的国家级扩展字段) ===== -->
                     <kdubl:LineExtensions>
 
                         <!-- 行项目扩展，LineID 与 InvoiceLine/ID 一一对应 -->
                         <kdubl:LineExtension>
                             <!-- 关联发票行号 (对应 InvoiceLine/ID) -->
                             <kdubl:LineID>1</kdubl:LineID>
-                            <!-- KSA-12 含税行金额 = LineExtensionAmount(100) + TaxTotal/TaxAmount(15) -->
+                            <!-- KSA-12 含税行金额 = LineExtensionAmount(100) + TaxTotal/TaxAmount(15) (SA) -->
                             <kdubl:TaxInclusiveLineExtensionAmount currencyID="SAR">115.00</kdubl:TaxInclusiveLineExtensionAmount>
-                            <!-- 行税务扩展：建立行税额与内部税码的映射关系 -->
+                            <!-- 行税务扩展：建立行税额与内部税码的映射关系 (SA) -->
                             <kdubl:TaxExtensions>
                                 <kdubl:TaxExtension>
                                     <!-- 税务索引，与 InvoiceLine/TaxTotal/TaxSubtotal 的顺序对应 -->
@@ -86,14 +134,37 @@
                                     <kdubl:InternalTaxCode>SA_VAT_S</kdubl:InternalTaxCode>
                                 </kdubl:TaxExtension>
                             </kdubl:TaxExtensions>
+                            <!-- HU: 计量单位自然表达指示器（普通商品行 = true，预付款抵扣行 = false） -->
+                            <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
+                            <!-- HU: 行修改信息（仅红票/改票 381 使用） -->
+                            <kdubl:LineModification>
+                                <!-- 延续原始发票行号的连续编号（原始发票行 1，改票新增行引用号为 2） -->
+                                <kdubl:LineNumberReference>2</kdubl:LineNumberReference>
+                            </kdubl:LineModification>
+                            <!-- HU: 预付款信息（仅预付款抵扣行使用，LineExpressionIndicator=false） -->
+                            <kdubl:AdvancePayment>
+                                <!-- 标识本行是预付款抵扣行，固定 true -->
+                                <kdubl:AdvanceIndicator>true</kdubl:AdvanceIndicator>
+                                <!-- 原始预付款发票的发票号 -->
+                                <kdubl:AdvanceOriginalInvoice>HU20260121001</kdubl:AdvanceOriginalInvoice>
+                                <!-- 买方实际支付预付款的日期 -->
+                                <kdubl:AdvancePaymentDate>2026-01-15</kdubl:AdvancePaymentDate>
+                                <!-- 预付款支付时的汇率，同货币填 1.00 -->
+                                <kdubl:AdvanceExchangeRate>1.00</kdubl:AdvanceExchangeRate>
+                            </kdubl:AdvancePayment>
+                            <!-- HU: 外币发票行金额（DocumentCurrencyCode != TaxCurrencyCode 时使用） -->
+                            <!-- 行含税金额（计税货币 HUF） -->
+                            <kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount>
+                            <!-- 行不含税净额（计税货币 HUF） -->
+                            <kdubl:TaxCurrencyLineExtensionAmount currencyID="HUF">90417.50</kdubl:TaxCurrencyLineExtensionAmount>
                         </kdubl:LineExtension>
 
                         <kdubl:LineExtension>
                             <!-- 关联发票行号 (对应 InvoiceLine/ID) -->
                             <kdubl:LineID>2</kdubl:LineID>
-                            <!-- KSA-12 含税行金额 = LineExtensionAmount(100) + TaxTotal/TaxAmount(0) -->
+                            <!-- KSA-12 含税行金额 = LineExtensionAmount(100) + TaxTotal/TaxAmount(0) (SA) -->
                             <kdubl:TaxInclusiveLineExtensionAmount currencyID="SAR">100.00</kdubl:TaxInclusiveLineExtensionAmount>
-                            <!-- 行税务扩展：建立行税额与内部税码的映射关系 -->
+                            <!-- 行税务扩展：建立行税额与内部税码的映射关系 (SA) -->
                             <kdubl:TaxExtensions>
                                 <kdubl:TaxExtension>
                                     <!-- 税务索引，与 InvoiceLine/TaxTotal/TaxSubtotal 的顺序对应 -->
@@ -102,6 +173,8 @@
                                     <kdubl:InternalTaxCode>SA_VAT_E</kdubl:InternalTaxCode>
                                 </kdubl:TaxExtension>
                             </kdubl:TaxExtensions>
+                            <!-- HU: 计量单位自然表达指示器 -->
+                            <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
                         </kdubl:LineExtension>
 
                     </kdubl:LineExtensions>
