@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice>
+    <!-- 发票类型，支持380/381等 -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+
+    <!-- 一般情况下，关联客户的采购订单号 -->
+    <cac:OrderReference>
+        <cbc:ID>order 123</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- 卖方信息 -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <!-- 对应企业信息中的组织ID -->
+                <cbc:ID schemeID="ERP">ORGID001</cbc:ID>
+            </cac:PartyIdentification>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- 买方信息 可以通过客户编码来映射补全购方信息-->
+    <cac:AccountingCustomerParty>
+        <cbc:CustomerAssignedAccountID>0003</cbc:CustomerAssignedAccountID>
+    </cac:AccountingCustomerParty>
+
+    <!-- 付款条款 -->
+    <cac:PaymentTerms>
+        <cbc:Note>10% advance payment by T/T within 3 working days after contract signing, 90% balance before Rotterdam pick up date
+        </cbc:Note>
+    </cac:PaymentTerms>
+
+    <!--    表头折扣/收费-->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:Amount>20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:Percent>21</cbc:Percent>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:Amount>20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:Percent>21</cbc:Percent>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!--    税额统计 默认是可以不传入-->
+    <cac:TaxTotal>
+        <cbc:TaxAmount>21</cbc:TaxAmount>
+    </cac:TaxTotal>
+
+    <!-- 总计 -->
+    <cac:LegalMonetaryTotal>
+        <cbc:PayableAmount>221.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- 商品行项目1 -->
+    <cac:InvoiceLine>
+        <!--        行号-->
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="片">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount>100</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Solar Module</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:Percent>21</cbc:Percent>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount>5</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- 商品行项目2 -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="公斤">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount>100</cbc:LineExtensionAmount>
+        <!--        折扣/收费行-->
+        <cac:AllowanceCharge>
+            <!--   false是折扣 -->
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <!--            折扣原因和编码，二者必填一个-->
+<!--            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>-->
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount>5</cbc:Amount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+<!--            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>-->
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:Amount>5</cbc:Amount>
+        </cac:AllowanceCharge>
+        
+        <cac:Item>
+            <cbc:Name>Solar Module</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:Percent>0</cbc:Percent>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount>10</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
