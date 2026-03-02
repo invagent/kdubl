@@ -1,0 +1,285 @@
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+   <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+   <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+   <cbc:ID>CN-202602-000017</cbc:ID>
+   <cbc:IssueDate>2026-02-06</cbc:IssueDate>
+   <cbc:IssueTime>08:20:54+00:00</cbc:IssueTime>
+   <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+   <cbc:DocumentCurrencyCode>MOP</cbc:DocumentCurrencyCode>
+   <cbc:TaxCurrencyCode>USD</cbc:TaxCurrencyCode>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID schemeName="InvoiceTag">true</cbc:ID>
+      <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID>0.00</cbc:ID>
+      <cbc:DocumentType>TaxCurrency-ExclusiveAmount</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID>0.00</cbc:ID>
+      <cbc:DocumentType>TaxCurrency-TaxInclusiveAmount</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AccountingSupplierParty>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="ERP-ORG">BU-00006</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PostalAddress>
+            <cbc:StreetName>深圳街道</cbc:StreetName>
+            <cbc:AdditionalStreetName>Building2</cbc:AdditionalStreetName>
+            <cbc:CityName>澳门</cbc:CityName>
+            <cbc:PostalZone>9365521</cbc:PostalZone>
+            <cac:Country>
+               <cbc:IdentificationCode>MO</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:PostalAddress>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID>NL12355112</cbc:CompanyID>
+            <cac:TaxScheme>
+               <cbc:ID>TAX</cbc:ID>
+            </cac:TaxScheme>
+         </cac:PartyTaxScheme>
+         <cac:PartyLegalEntity>
+            <cbc:RegistrationName>澳门地区测试开票企业</cbc:RegistrationName>
+         </cac:PartyLegalEntity>
+         <cac:Contact>
+            <cbc:Name>co</cbc:Name>
+            <cbc:Telephone>13574214811</cbc:Telephone>
+            <cbc:ElectronicMail>9654821@qq.com</cbc:ElectronicMail>
+         </cac:Contact>
+      </cac:Party>
+   </cac:AccountingSupplierParty>
+   <cac:AccountingCustomerParty>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="PEPPOL">0195:SGTST200618345W1</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="SG:VENDORID">T08GB0025A</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PostalAddress>
+            <cbc:StreetName>Government road 1</cbc:StreetName>
+            <cbc:AdditionalStreetName>Second floor</cbc:AdditionalStreetName>
+            <cbc:CityName>Singapore</cbc:CityName>
+            <cbc:PostalZone>755755</cbc:PostalZone>
+            <cbc:CountrySubentity>Singapore</cbc:CountrySubentity>
+            <cac:AddressLine>
+               <cbc:Line>Accounting department</cbc:Line>
+            </cac:AddressLine>
+            <cac:Country>
+               <cbc:IdentificationCode>SG</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:PostalAddress>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID>T08GB0025A845</cbc:CompanyID>
+            <cac:TaxScheme>
+               <cbc:ID>TAX</cbc:ID>
+            </cac:TaxScheme>
+         </cac:PartyTaxScheme>
+         <cac:PartyLegalEntity>
+            <cbc:RegistrationName>Jurong Town Corporation</cbc:RegistrationName>
+            <cbc:CompanyID schemeID="SG:UEN">T08GB0025A</cbc:CompanyID>
+         </cac:PartyLegalEntity>
+         <cac:Contact>
+            <cbc:Name>Ahmad</cbc:Name>
+            <cbc:Telephone>897654321</cbc:Telephone>
+            <cbc:ElectronicMail>einvoice@imda.gov.sg</cbc:ElectronicMail>
+         </cac:Contact>
+      </cac:Party>
+   </cac:AccountingCustomerParty>
+   <cac:PaymentTerms>
+      <cbc:Note>30天付款</cbc:Note>
+   </cac:PaymentTerms>
+   <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+      <cbc:AllowanceChargeReason>454545</cbc:AllowanceChargeReason>
+      <cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric>
+      <cbc:Amount currencyID="MOP">120.85</cbc:Amount>
+      <cbc:BaseAmount currencyID="MOP">12084.97</cbc:BaseAmount>
+      <cac:TaxCategory>
+         <cbc:ID>E</cbc:ID>
+         <cbc:Percent>0</cbc:Percent>
+         <cbc:TaxExemptionReason>22</cbc:TaxExemptionReason>
+         <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+         </cac:TaxScheme>
+      </cac:TaxCategory>
+   </cac:AllowanceCharge>
+   <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+      <cbc:AllowanceChargeReason>856</cbc:AllowanceChargeReason>
+      <cbc:Amount currencyID="MOP">96</cbc:Amount>
+      <cac:TaxCategory>
+         <cbc:ID>AE</cbc:ID>
+         <cbc:Percent>0</cbc:Percent>
+         <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+         </cac:TaxScheme>
+      </cac:TaxCategory>
+   </cac:AllowanceCharge>
+   <cac:TaxExchangeRate>
+      <cbc:SourceCurrencyCode>MOP</cbc:SourceCurrencyCode>
+      <cbc:TargetCurrencyCode>USD</cbc:TargetCurrencyCode>
+      <cbc:MathematicOperatorCode>Multiply</cbc:MathematicOperatorCode>
+   </cac:TaxExchangeRate>
+   <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="MOP">-160.80</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tttt</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="MOP">-74.85</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>121212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="MOP">12295.77</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>21212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+   </cac:TaxTotal>
+   <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="USD">0.00</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="USD">0.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="USD">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tttt</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="USD">0.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="USD">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>121212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="USD">0.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="USD">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>21212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+   </cac:TaxTotal>
+   <cac:LegalMonetaryTotal>
+      <cbc:LineExtensionAmount currencyID="MOP">12084.97</cbc:LineExtensionAmount>
+      <cbc:TaxExclusiveAmount currencyID="MOP">12060.12</cbc:TaxExclusiveAmount>
+      <cbc:TaxInclusiveAmount currencyID="MOP">12060.12</cbc:TaxInclusiveAmount>
+      <cbc:AllowanceTotalAmount currencyID="MOP">120.85</cbc:AllowanceTotalAmount>
+      <cbc:ChargeTotalAmount currencyID="MOP">96.00</cbc:ChargeTotalAmount>
+      <cbc:PayableRoundingAmount currencyID="MOP">0.00</cbc:PayableRoundingAmount>
+      <cbc:PayableAmount currencyID="MOP">12060.12</cbc:PayableAmount>
+   </cac:LegalMonetaryTotal>
+   <cac:InvoiceLine>
+      <cbc:ID>1</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="2A">-12</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="MOP">-160.80</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Description>test Product Description</cbc:Description>
+         <cbc:Name>机械配件（铝压铸件）</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tttt</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="MOP">13.4</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>2</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="21">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="MOP">46.00</cbc:LineExtensionAmount>
+      <cac:AllowanceCharge>
+         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+         <cbc:AllowanceChargeReason>4545</cbc:AllowanceChargeReason>
+         <cbc:Amount currencyID="MOP">-50</cbc:Amount>
+      </cac:AllowanceCharge>
+      <cac:Item>
+         <cbc:Name>ITEM1</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>121212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="MOP">96</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>3</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="2A">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="MOP">12199.77</cbc:LineExtensionAmount>
+      <cac:AllowanceCharge>
+         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+         <cbc:AllowanceChargeReason>954</cbc:AllowanceChargeReason>
+         <cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric>
+         <cbc:Amount currencyID="MOP">123.23</cbc:Amount>
+         <cbc:BaseAmount currencyID="MOP">12323.00</cbc:BaseAmount>
+      </cac:AllowanceCharge>
+      <cac:Item>
+         <cbc:Name>ITEM2</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>21212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="MOP">12323</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+</Invoice>

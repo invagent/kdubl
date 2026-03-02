@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+	<cbc:ProfileID>urn:www.piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+	<cbc:ID>INVOICE_NO-20251013-0125</cbc:ID>
+	<cbc:IssueDate>2025-10-13</cbc:IssueDate>
+	<cbc:DueDate>2025-10-01</cbc:DueDate>
+	<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+	<cbc:Note>aaaaaaaaaaaa</cbc:Note>
+	<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+	<cbc:BuyerReference>xiaobinhuang</cbc:BuyerReference>
+	<cac:InvoicePeriod>
+		<cbc:StartDate>2025-10-01</cbc:StartDate>
+		<cbc:EndDate>2025-10-12</cbc:EndDate>
+	</cac:InvoicePeriod>
+	<cac:OrderReference>
+		<cbc:ID>buyerbillno</cbc:ID>
+	</cac:OrderReference>
+	<!--    totalv-->
+	<cac:AccountingSupplierParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<!-- 销方其他企业ID:GLN -->
+				<cbc:ID schemeID="ERP-ORG">050</cbc:ID>
+			</cac:PartyIdentification>
+			<cbc:EndpointID schemeID="9944">NL000000021</cbc:EndpointID>
+			<cac:PostalAddress>
+				<cbc:StreetName>Keizersgracht 174</cbc:StreetName>
+				<cbc:AdditionalStreetName>Keizersgracht 174 Amsterdam Noord-Holland</cbc:AdditionalStreetName>
+				<cbc:CityName>Amsterdam</cbc:CityName>
+				<cbc:PostalZone>1016 DW</cbc:PostalZone>
+				<cbc:CountrySubentity>Noord-Holland</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>NL</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID>NL000000021</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>金蝶票据云科技（深圳）有限公司</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Name>frank</cbc:Name>
+				<cbc:Telephone>138888888</cbc:Telephone>
+				<cbc:ElectronicMail>485201532@qq.com</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<cac:Party>
+			<cbc:EndpointID schemeID="9930">DE00000001</cbc:EndpointID>
+			<cac:PostalAddress>
+				<cbc:StreetName>stree</cbc:StreetName>
+				<cbc:AdditionalStreetName>location</cbc:AdditionalStreetName>
+				<cbc:CityName>city</cbc:CityName>
+				<cbc:PostalZone>postcode</cbc:PostalZone>
+				<cbc:CountrySubentity>prince</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID>DE00000001</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>hxb-germany</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Telephone>13235588889</cbc:Telephone>
+				<cbc:ElectronicMail>485201532@qq.com</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingCustomerParty>
+	<cac:TaxRepresentativeParty>
+		<cac:PartyName>
+			<cbc:Name>hxb-Slovenia</cbc:Name>
+		</cac:PartyName>
+		<cac:PostalAddress>
+			<cbc:StreetName>proxyStree-SI</cbc:StreetName>
+			<cbc:AdditionalStreetName>proxyAddress-SI</cbc:AdditionalStreetName>
+			<cbc:CityName>proxyCity-SI</cbc:CityName>
+			<cbc:PostalZone>proxyPostCode-SI</cbc:PostalZone>
+			<cbc:CountrySubentity>proxyProvince-SI</cbc:CountrySubentity>
+			<cac:Country>
+				<cbc:IdentificationCode>SI</cbc:IdentificationCode>
+			</cac:Country>
+		</cac:PostalAddress>
+		<cac:PartyTaxScheme>
+			<cbc:CompanyID>SI0000001</cbc:CompanyID>
+			<cac:TaxScheme>
+				<cbc:ID>VAT</cbc:ID>
+			</cac:TaxScheme>
+		</cac:PartyTaxScheme>
+	</cac:TaxRepresentativeParty>
+	<cac:Delivery>
+		<cbc:ActualDeliveryDate>2025-10-01</cbc:ActualDeliveryDate>
+		<cac:DeliveryLocation>
+			<cac:Address>
+				<cbc:StreetName>Hauptstraße</cbc:StreetName>
+				<cbc:AdditionalStreetName>Hauptstraße 45</cbc:AdditionalStreetName>
+				<cbc:CityName>München</cbc:CityName>
+				<cbc:PostalZone>80331</cbc:PostalZone>
+				<cbc:CountrySubentity>and) Bayern</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:Address>
+		</cac:DeliveryLocation>
+		<cac:DeliveryParty>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID>DE123456789</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>Müller GmbH</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:DeliveryParty>
+		<cac:DeliveryTerms>
+			<cbc:ID>DAP</cbc:ID>
+		</cac:DeliveryTerms>
+		<cac:Shipment>
+			<cbc:ID>NL-SH-20251011-01</cbc:ID>
+			<cac:ShipmentStage>
+				<cbc:ID>NL-TRACK-987654321</cbc:ID>
+				<cbc:Instructions>Road</cbc:Instructions>
+			</cac:ShipmentStage>
+			<cac:OriginAddress>
+				<cac:Country>
+					<cbc:IdentificationCode>NL</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:OriginAddress>
+			<cac:LastExitPortLocation>
+				<cbc:Name>Amsterdam, NL</cbc:Name>
+			</cac:LastExitPortLocation>
+		</cac:Shipment>
+	</cac:Delivery>
+	<cac:PaymentMeans>
+		<cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+		<cac:PayeeFinancialAccount>
+			<cbc:ID>87654131</cbc:ID>
+			<cbc:Name>pay mean name</cbc:Name>
+			<cac:FinancialInstitutionBranch>
+				<cbc:ID>30</cbc:ID>
+				<cac:FinancialInstitution>
+					<cbc:Name>businessBank</cbc:Name>
+				</cac:FinancialInstitution>
+			</cac:FinancialInstitutionBranch>
+		</cac:PayeeFinancialAccount>
+	</cac:PaymentMeans>
+	<cac:PaymentTerms>
+		<cbc:Note>Small business exempted according to national law</cbc:Note>
+	</cac:PaymentTerms>
+	<cac:AllowanceCharge>
+		<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+		<cbc:AllowanceChargeReason>discount2</cbc:AllowanceChargeReason>
+		<cbc:MultiplierFactorNumeric>11.10</cbc:MultiplierFactorNumeric>
+		<cbc:Amount currencyID="EUR">134.23</cbc:Amount>
+		<cbc:BaseAmount currencyID="EUR">1209.25</cbc:BaseAmount>
+		<cac:TaxCategory>
+			<cbc:ID>S</cbc:ID>
+			<cbc:Percent>21.00</cbc:Percent>
+			<cac:TaxScheme>
+				<cbc:ID>VAT</cbc:ID>
+			</cac:TaxScheme>
+		</cac:TaxCategory>
+	</cac:AllowanceCharge>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="EUR">13.46</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="EUR">64.12</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="EUR">13.46</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:ID>S</cbc:ID>
+				<cbc:Percent>21.00</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="EUR">1010.90</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:ID>K</cbc:ID>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cbc:TaxExemptionReason>Small business exempted according to national law;</cbc:TaxExemptionReason>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="EUR">1209.25</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="EUR">1075.02</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="EUR">1088.48</cbc:TaxInclusiveAmount>
+		<cbc:AllowanceTotalAmount currencyID="EUR">134.23</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="EUR">0</cbc:ChargeTotalAmount>
+		<cbc:PayableAmount currencyID="EUR">1088.48</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="hxb001">10.55</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">198.35</cbc:LineExtensionAmount>
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>discount1</cbc:AllowanceChargeReason>
+			<cbc:MultiplierFactorNumeric>10.11</cbc:MultiplierFactorNumeric>
+			<cbc:Amount currencyID="EUR">21.68</cbc:Amount>
+			<cbc:BaseAmount currencyID="EUR">214.48</cbc:BaseAmount>
+		</cac:AllowanceCharge>
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>charge1</cbc:AllowanceChargeReason>
+			<cbc:Amount currencyID="EUR">5.55</cbc:Amount>
+		</cac:AllowanceCharge>
+		<cac:Item>
+			<cbc:Name>banpianzujian1</cbc:Name>
+			<cac:CommodityClassification>
+				<cbc:ItemClassificationCode listID="TSP">TSP001</cbc:ItemClassificationCode>
+			</cac:CommodityClassification>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>S</cbc:ID>
+				<cbc:Percent>21.00</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+			<cac:AdditionalItemProperty>
+				<cbc:Name>Weight</cbc:Name>
+				<cbc:Value>15kg</cbc:Value>
+			</cac:AdditionalItemProperty>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">20.33</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>2</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="hxb001">30.33</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">1010.90</cbc:LineExtensionAmount>
+		<cac:Item>
+			<cbc:Name>banpianzujian2</cbc:Name>
+			<cac:CommodityClassification>
+				<cbc:ItemClassificationCode listID="TSP">TSP002</cbc:ItemClassificationCode>
+			</cac:CommodityClassification>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>K</cbc:ID>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cbc:TaxExemptionReason>Small business exempted according to national law</cbc:TaxExemptionReason>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+			<cac:AdditionalItemProperty>
+				<cbc:Name>Weight</cbc:Name>
+				<cbc:Value>15kg</cbc:Value>
+			</cac:AdditionalItemProperty>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">33.33</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+</Invoice>

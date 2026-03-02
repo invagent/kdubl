@@ -1,0 +1,367 @@
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+   <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+   <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+   <cbc:ID>INV-Test-202602181925</cbc:ID>
+   <cbc:IssueDate>2026-02-05</cbc:IssueDate>
+   <cbc:IssueTime>05:49:54+00:00</cbc:IssueTime>
+   <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+   <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+   <cac:OrderReference>
+      <cbc:ID>INV-Test-202602181867</cbc:ID>
+   </cac:OrderReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+      <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID schemeName="BizTag">SCENARIO_DE</cbc:ID>
+      <cbc:DocumentType>Scenario</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID>9489615@qq.com</cbc:ID>
+      <cbc:DocumentType>SenderEmail</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AccountingSupplierParty>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="PEPPOL">0195:A000X9C989R</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="ERP-ORG">BU-00012</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PostalAddress>
+            <cbc:StreetName>Supplier Street Name</cbc:StreetName>
+            <cbc:AdditionalStreetName>budling</cbc:AdditionalStreetName>
+            <cbc:CityName>helan</cbc:CityName>
+            <cbc:PostalZone>5656</cbc:PostalZone>
+            <cac:Country>
+               <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:PostalAddress>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID>NL00000003</cbc:CompanyID>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:PartyTaxScheme>
+         <cac:PartyLegalEntity>
+            <cbc:RegistrationName>荷兰开票企业</cbc:RegistrationName>
+         </cac:PartyLegalEntity>
+         <cac:Contact>
+            <cbc:Name>zhang</cbc:Name>
+            <cbc:Telephone>956521</cbc:Telephone>
+            <cbc:ElectronicMail>985645@qq.com</cbc:ElectronicMail>
+         </cac:Contact>
+      </cac:Party>
+   </cac:AccountingSupplierParty>
+   <cac:AccountingCustomerParty>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="GLN">GLN2412</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="IBAN">IBAN2512512</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="PEPPOL">0195:SGTST200618345W1</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PostalAddress>
+            <cbc:StreetName>Industriestraat-1</cbc:StreetName>
+            <cbc:CityName>Amsterdam-1</cbc:CityName>
+            <cbc:PostalZone>1096 AX-1</cbc:PostalZone>
+            <cbc:CountrySubentity>Noord-Holland-1</cbc:CountrySubentity>
+            <cac:Country>
+               <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:PostalAddress>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID>NL91440300123456789X</cbc:CompanyID>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:PartyTaxScheme>
+         <cac:PartyLegalEntity>
+            <cbc:RegistrationName>中文公司</cbc:RegistrationName>
+         </cac:PartyLegalEntity>
+      </cac:Party>
+   </cac:AccountingCustomerParty>
+   <cac:Delivery>
+      <cbc:ActualDeliveryDate>2026-02-05</cbc:ActualDeliveryDate>
+      <cac:DeliveryLocation>
+         <cac:Address>
+            <cbc:StreetName>helan</cbc:StreetName>
+            <cbc:AdditionalStreetName>buling</cbc:AdditionalStreetName>
+            <cbc:CityName>荷兰</cbc:CityName>
+            <cbc:PostalZone>121</cbc:PostalZone>
+            <cac:Country>
+               <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:Address>
+      </cac:DeliveryLocation>
+      <cac:DeliveryParty>
+         <cac:PartyName>
+            <cbc:Name>dlkfjd</cbc:Name>
+         </cac:PartyName>
+      </cac:DeliveryParty>
+   </cac:Delivery>
+   <cac:PaymentMeans>
+      <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+      <cac:PayeeFinancialAccount>
+         <cbc:ID>434123132</cbc:ID>
+      </cac:PayeeFinancialAccount>
+   </cac:PaymentMeans>
+   <cac:PaymentTerms>
+      <cbc:Note>30天付款 2026-02-05</cbc:Note>
+   </cac:PaymentTerms>
+   <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+      <cbc:AllowanceChargeReason>Volume Discount</cbc:AllowanceChargeReason>
+      <cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric>
+      <cbc:Amount currencyID="EUR">4.60</cbc:Amount>
+      <cbc:BaseAmount currencyID="EUR">460.23</cbc:BaseAmount>
+      <cac:TaxCategory>
+         <cbc:ID>Z</cbc:ID>
+         <cbc:Percent>0</cbc:Percent>
+         <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+         </cac:TaxScheme>
+      </cac:TaxCategory>
+   </cac:AllowanceCharge>
+   <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+      <cbc:AllowanceChargeReason>Volume Discount</cbc:AllowanceChargeReason>
+      <cbc:Amount currencyID="EUR">2</cbc:Amount>
+      <cac:TaxCategory>
+         <cbc:ID>E</cbc:ID>
+         <cbc:Percent>0</cbc:Percent>
+         <cac:TaxScheme>
+            <cbc:ID>VAT</cbc:ID>
+         </cac:TaxScheme>
+      </cac:TaxCategory>
+   </cac:AllowanceCharge>
+   <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">50.83</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">242.07</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">50.83</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>21</cbc:Percent>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">49.50</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>K</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>VATEX-EU-IC</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">-4.60</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">36.66</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>G</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>132</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">122.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>Intra-community supply</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">12.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tees</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+   </cac:TaxTotal>
+   <cac:LegalMonetaryTotal>
+      <cbc:LineExtensionAmount currencyID="EUR">460.23</cbc:LineExtensionAmount>
+      <cbc:TaxExclusiveAmount currencyID="EUR">457.63</cbc:TaxExclusiveAmount>
+      <cbc:TaxInclusiveAmount currencyID="EUR">508.46</cbc:TaxInclusiveAmount>
+      <cbc:AllowanceTotalAmount currencyID="EUR">4.60</cbc:AllowanceTotalAmount>
+      <cbc:ChargeTotalAmount currencyID="EUR">2.00</cbc:ChargeTotalAmount>
+      <cbc:PayableRoundingAmount currencyID="EUR">0.00</cbc:PayableRoundingAmount>
+      <cbc:PayableAmount currencyID="EUR">508.46</cbc:PayableAmount>
+   </cac:LegalMonetaryTotal>
+   <cac:InvoiceLine>
+      <cbc:ID>1</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="ANN">0</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">0.00</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Name>机械配件（铜合金散热片）</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="EUR">10</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>2</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="H87">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">120.00</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Name>nium</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>Intra-community supply</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="EUR">120</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>3</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="H87">2</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">242.07</cbc:LineExtensionAmount>
+      <cac:AllowanceCharge>
+         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+         <cbc:AllowanceChargeReason>tst</cbc:AllowanceChargeReason>
+         <cbc:Amount currencyID="EUR">1</cbc:Amount>
+      </cac:AllowanceCharge>
+      <cac:AllowanceCharge>
+         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+         <cbc:AllowanceChargeReason>test</cbc:AllowanceChargeReason>
+         <cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric>
+         <cbc:Amount currencyID="EUR">2.41</cbc:Amount>
+         <cbc:BaseAmount currencyID="EUR">240.66</cbc:BaseAmount>
+      </cac:AllowanceCharge>
+      <cac:Item>
+         <cbc:Name>机械配件（铸铁底板）</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>21</cbc:Percent>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="EUR">120.33</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>4</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="11">3</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">36.66</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Name>机械配件（铸铁底板）</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>G</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>132</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+         <cac:AdditionalItemProperty>
+            <cbc:Name>fadf</cbc:Name>
+            <cbc:Value>fda</cbc:Value>
+         </cac:AdditionalItemProperty>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="EUR">12.22</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>5</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="H87">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">49.50</cbc:LineExtensionAmount>
+      <cac:AllowanceCharge>
+         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+         <cbc:AllowanceChargeReason>teest</cbc:AllowanceChargeReason>
+         <cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric>
+         <cbc:Amount currencyID="EUR">0.50</cbc:Amount>
+         <cbc:BaseAmount currencyID="EUR">50.00</cbc:BaseAmount>
+      </cac:AllowanceCharge>
+      <cac:Item>
+         <cbc:Name>MILK</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>K</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>VATEX-EU-IC</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="EUR">50</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>6</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="H87">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">12.00</cbc:LineExtensionAmount>
+      <cac:AllowanceCharge>
+         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+         <cbc:AllowanceChargeReason>tett</cbc:AllowanceChargeReason>
+         <cbc:Amount currencyID="EUR">2</cbc:Amount>
+      </cac:AllowanceCharge>
+      <cac:Item>
+         <cbc:Name>sd</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tees</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="EUR">10</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+</Invoice>
