@@ -138,6 +138,8 @@
                             <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
                             <!-- HU: 行修改信息（仅红票/改票 381 使用） -->
                             <kdubl:LineModification>
+                                <!-- CREATE = 改票中新增行；MODIFY = 修改行；DELETE = 删除行 -->
+                                <kdubl:LineOperation>CREATE</kdubl:LineOperation>
                                 <!-- 延续原始发票行号的连续编号（原始发票行 1，改票新增行引用号为 2） -->
                                 <kdubl:LineNumberReference>2</kdubl:LineNumberReference>
                             </kdubl:LineModification>

@@ -372,15 +372,17 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 
 ```xml
 <kdubl:LineModification>
+    <kdubl:LineOperation>CREATE</kdubl:LineOperation>
     <kdubl:LineNumberReference>2</kdubl:LineNumberReference>
 </kdubl:LineModification>
 ```
 
-| 子标签 | 说明 |
-|--------|------|
-| `kdubl:LineNumberReference` | 延续原始发票行号的连续编号。原始发票有行 1，则改票新增行的引用号为 2 |
+| 子标签 | 可选值 | 说明 |
+|--------|--------|------|
+| `kdubl:LineOperation` | `CREATE` / `MODIFY` / `DELETE` | 该行相对于原始发票的操作类型 |
+| `kdubl:LineNumberReference` | 正整数 | 延续原始发票行号的连续编号。原始发票有行 1，则改票新增行的引用号为 2 |
 
-**PUF 对应**：`lineModificationReferenceLineNumberReference`
+**PUF 对应**：`lineModificationReferenceLineOperation` / `lineModificationReferenceLineNumberReference`
 
 **完整红票行扩展示例：**
 
@@ -390,6 +392,7 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
         <kdubl:LineID>1</kdubl:LineID>
         <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
         <kdubl:LineModification>
+            <kdubl:LineOperation>CREATE</kdubl:LineOperation>
             <kdubl:LineNumberReference>2</kdubl:LineNumberReference>
         </kdubl:LineModification>
     </kdubl:LineExtension>
@@ -615,6 +618,7 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 | `kdubl:ModificationIndex` | HU | 红票 381 | `modificationIndex` |
 | `kdubl:ModifyWithoutMaster` | HU | 红票 381 | `modifyWithoutMaster` |
 | `kdubl:LineModification` | HU | 红票行 | 行修改信息容器 |
+| `kdubl:LineOperation` | HU | 红票行 | `lineModificationReferenceLineOperation` |
 | `kdubl:LineNumberReference` | HU | 红票行 | `lineModificationReferenceLineNumberReference` |
 | `kdubl:AdvancePayment` | HU | 预付款抵扣行 | 预付款信息容器 |
 | `kdubl:AdvanceIndicator` | HU | 预付款抵扣行 | `advanceIndicator` |
