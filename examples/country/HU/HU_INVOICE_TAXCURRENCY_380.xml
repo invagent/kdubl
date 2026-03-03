@@ -33,8 +33,8 @@
                         <kdubl:TaxTotalExtension>
                             <kdubl:TaxSubtotalExtensions>
                                 <kdubl:TaxSubtotalExtension>
-                                    <!-- Total amount including tax in document currency (HUF) for S/27% category -->
-                                    <kdubl:TaxInclusiveAmount currencyID="HUF">317.50</kdubl:TaxInclusiveAmount>
+                                    <!-- Total amount including tax in tax currency (HUF) for S/27% category -->
+                                    <kdubl:TaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxInclusiveAmount>
                                 </kdubl:TaxSubtotalExtension>
                             </kdubl:TaxSubtotalExtensions>
                         </kdubl:TaxTotalExtension>
@@ -42,13 +42,13 @@
 
                     <!-- HU: Tax currency monetary totals (when document currency != tax currency) -->
                     <kdubl:TaxCurrencyLegalMonetaryTotal>
-                        <cbc:LineExtensionAmount currencyID="HUF">1000.00</cbc:LineExtensionAmount>
-                        <cbc:TaxExclusiveAmount currencyID="HUF">1000</cbc:TaxExclusiveAmount>
-                        <cbc:TaxInclusiveAmount currencyID="HUF">1100</cbc:TaxInclusiveAmount>
-                        <cbc:AllowanceTotalAmount currencyID="HUF">100.00</cbc:AllowanceTotalAmount>
-                        <cbc:ChargeTotalAmount currencyID="HUF">100.00</cbc:ChargeTotalAmount>
-                        <cbc:PayableRoundingAmount currencyID="HUF">0.00</cbc:PayableRoundingAmount>
-                        <cbc:PayableAmount currencyID="HUF">1100.00</cbc:PayableAmount>
+                        <cbc:LineExtensionAmount currencyID="HUF">90417.50</cbc:LineExtensionAmount>
+                        <cbc:TaxExclusiveAmount currencyID="HUF">90417.50</cbc:TaxExclusiveAmount>
+                        <cbc:TaxInclusiveAmount currencyID="HUF">114830.23</cbc:TaxInclusiveAmount>
+                        <!-- <cbc:AllowanceTotalAmount currencyID="HUF">0.00</cbc:AllowanceTotalAmount> -->
+                        <!-- <cbc:ChargeTotalAmount currencyID="HUF">0.00</cbc:ChargeTotalAmount> -->
+                        <!-- <cbc:PayableRoundingAmount currencyID="HUF">0.00</cbc:PayableRoundingAmount> -->
+                        <cbc:PayableAmount currencyID="HUF">114830.23</cbc:PayableAmount>
                     </kdubl:TaxCurrencyLegalMonetaryTotal>
 
                     <!-- HU: Line-level extensions -->
@@ -85,13 +85,18 @@
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
     <!-- Tax Currency Code (HUF) - differs from document currency -->
     <cbc:TaxCurrencyCode>HUF</cbc:TaxCurrencyCode>
+    <!-- Buyer Reference (BT-10): required by PEPPOL-EN16931-R003 -->
+    <cbc:BuyerReference>HU-PO-2026-004</cbc:BuyerReference>
 
     <!-- HU: Invoice type name → InvoiceTypeCode/@name in PUF (same mechanism as SA SubInvoiceTypeCode) -->
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">NORMAL</cbc:ID>
         <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
-
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
+        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
     <!-- Seller Information -->
     <cac:AccountingSupplierParty>
         <cac:Party>
@@ -107,7 +112,7 @@
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyTaxScheme>
-                <cbc:CompanyID>HU23542378214</cbc:CompanyID>
+                <cbc:CompanyID>HU000000001</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>
@@ -179,6 +184,17 @@
     <!-- Tax Total in tax currency (HUF): 24412.73 HUF -->
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="HUF">24412.73</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="HUF">90417.50</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="HUF">24412.73</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>27.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
     </cac:TaxTotal>
 
     <!-- Invoice Totals in document currency (EUR) -->
@@ -192,7 +208,7 @@
     <!-- Invoice Line 1: 250 EUR with 27% HUF tax -->
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>
-        <cbc:InvoicedQuantity unitCode="PCS">1</cbc:InvoicedQuantity>
+        <cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="EUR">250.00</cbc:LineExtensionAmount>
         <!-- Line tax in document currency (EUR) -->
         <cac:TaxTotal>
@@ -212,6 +228,17 @@
         <!-- Line tax in tax currency (HUF) -->
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="HUF">24412.73</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="HUF">90417.50</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="HUF">24412.73</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>27.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
         </cac:TaxTotal>
         <cac:Item>
             <cbc:Name>Item 1</cbc:Name>
