@@ -49,10 +49,13 @@
     <!-- Credit Note Issue Date -->
     <cbc:IssueDate>2026-01-21</cbc:IssueDate>
     <cbc:IssueTime>00:00:00+01:00</cbc:IssueTime>
+    <!-- BT-9 Payment Due Date: required by BR-CO-25 when PayableAmount > 0 -->
     <!-- Invoice Type Code: 381 = Credit Note -->
     <cbc:InvoiceTypeCode>381</cbc:InvoiceTypeCode>
     <!-- Invoice Document Currency -->
     <cbc:DocumentCurrencyCode>HUF</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference (BT-10): required by PEPPOL-EN16931-R003 -->
+    <cbc:BuyerReference>HU-PO-2026-001</cbc:BuyerReference>
 
     <!-- Reference to original invoice -->
     <cac:BillingReference>
@@ -67,7 +70,10 @@
         <cbc:ID schemeName="InvoiceTag">NORMAL</cbc:ID>
         <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
-
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
+        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
     <!-- Seller Information -->
     <cac:AccountingSupplierParty>
         <cac:Party>

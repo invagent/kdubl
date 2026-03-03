@@ -15,11 +15,20 @@
         KDUBL-EXT-003  TaxIndex 在同一 TaxExtensions 内必须唯一
         KDUBL-EXT-004  InternalTaxCode 不能为空
         KDUBL-EXT-005  金额字段必须携带 @currencyID 属性
+                       （涵盖 OriginalAmount / DifferenceAmount /
+                        TaxInclusiveLineExtensionAmount /
+                        TaxCurrencyTaxInclusiveLineExtensionAmount /
+                        TaxCurrencyLineExtensionAmount /
+                        TaxInclusiveAmount）
         KDUBL-EXT-006  TaxInclusiveLineExtensionAmount 必须 >= 0
         KDUBL-EXT-007  OriginalAmount/DifferenceAmount 出现时
                        DocumentIssuanceReasonCode 必须同时存在
         KDUBL-EXT-008  DocumentIssuanceReasonCode 不能为空字符串
         KDUBL-EXT-009  SubInvoiceTypeCode 不能为空字符串（出现时）
+        KDUBL-EXT-010  InvoiceAppearance 不能为空字符串（出现时）
+        KDUBL-EXT-011  CustomerVatStatus 不能为空字符串（出现时）
+        KDUBL-EXT-012  ModificationIndex 出现时必须为正整数（> 0）
+        KDUBL-EXT-013  AdvanceOriginalInvoice 不能为空字符串（出现时）
     ============================================================
 -->
 <xsl:stylesheet
@@ -62,6 +71,10 @@
                 <xsl:call-template name="rule-EXT-007"/>
                 <xsl:call-template name="rule-EXT-008"/>
                 <xsl:call-template name="rule-EXT-009"/>
+                <xsl:call-template name="rule-EXT-010"/>
+                <xsl:call-template name="rule-EXT-011"/>
+                <xsl:call-template name="rule-EXT-012"/>
+                <xsl:call-template name="rule-EXT-013"/>
             </Rules>
 
             <!-- 汇总统计 -->
@@ -70,7 +83,7 @@
             <xsl:variable name="warnings"
                 select="count(//RuleResult[@status='WARNING'])"/>
             <Summary>
-                <TotalRules>9</TotalRules>
+                <TotalRules>13</TotalRules>
                 <Errors><xsl:value-of select="$errors"/></Errors>
                 <Warnings><xsl:value-of select="$warnings"/></Warnings>
                 <xsl:choose>
@@ -193,8 +206,11 @@
 
     <!-- ============================================================
          KDUBL-EXT-005
-         规则  : 所有金额字段（OriginalAmount、DifferenceAmount、
-                 TaxInclusiveLineExtensionAmount）必须携带 @currencyID
+         规则  : 所有金额字段必须携带 @currencyID 属性：
+                 OriginalAmount、DifferenceAmount、
+                 TaxInclusiveLineExtensionAmount、
+                 TaxCurrencyTaxInclusiveLineExtensionAmount、
+                 TaxCurrencyLineExtensionAmount、TaxInclusiveAmount
          级别  : ERROR
          说明  : 缺少货币代码的金额在多币种场景下无法正确换算。
          ============================================================ -->
@@ -202,7 +218,10 @@
         <xsl:variable name="violations" select="
             //kdubl:OriginalAmount[not(@currencyID) or normalize-space(@currencyID) = ''] |
             //kdubl:DifferenceAmount[not(@currencyID) or normalize-space(@currencyID) = ''] |
-            //kdubl:TaxInclusiveLineExtensionAmount[not(@currencyID) or normalize-space(@currencyID) = '']
+            //kdubl:TaxInclusiveLineExtensionAmount[not(@currencyID) or normalize-space(@currencyID) = ''] |
+            //kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount[not(@currencyID) or normalize-space(@currencyID) = ''] |
+            //kdubl:TaxCurrencyLineExtensionAmount[not(@currencyID) or normalize-space(@currencyID) = ''] |
+            //kdubl:TaxInclusiveAmount[not(@currencyID) or normalize-space(@currencyID) = '']
         "/>
         <RuleResult id="KDUBL-EXT-005" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
             <Description>金额字段必须携带 @currencyID（ISO 4217 货币代码）</Description>
@@ -319,6 +338,109 @@
                             <Location>kdubl:InvoiceDocumentReference/kdubl:SubInvoiceTypeCode</Location>
                             <Message>SubInvoiceTypeCode 标签存在但值为空</Message>
                             <Fix>填写有效的子发票类型码，或删除空标签</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-010
+         规则  : InvoiceAppearance 出现时不能为空字符串
+         级别  : ERROR
+         说明  : 空的呈现方式码等同于未填写，HU RTIR 无法识别分发方式。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-010">
+        <xsl:variable name="violations"
+            select="//kdubl:InvoiceAppearance[normalize-space(.) = '']"/>
+        <RuleResult id="KDUBL-EXT-010" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>InvoiceAppearance 出现时不能为空字符串</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:PiaozoneExtension/kdubl:InvoiceAppearance</Location>
+                            <Message>InvoiceAppearance 标签存在但值为空</Message>
+                            <Fix>填写有效值，例如：ELECTRONIC 或 PAPER</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-011
+         规则  : CustomerVatStatus 出现时不能为空字符串
+         级别  : ERROR
+         说明  : 空的买方增值税状态码会导致 HU RTIR 校验规则无法匹配。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-011">
+        <xsl:variable name="violations"
+            select="//kdubl:CustomerVatStatus[normalize-space(.) = '']"/>
+        <RuleResult id="KDUBL-EXT-011" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>CustomerVatStatus 出现时不能为空字符串</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:PiaozoneExtension/kdubl:CustomerVatStatus</Location>
+                            <Message>CustomerVatStatus 标签存在但值为空</Message>
+                            <Fix>填写有效值，例如：DOMESTIC 或 OTHER</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-012
+         规则  : ModificationIndex 出现时必须为正整数（>= 1）
+         级别  : ERROR
+         说明  : 改票序号为 0 或负数在 HU RTIR 中无意义，
+                 且与"从 1 开始递增"的规则冲突。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-012">
+        <xsl:variable name="violations"
+            select="//kdubl:ModificationIndex[not(string(.) castable as xs:integer) or xs:integer(.) &lt; 1]"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"/>
+        <RuleResult id="KDUBL-EXT-012" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>ModificationIndex 出现时必须为正整数（>= 1）</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:PiaozoneExtension/kdubl:ModificationIndex</Location>
+                            <Message>ModificationIndex 值无效：<xsl:value-of select="."/>（应为 >= 1 的整数）</Message>
+                            <Fix>填写从 1 开始的正整数，同一原始发票每次改票递增</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-013
+         规则  : AdvanceOriginalInvoice 出现时不能为空字符串
+         级别  : ERROR
+         说明  : 空的原始预付款发票号无法追溯预付款来源，
+                 HU RTIR 系统将无法匹配原始预付款记录。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-013">
+        <xsl:variable name="violations"
+            select="//kdubl:AdvanceOriginalInvoice[normalize-space(.) = '']"/>
+        <RuleResult id="KDUBL-EXT-013" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>AdvanceOriginalInvoice 出现时不能为空字符串</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:AdvancePayment/kdubl:AdvanceOriginalInvoice（所属行 LineID: <xsl:value-of select="ancestor::kdubl:LineExtension/kdubl:LineID"/>）</Location>
+                            <Message>AdvanceOriginalInvoice 标签存在但值为空</Message>
+                            <Fix>填写原始预付款发票的发票号，确保可追溯预付款来源</Fix>
                         </Failure>
                     </xsl:for-each>
                 </Failures>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+   <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+   <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+   <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+   <cbc:ID>MO00000192</cbc:ID>
+   <cbc:IssueDate>2026-01-23</cbc:IssueDate>
+   <cbc:IssueTime>02:50:57+00:00</cbc:IssueTime>
+   <cbc:DueDate>2026-01-27</cbc:DueDate>
+   <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+   <cbc:DocumentCurrencyCode>MOP</cbc:DocumentCurrencyCode>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID schemeName="InvoiceTag">true</cbc:ID>
+      <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID>0.00</cbc:ID>
+      <cbc:DocumentType>TaxCurrency-ExclusiveAmount</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID>0.00</cbc:ID>
+      <cbc:DocumentType>TaxCurrency-TaxInclusiveAmount</cbc:DocumentType>
+   </cac:AdditionalDocumentReference>
+   <cac:AdditionalDocumentReference>
+      <cbc:ID>SIGNATURE-VISUAL</cbc:ID>
+      <cbc:DocumentType>Visual Signature</cbc:DocumentType>
+      <cac:Attachment>
+         <cbc:EmbeddedDocumentBinaryObject filename="signature.png" mimeCode="image/png">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</cbc:EmbeddedDocumentBinaryObject>
+      </cac:Attachment>
+   </cac:AdditionalDocumentReference>
+   <cac:AccountingCustomerParty>
+      <cac:Party>
+         <cac:PostalAddress>
+            <cbc:StreetName>深圳街道</cbc:StreetName>
+            <cbc:AdditionalStreetName>Building2</cbc:AdditionalStreetName>
+            <cbc:CityName>澳门</cbc:CityName>
+            <cbc:PostalZone>9365521</cbc:PostalZone>
+            <cac:Country>
+               <cbc:IdentificationCode>MO</cbc:IdentificationCode>
+            </cac:Country>
+         </cac:PostalAddress>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID>NL12355112</cbc:CompanyID>
+            <cac:TaxScheme>
+               <cbc:ID>TAX</cbc:ID>
+            </cac:TaxScheme>
+         </cac:PartyTaxScheme>
+         <cac:PartyLegalEntity>
+            <cbc:RegistrationName>澳门地区测试开票企业</cbc:RegistrationName>
+         </cac:PartyLegalEntity>
+         <cac:Contact>
+            <cbc:Name>co</cbc:Name>
+            <cbc:Telephone>13574214811</cbc:Telephone>
+            <cbc:ElectronicMail>9654821@qq.com</cbc:ElectronicMail>
+         </cac:Contact>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="ERP-ORG">BU-00006</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:AccountingCustomerParty>
+   <cac:AccountingSupplierParty>
+      <cac:Party>
+         <cac:PostalAddress>
+            <cbc:StreetName>Government road 1</cbc:StreetName>
+            <cbc:AdditionalStreetName>Second floor</cbc:AdditionalStreetName>
+            <cbc:CityName>Singapore</cbc:CityName>
+            <cbc:PostalZone>755755</cbc:PostalZone>
+            <cbc:CountrySubentity>Singapore</cbc:CountrySubentity>
+            <cac:Country>
+               <cbc:IdentificationCode>SG</cbc:IdentificationCode>
+            </cac:Country>
+            <cac:AddressLine>
+               <cbc:Line>Accounting department</cbc:Line>
+            </cac:AddressLine>
+         </cac:PostalAddress>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID>T08GB0025A845</cbc:CompanyID>
+            <cac:TaxScheme>
+               <cbc:ID>TAX</cbc:ID>
+            </cac:TaxScheme>
+         </cac:PartyTaxScheme>
+         <cac:PartyLegalEntity>
+            <cbc:RegistrationName>Jurong Town Corporation</cbc:RegistrationName>
+            <cbc:CompanyID schemeID="SG:UEN">T08GB0025A</cbc:CompanyID>
+         </cac:PartyLegalEntity>
+         <cac:Contact>
+            <cbc:Name>Ahmad</cbc:Name>
+            <cbc:Telephone>897654321</cbc:Telephone>
+            <cbc:ElectronicMail>einvoice@imda.gov.sg</cbc:ElectronicMail>
+         </cac:Contact>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="PEPPOL">0195:SGTST200618345W1</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PartyIdentification>
+            <cbc:ID schemeID="SG:VENDORID">T08GB0025A</cbc:ID>
+         </cac:PartyIdentification>
+      </cac:Party>
+   </cac:AccountingSupplierParty>
+   <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+      <cbc:AllowanceChargeReason>454545</cbc:AllowanceChargeReason>
+      <cbc:MultiplierFactorNumeric>1</cbc:MultiplierFactorNumeric>
+      <cbc:Amount currencyID="MOP">123.36</cbc:Amount>
+      <cac:TaxCategory>
+         <cbc:ID>E</cbc:ID>
+         <cbc:Percent>0</cbc:Percent>
+         <cbc:TaxExemptionReason>22</cbc:TaxExemptionReason>
+      </cac:TaxCategory>
+   </cac:AllowanceCharge>
+   <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="MOP">13.40</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tttt</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="MOP">-123.36</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>121212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="MOP">12323.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="MOP">0.00</cbc:TaxAmount>
+         <cac:TaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>21212</cbc:TaxExemptionReason>
+            <cac:TaxScheme>
+               <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+   </cac:TaxTotal>
+   <cac:LegalMonetaryTotal>
+      <cbc:LineExtensionAmount currencyID="MOP">12336.40</cbc:LineExtensionAmount>
+      <cbc:TaxExclusiveAmount currencyID="MOP">12213.04</cbc:TaxExclusiveAmount>
+      <cbc:TaxInclusiveAmount currencyID="MOP">12213.04</cbc:TaxInclusiveAmount>
+      <cbc:AllowanceTotalAmount currencyID="MOP">123.36</cbc:AllowanceTotalAmount>
+      <cbc:ChargeTotalAmount currencyID="MOP">0.00</cbc:ChargeTotalAmount>
+      <cbc:PayableRoundingAmount currencyID="MOP">0.00</cbc:PayableRoundingAmount>
+      <cbc:PayableAmount currencyID="MOP">12213.04</cbc:PayableAmount>
+   </cac:LegalMonetaryTotal>
+   <cac:InvoiceLine>
+      <cbc:ID>1</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="2A">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="MOP">13.40</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Description>test Product Description</cbc:Description>
+         <cbc:Name>机械配件（铝压铸件）</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>Z</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>tttt</cbc:TaxExemptionReason>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="MOP">13.4</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>2</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="21">0</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="MOP">0.00</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Name>ITEM1</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>121212</cbc:TaxExemptionReason>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="MOP">92</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine>
+      <cbc:ID>3</cbc:ID>
+      <cbc:InvoicedQuantity unitCode="2A">1</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="MOP">12323.00</cbc:LineExtensionAmount>
+      <cac:Item>
+         <cbc:Name>ITEM2</cbc:Name>
+         <cac:ClassifiedTaxCategory>
+            <cbc:ID>AE</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <cbc:TaxExemptionReason>21212</cbc:TaxExemptionReason>
+         </cac:ClassifiedTaxCategory>
+      </cac:Item>
+      <cac:Price>
+         <cbc:PriceAmount currencyID="MOP">12323</cbc:PriceAmount>
+      </cac:Price>
+   </cac:InvoiceLine>
+</Invoice>

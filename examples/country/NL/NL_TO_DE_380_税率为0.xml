@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+	<cbc:ProfileID>urn:www.piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+	<cbc:ID>INV-002717</cbc:ID>
+	<cbc:IssueDate/>
+	<cbc:IssueTime/>
+	<cbc:DueDate>2025-10-01</cbc:DueDate>
+	<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+	<cbc:Note>Invoice for DJI drone accessories delivery (Order: ORD-DE-00456)</cbc:Note>
+	<cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+	<cbc:BuyerReference>DE-DJI-202510</cbc:BuyerReference>
+	<cac:InvoicePeriod>
+		<cbc:StartDate>2025-10-01</cbc:StartDate>
+		<cbc:EndDate>2025-10-12</cbc:EndDate>
+	</cac:InvoicePeriod>
+	<cac:OrderReference>
+		<cbc:ID>ORD-DE-00456</cbc:ID>
+	</cac:OrderReference>
+	<cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="BizTag">SS</cbc:ID>
+        <cbc:DocumentType>Scenario</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+	<cac:AccountingSupplierParty>
+		<cac:Party>
+			<cbc:EndpointID schemeID="9944">NL852369147</cbc:EndpointID>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="ERP-ORG">050</cbc:ID>
+			</cac:PartyIdentification>
+			<!--<cac:PartyIdentification>
+				<cbc:ID schemeID="GLN">8718623456789</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="IBAN">NL91ABNA0417164300</cbc:ID>
+			</cac:PartyIdentification>-->
+			<cac:PartyName>
+				<cbc:Name>DJI Europe Distribution B.V.</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:StreetName>Industriestraat</cbc:StreetName>
+				<cbc:BuildingNumber>45</cbc:BuildingNumber>
+				<cbc:CityName>Amsterdam</cbc:CityName>
+				<cbc:PostalZone>1096 AX</cbc:PostalZone>
+				<cbc:CountrySubentity>Noord-Holland</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>NL</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID>NL91440300123456789X</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>DJI Europe Distribution B.V.</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Name>Mark van der Veen</cbc:Name>
+				<cbc:Telephone>+31 20 751 8899</cbc:Telephone>
+				<cbc:ElectronicMail>mark.vdveen@djieurope.nl</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<cac:Party>
+			<cbc:EndpointID schemeID="9930">DE81234567</cbc:EndpointID>
+			<cac:PostalAddress>
+				<cbc:StreetName>Marienstraße</cbc:StreetName>
+				<cbc:AdditionalStreetName>Gebäude 7</cbc:AdditionalStreetName>
+				<cbc:CityName>Berlin</cbc:CityName>
+				<cbc:PostalZone>10117</cbc:PostalZone>
+				<cbc:CountrySubentity>Berlin</cbc:CountrySubentity>
+				<cac:AddressLine>
+                    <cbc:Line>Sales department1</cbc:Line> <!-- BT-162 -->
+                </cac:AddressLine>
+				<cac:Country>
+					<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID>DE81234567</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>DroneTech Berlin GmbH</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Name>Thomas Müller</cbc:Name>
+				<cbc:Telephone>+49 30 2345 6789</cbc:Telephone>
+				<cbc:ElectronicMail>thomas.mueller@dronetech-berlin.de</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+		<cac:AccountingContact>
+			<cbc:Telephone>+49 30 2345 6790</cbc:Telephone>
+			<cbc:ElectronicMail>485201532@qq.com</cbc:ElectronicMail>
+		</cac:AccountingContact>
+	</cac:AccountingCustomerParty>
+	<cac:TaxRepresentativeParty>
+		<cac:PartyName>
+			<cbc:Name>EuroTax Services GmbH</cbc:Name>
+		</cac:PartyName>
+		<cac:PostalAddress>
+			<cbc:StreetName>Frankfurter Straße</cbc:StreetName>
+			<cbc:BuildingNumber>120</cbc:BuildingNumber>
+			<cbc:CityName>Frankfurt am Main</cbc:CityName>
+			<cbc:PostalZone>60311</cbc:PostalZone>
+			<cac:Country>
+				<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+			</cac:Country>
+		</cac:PostalAddress>
+		<cac:PartyTaxScheme>
+			<cbc:CompanyID>DE91440300123456789X</cbc:CompanyID>
+			<cac:TaxScheme>
+				<cbc:ID>VAT</cbc:ID>
+			</cac:TaxScheme>
+		</cac:PartyTaxScheme>
+	</cac:TaxRepresentativeParty>
+	<cac:Delivery>
+		<cbc:ActualDeliveryDate>2025-10-01</cbc:ActualDeliveryDate>
+		<cac:DeliveryLocation>
+			<cac:Address>
+				<cbc:StreetName>Hauptstraße</cbc:StreetName>
+				<cbc:AdditionalStreetName>Hauptstraße 45</cbc:AdditionalStreetName>
+				<cbc:CityName>München</cbc:CityName>
+				<cbc:PostalZone>80331</cbc:PostalZone>
+				<cbc:CountrySubentity>and) Bayern</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>DE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:Address>
+		</cac:DeliveryLocation>
+		<cac:DeliveryParty>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID>DE123456789</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>Müller GmbH</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:DeliveryParty>
+		<cac:DeliveryTerms>
+			<cbc:ID>DAP</cbc:ID>
+		</cac:DeliveryTerms>
+		<cac:Shipment>
+			<cbc:ID>NL-SH-20251011-01</cbc:ID>
+			<!--<cac:ShipmentStage>
+				<cbc:ID>NL-TRACK-987654321</cbc:ID>
+				<cbc:Instructions>Road</cbc:Instructions>
+			</cac:ShipmentStage>-->
+			<cac:OriginAddress>
+				<cbc:StreetName>Damrak</cbc:StreetName>
+				<cbc:AdditionalStreetName>3e etage, kamer 302</cbc:AdditionalStreetName>
+				<cbc:CityName>Amsterdam</cbc:CityName>
+				<cbc:PostalZone>1012 JS</cbc:PostalZone>
+				<cbc:CountrySubentity>Noord-Holland</cbc:CountrySubentity>
+				<cac:AddressLine>
+					<cbc:Line>Damrak 45, 1012 JS Amsterdam, Noord-Holland</cbc:Line>
+				</cac:AddressLine>
+				<cac:Country>
+					<cbc:IdentificationCode>NL</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:OriginAddress>
+			<cac:LastExitPortLocation>
+                <cbc:Name>Rotterdam</cbc:Name>
+            </cac:LastExitPortLocation>
+		</cac:Shipment>
+	</cac:Delivery>
+	<cac:PaymentMeans>
+		<cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+		<cac:PayeeFinancialAccount>
+			<cbc:ID>NL91ABNA0417164300</cbc:ID>
+			<cbc:Name>DJI Europe Distribution B.V. - Operating Account</cbc:Name>
+			<cac:FinancialInstitutionBranch>
+				<cbc:ID>ABNANL2A</cbc:ID>
+				<cbc:Name>ABN AMRO Bank N.V. Amsterdam</cbc:Name>
+			</cac:FinancialInstitutionBranch>
+		</cac:PayeeFinancialAccount>
+	</cac:PaymentMeans>
+	<cac:PaymentTerms>
+		<cbc:Note>Small business exempted according to national law - Payment due within 30 days</cbc:Note>
+	</cac:PaymentTerms>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="EUR">50</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="EUR">295.55</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="EUR">50</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:ID>S</cbc:ID>
+				<cbc:Percent>21.00</cbc:Percent>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+		<cac:TaxSubtotal>
+			<cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount>
+			<cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cbc:ID>K</cbc:ID>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cbc:TaxExemptionReason>Small business exempted according to national law</cbc:TaxExemptionReason>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="EUR">395.55</cbc:LineExtensionAmount>
+		<cbc:TaxExclusiveAmount currencyID="EUR">26005.15</cbc:TaxExclusiveAmount>
+		<cbc:TaxInclusiveAmount currencyID="EUR">26005.15</cbc:TaxInclusiveAmount>
+		<cbc:AllowanceTotalAmount currencyID="EUR">0.00</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="EUR">0.00</cbc:ChargeTotalAmount>
+		<cbc:PayableAmount currencyID="EUR">457.62</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="H87">50</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">95.55</cbc:LineExtensionAmount>
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>Volume discount 10%</cbc:AllowanceChargeReason>
+			<cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+			<cbc:Amount currencyID="EUR">10.00</cbc:Amount>
+			<cbc:BaseAmount currencyID="EUR">100</cbc:BaseAmount>
+		</cac:AllowanceCharge>
+		<cac:AllowanceCharge>
+			<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+			<cbc:AllowanceChargeReason>Packaging fee</cbc:AllowanceChargeReason>
+			<cbc:Amount currencyID="EUR">5.55</cbc:Amount>
+		</cac:AllowanceCharge>
+		<cac:Item>
+			<cbc:Name>DJI Mavic 3 Intelligent Flight Battery</cbc:Name>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>K</cbc:ID>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cbc:TaxExemptionReason>Small business exempted according to national law</cbc:TaxExemptionReason>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+			<cac:AdditionalItemProperty>
+				<cbc:Name>Weight</cbc:Name>
+				<cbc:Value>0.45kg</cbc:Value>
+			</cac:AdditionalItemProperty>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">288.88</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>2</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="H87">20</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+		<cac:Item>
+			<cbc:Name>DJI RC-N2 Remote Controller</cbc:Name>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>K</cbc:ID>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cbc:TaxExemptionReason>Small business exempted according to national law</cbc:TaxExemptionReason>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+			<cac:AdditionalItemProperty>
+				<cbc:Name>Weight</cbc:Name>
+				<cbc:Value>0.38kg</cbc:Value>
+			</cac:AdditionalItemProperty>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">300</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>3</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="H87">20</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+		<cac:Item>
+			<cbc:Name>DJI Mini 4 Pro Propellers (Pair)</cbc:Name>
+			<cac:ClassifiedTaxCategory>
+				<cbc:ID>K</cbc:ID>
+				<cbc:Percent>0.00</cbc:Percent>
+				<cbc:TaxExemptionReason>Small business exempted according to national law</cbc:TaxExemptionReason>
+				<cac:TaxScheme>
+					<cbc:ID>VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:ClassifiedTaxCategory>
+			<cac:AdditionalItemProperty>
+				<cbc:Name>Weight</cbc:Name>
+				<cbc:Value>0.015kg/pair</cbc:Value>
+			</cac:AdditionalItemProperty>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="EUR">350</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+</Invoice>

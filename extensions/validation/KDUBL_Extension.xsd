@@ -3,16 +3,22 @@
     ============================================================
     KDUBL PiaozoneExtension Schema
     命名空间  : urn:piaozone:ExtensionComponent:1.0
-    版本      : 1.0
+    版本      : 1.1
     说明      : 定义 KDUBL 发票中 ext:UBLExtension/ext:ExtensionContent
                 下的自定义扩展结构（kdubl 命名空间）。
                 本扩展遵循 UBL 2.1 扩展规范，所有字段按
                 UBL 文档流顺序排列：
-                  1. InvoiceDocumentReference  — 发票文档引用
-                  2. SupplierAddressInfo        — 卖方地址扩展
-                  3. CustomerAddressInfo        — 买方地址扩展
-                  4. PrepaidPaymentExtension    — 预付款税务扩展
-                  5. LineExtensions             — 行项目扩展
+                   1. InvoiceDocumentReference       — 发票文档引用（SA、TH）
+                   2. SupplierAddressInfo             — 卖方地址扩展（TH）
+                   3. CustomerAddressInfo             — 买方地址扩展（TH）
+                   4. PrepaidPaymentExtension         — 预付款税务扩展（SA）
+                   5. InvoiceAppearance               — 发票呈现方式（HU）
+                   6. CustomerVatStatus               — 买方增值税状态（HU）
+                   7. ModificationIndex               — 改票序号（HU）
+                   8. ModifyWithoutMaster             — 原始发票是否已上报（HU）
+                   9. TaxTotalExtensions              — 税额合计扩展（HU）
+                  10. TaxCurrencyLegalMonetaryTotal   — 计税货币发票合计（HU）
+                  11. LineExtensions                  — 行项目扩展（通用）
     ============================================================
 -->
 <xs:schema
@@ -24,7 +30,7 @@
     elementFormDefault="qualified"
     attributeFormDefault="unqualified">
 
-    <!-- 引入 UBL 公共命名空间，用于 PrepaidPaymentExtension 内部的标准税务结构 -->
+    <!-- 引入 UBL 公共命名空间，用于 PrepaidPaymentExtension 及 TaxCurrencyLegalMonetaryTotal 内部的标准结构 -->
     <xs:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"/>
     <xs:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"/>
 
@@ -46,23 +52,89 @@
          ============================================================ -->
     <xs:complexType name="PiaozoneExtensionType">
         <xs:sequence>
-            <!-- 1. 发票文档引用，可重复（如同时存在信用票据和借记票据场景） -->
+            <!-- 1. 发票文档引用，可重复（SA 红票 / TH 借记票等调整票场景） -->
             <xs:element name="InvoiceDocumentReference"
                         type="kdubl:InvoiceDocumentReferenceType"
                         minOccurs="0" maxOccurs="unbounded"/>
-            <!-- 2. 卖方地址扩展（对应 UBL AccountingSupplierParty/PostalAddress） -->
+            <!-- 2. 卖方地址扩展（对应 UBL AccountingSupplierParty/PostalAddress，TH）-->
             <xs:element name="SupplierAddressInfo"
                         type="kdubl:AddressInfoType"
                         minOccurs="0" maxOccurs="1"/>
-            <!-- 3. 买方地址扩展（对应 UBL AccountingCustomerParty/PostalAddress） -->
+            <!-- 3. 买方地址扩展（对应 UBL AccountingCustomerParty/PostalAddress，TH）-->
             <xs:element name="CustomerAddressInfo"
                         type="kdubl:AddressInfoType"
                         minOccurs="0" maxOccurs="1"/>
-            <!-- 4. 预付款税务扩展（对应 UBL PrepaidPayment + TaxTotal） -->
+            <!-- 4. 预付款税务扩展（对应 UBL PrepaidPayment + TaxTotal，SA）-->
             <xs:element name="PrepaidPaymentExtension"
                         type="kdubl:PrepaidPaymentExtensionType"
                         minOccurs="0" maxOccurs="1"/>
-            <!-- 5. 行项目扩展集合（对应 UBL InvoiceLine 的扩展字段） -->
+            <!-- 5. 发票呈现方式（HU 必填）：ELECTRONIC / PAPER -->
+            <xs:element name="InvoiceAppearance" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        发票呈现方式（匈牙利 RTIR 必填）。
+                        标识发票在开票方与受票方之间的分发方式。
+                        可选值：ELECTRONIC（电子）、PAPER（纸质）。
+                        PUF 对应：RestrictedInformation[Key=invoiceAppearance]/Value。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 6. 买方增值税状态（HU 必填）：DOMESTIC / OTHER -->
+            <xs:element name="CustomerVatStatus" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        买方增值税纳税人身份（匈牙利 RTIR 必填）。
+                        决定买方信息允许内容与校验规则。
+                        可选值：DOMESTIC（境内纳税人）、OTHER（境外买方等）。
+                        PUF 对应：RestrictedInformation[Key=customerVatStatus]/Value。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 7. 改票序号（HU，仅红票/改票 381 使用，从 1 开始递增）-->
+            <xs:element name="ModificationIndex" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        改票序号（匈牙利红票/改票 381 必填）。
+                        标识针对同一张原始发票的第几次修改，从 1 开始递增。
+                        PUF 对应：RestrictedInformation[Key=modificationIndex]/Value。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger"/>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 8. 原始发票是否已上报 RTIR（HU，仅红票/改票 381 使用）-->
+            <!-- false = 原始发票已上报；true = 原始发票未上报（主记录缺失）-->
+            <xs:element name="ModifyWithoutMaster" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        原始发票是否未上报 RTIR（匈牙利红票/改票 381）。
+                        false = 原始发票已上报（正常改票场景）；
+                        true  = 原始发票未上报（主记录缺失）。
+                        PUF 对应：RestrictedInformation[Key=modifyWithoutMaster]/Value。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 9. 税额合计扩展（HU，外币发票，与 UBL body 中的双 TaxTotal 一一对应）-->
+            <xs:element name="TaxTotalExtensions"
+                        type="kdubl:TaxTotalExtensionsType"
+                        minOccurs="0" maxOccurs="1"/>
+            <!-- 10. 计税货币发票合计（HU，外币发票，DocumentCurrencyCode != TaxCurrencyCode 时使用）-->
+            <xs:element name="TaxCurrencyLegalMonetaryTotal"
+                        type="kdubl:TaxCurrencyLegalMonetaryTotalType"
+                        minOccurs="0" maxOccurs="1"/>
+            <!-- 11. 行项目扩展集合（对应 UBL InvoiceLine 的国家级扩展字段，通用）-->
             <xs:element name="LineExtensions"
                         type="kdubl:LineExtensionsType"
                         minOccurs="0" maxOccurs="1"/>
@@ -73,6 +145,7 @@
          1. InvoiceDocumentReferenceType
             发票文档引用，用于记录冲销/调整发票的原因及金额信息。
             对应 UBL BillingReference / AdditionalDocumentReference。
+            适用国家：SA（381 红票）、TH（借记票等调整票）。
          ============================================================ -->
     <xs:complexType name="InvoiceDocumentReferenceType">
         <xs:annotation>
@@ -80,17 +153,16 @@
                 发票文档引用扩展。
                 用于信用票据（Credit Note）或借记票据（Debit Note）场景，
                 描述本发票相对于原始发票的调整原因和金额差异。
-                实际业务中，每张发票只存在一个引用场景，按需填写对应字段。
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <!-- 子发票类型码：细分发票类型，值由各国税务规范定义 -->
+            <!-- 子发票类型码：细分发票类型，出现时不能为空（KDUBL-EXT-009）-->
             <xs:element name="SubInvoiceTypeCode" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        子发票类型码。用于在标准发票类型码（InvoiceTypeCode）之下
-                        进一步细分类型，例如区分普通信用票据与借记票据。
-                        取值由各国/地区税务规范定义。
+                        子发票类型码。在标准 InvoiceTypeCode 之下进一步细分类型，
+                        例如区分普通信用票据与借记票据。
+                        取值由各国/地区税务规范定义。出现时不能为空字符串。
                     </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
@@ -100,13 +172,13 @@
                 </xs:simpleType>
             </xs:element>
 
-            <!-- 发票签发原因码：机器可读的原因标识，值由各国税务规范定义 -->
+            <!-- 发票签发原因码：OriginalAmount/DifferenceAmount 存在时必填（KDUBL-EXT-007/008）-->
             <xs:element name="DocumentIssuanceReasonCode" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         发票签发原因码（机器可读）。标识本发票开具的业务原因，
-                        取值由各国/地区税务主管机关规范定义。
-                        例：价格调整、退货、服务变更等场景各有对应码值。
+                        取值由各国税务主管机关规范定义。
+                        当 OriginalAmount 或 DifferenceAmount 存在时必填，且不能为空字符串。
                     </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
@@ -123,23 +195,24 @@
                     <xs:documentation>
                         发票签发原因说明（人类可读）。对 DocumentIssuanceReasonCode
                         的文字描述，供人工核对使用。
+                        SA KSA-10 对应 BillingReferenceExtension/Note。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
 
-            <!-- 原始发票金额：被冲销/调整的原始票据金额，需携带货币代码 -->
+            <!-- 原始发票金额：被冲销/调整的原始票据金额，必须携带 currencyID（KDUBL-EXT-005）-->
             <xs:element name="OriginalAmount" type="kdubl:AmountType"
                         minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         原始发票金额。记录被本次发票冲销或调整的原始票据金额。
                         必须携带 currencyID 属性（ISO 4217 货币代码）。
-                        与 DifferenceAmount 同时存在时，表示差额调整场景。
+                        存在时 DocumentIssuanceReasonCode 必须填写（KDUBL-EXT-007）。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
 
-            <!-- 差额金额：本次调整的净变动金额，正数补收，负数退款 -->
+            <!-- 差额金额：本次调整的净变动金额，正数补收，负数退款，必须携带 currencyID（KDUBL-EXT-005）-->
             <xs:element name="DifferenceAmount" type="kdubl:AmountType"
                         minOccurs="0" maxOccurs="1">
                 <xs:annotation>
@@ -147,6 +220,7 @@
                         差额金额。本次发票相对于原始发票的净变动金额。
                         正数表示补收（借记），负数表示退款（信用）。
                         必须携带 currencyID 属性（ISO 4217 货币代码）。
+                        存在时 DocumentIssuanceReasonCode 必须填写（KDUBL-EXT-007）。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -157,47 +231,48 @@
          2 & 3. AddressInfoType
                 地址扩展信息，被 SupplierAddressInfo 和
                 CustomerAddressInfo 共用。
-                补充 UBL PostalAddress 中未覆盖的次级行政区划字段。
+                补充 UBL PostalAddress 中未覆盖的次级行政区划字段（TH）。
          ============================================================ -->
     <xs:complexType name="AddressInfoType">
         <xs:annotation>
             <xs:documentation>
                 地址扩展信息类型。SupplierAddressInfo 和 CustomerAddressInfo
                 共用此类型，用于补充 UBL PostalAddress 未覆盖的
-                次级行政区划信息（如街道级次区划代码和名称）。
+                次级行政区划信息（如泰国街道级次区划代码和名称）。
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <!-- 次区划代码：街道/次区划级别的行政区划编码 -->
+            <!-- 次区划代码（TH：Tambon/Subdistrict 级，UBL 无对应字段）-->
             <xs:element name="SubdistrictCode" type="xs:string"
                         minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         次区划代码。街道或次区划级别的行政区划编码，
                         对应 UBL PostalAddress 下未显式定义的最小行政单元。
-                        编码格式由各国行政区划标准决定。
+                        泰国对应 Tambon（Subdistrict）级。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
 
-            <!-- 次区划名称：SubdistrictCode 对应的名称文本 -->
+            <!-- 次区划名称：SubdistrictCode 对应的名称文本（TH：Tambon 名）-->
             <xs:element name="SubdistrictName" type="xs:string"
                         minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        次区划名称。SubdistrictCode 对应的行政区划名称文本，
-                        供人工阅读使用。
+                        次区划名称。SubdistrictCode 对应的行政区划名称文本。
+                        泰国对应 Tambon 名称。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
 
-            <!-- 区划代码：区/县级别的行政区划编码，补充 UBL CitySubdivisionName -->
+            <!-- 区划代码（TH：Amphoe/District 级，补充 UBL CitySubdivisionName）-->
             <xs:element name="CitySubdivisionCode" type="xs:string"
                         minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         区划代码（区/县级）。对应 UBL PostalAddress/CitySubdivisionName
                         的机器可读编码形式，弥补 UBL 标准只提供名称字段的不足。
+                        泰国对应 Amphoe（District）级。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
@@ -206,32 +281,27 @@
 
     <!-- ============================================================
          4. PrepaidPaymentExtensionType
-            预付款税务扩展，存放预付款关联发票的税务信息。
+            预付款税务扩展，存放预付款关联发票的税务信息（SA）。
             内部复用 UBL 标准的 cac:TaxTotal 结构。
          ============================================================ -->
     <xs:complexType name="PrepaidPaymentExtensionType">
         <xs:annotation>
             <xs:documentation>
-                预付款税务扩展。对应 UBL PrepaidPayment 场景，
+                预付款税务扩展（SA KSA-26~34）。对应 UBL PrepaidPayment 场景，
                 存放预付款关联发票的增值税汇总信息。
-                内部结构复用 UBL 标准的 cac:TaxTotal，
-                允许出现一个或多个 TaxTotal 以覆盖多税种场景。
+                内部结构复用 UBL 标准的 cac:TaxTotal（至少一个）。
+                cac:TaxTotal 结构：
+                  cbc:TaxAmount       — 总税额（@currencyID 必填）
+                  cac:TaxSubtotal     — 按税种细分（可重复）
+                    cbc:TaxableAmount — 应税基础金额（KSA-31）
+                    cbc:TaxAmount     — 分类税额（KSA-32）
+                    cac:TaxCategory   — 税种分类
+                      cbc:ID          — 税种码（KSA-33，如 S=标准）
+                      cbc:Percent     — 税率（KSA-34）
+                      cac:TaxScheme/cbc:ID — 固定值 VAT
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <!--
-                复用 UBL cac:TaxTotal 结构（至少一个）。
-                cac:TaxTotal 结构说明：
-                  cbc:TaxAmount     — 总税额（含 @currencyID）
-                  cac:TaxSubtotal   — 按税种细分（可重复）
-                    cbc:TaxableAmount — 应税基础金额（BT-116）
-                    cbc:TaxAmount     — 分类税额（BT-117）
-                    cac:TaxCategory   — 税种分类
-                      cbc:ID          — 税种码（BT-118，如 S=标准，E=豁免）
-                      cbc:Percent     — 税率百分比（BT-119）
-                      cac:TaxScheme
-                        cbc:ID        — 税制标识（固定值 VAT）
-            -->
             <xs:any namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
                     minOccurs="1" maxOccurs="unbounded"
                     processContents="lax"/>
@@ -239,16 +309,108 @@
     </xs:complexType>
 
     <!-- ============================================================
-         5. LineExtensionsType / LineExtensionType
-            行项目扩展，与 UBL InvoiceLine 一一对应，
-            补充行级含税金额和税码映射。
+         9. TaxTotalExtensionsType / TaxTotalExtensionType /
+            TaxSubtotalExtensionsType / TaxSubtotalExtensionType
+            税额合计扩展（HU 外币发票）。
+            与 UBL body 中双 TaxTotal 一一对应，
+            为每个 TaxTotal 的每个税率档补充含税总额。
+         ============================================================ -->
+    <xs:complexType name="TaxTotalExtensionsType">
+        <xs:annotation>
+            <xs:documentation>
+                税额合计扩展集合容器（HU 外币发票）。
+                包含与 UBL body 中 cac:TaxTotal 一一对应的扩展元素，
+                顺序与 body 中的 TaxTotal 元素保持一致。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TaxTotalExtension"
+                        type="kdubl:TaxTotalExtensionType"
+                        minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TaxTotalExtensionType">
+        <xs:annotation>
+            <xs:documentation>
+                单个 TaxTotal 的扩展（HU 外币发票）。
+                顺序与 UBL body 中对应 cac:TaxTotal 一致。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TaxSubtotalExtensions"
+                        type="kdubl:TaxSubtotalExtensionsType"
+                        minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TaxSubtotalExtensionsType">
+        <xs:annotation>
+            <xs:documentation>
+                单个 TaxTotal 内各税率档扩展的容器（HU 外币发票）。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TaxSubtotalExtension"
+                        type="kdubl:TaxSubtotalExtensionType"
+                        minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TaxSubtotalExtensionType">
+        <xs:annotation>
+            <xs:documentation>
+                单税率档扩展（HU 外币发票）。
+                与 cac:TaxSubtotal 顺序对应，补充该税率档的含税总额。
+                currencyID 随所属 TaxTotal 的货币变化（如 EUR 或 HUF）。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 该税率档含税总额，必须携带 currencyID，货币与所属 TaxTotal 一致 -->
+            <xs:element name="TaxInclusiveAmount" type="kdubl:AmountType"
+                        minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        该税率档含税总额。必须携带 currencyID 属性，
+                        货币与所属 TaxTotal 货币一致（开票货币或计税货币）。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         10. TaxCurrencyLegalMonetaryTotalType
+             计税货币发票合计（HU 外币发票）。
+             子元素复用 UBL cbc: 标准金额字段，以计税货币（如 HUF）表示。
+             结构与 cac:LegalMonetaryTotal 的子元素相同。
+         ============================================================ -->
+    <xs:complexType name="TaxCurrencyLegalMonetaryTotalType">
+        <xs:annotation>
+            <xs:documentation>
+                计税货币发票合计（HU 外币发票）。
+                适用于 DocumentCurrencyCode != TaxCurrencyCode 的场景。
+                子元素使用标准 UBL cbc: 命名空间（如 LineExtensionAmount、
+                TaxExclusiveAmount、TaxInclusiveAmount、PayableAmount 等），
+                以计税货币（如 HUF）表示对应金额。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:any namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                    minOccurs="1" maxOccurs="unbounded"
+                    processContents="lax"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         11. LineExtensionsType / LineExtensionType
+             行项目扩展，与 UBL InvoiceLine 一一对应（通用）。
          ============================================================ -->
     <xs:complexType name="LineExtensionsType">
         <xs:annotation>
             <xs:documentation>
                 行项目扩展集合容器。包含一个或多个 LineExtension，
-                每个 LineExtension 通过 LineID 与对应的
-                UBL InvoiceLine/ID 关联。
+                每个 LineExtension 通过 LineID 与对应的 UBL InvoiceLine/ID 关联。
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -262,11 +424,11 @@
         <xs:annotation>
             <xs:documentation>
                 单条行项目扩展。通过 LineID 与 UBL InvoiceLine/ID 绑定，
-                补充该行的含税金额及税码映射信息。
+                补充该行的含税金额、税码映射及国家专用扩展信息。
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <!-- 关联发票行号，与 UBL InvoiceLine/ID 保持一致，在文档内唯一 -->
+            <!-- 关联发票行号，必填，与 UBL InvoiceLine/ID 一致，在文档内唯一（KDUBL-EXT-001/002）-->
             <xs:element name="LineID" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
@@ -281,37 +443,83 @@
                 </xs:simpleType>
             </xs:element>
 
-            <!-- 含税行金额：该行 LineExtensionAmount 与行级税额之和 -->
+            <!-- 含税行金额（SA KSA-12）：LineExtensionAmount + TaxAmount，必须 >= 0（KDUBL-EXT-005/006）-->
             <xs:element name="TaxInclusiveLineExtensionAmount"
                         type="kdubl:AmountType"
                         minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        含税行金额。计算公式：
-                        TaxInclusiveLineExtensionAmount
-                            = InvoiceLine/LineExtensionAmount
-                            + InvoiceLine/TaxTotal/TaxAmount
-                        必须携带 currencyID 属性（ISO 4217 货币代码）。
-                        值必须 >= 0。
+                        含税行金额（SA KSA-12）。
+                        = InvoiceLine/LineExtensionAmount + InvoiceLine/TaxTotal/TaxAmount。
+                        必须携带 currencyID 属性。值必须 >= 0（KDUBL-EXT-006）。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
 
-            <!-- 行税务扩展集合：建立行税额与内部税码的映射 -->
+            <!-- 行税务扩展集合（SA）：建立行 TaxSubtotal 索引与内部税码的映射 -->
             <xs:element name="TaxExtensions"
                         type="kdubl:TaxExtensionsType"
                         minOccurs="0" maxOccurs="1"/>
+
+            <!-- 计量单位自然表达指示器（HU 必填）：true=普通商品行，false=预付款抵扣行 -->
+            <xs:element name="LineExpressionIndicator" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        计量单位自然表达指示器（HU 必填）。
+                        true  = 普通商品行（可用整数自然单位，如 EA、PCS）；
+                        false = 预付款抵扣行（无计量单位概念）。
+                        PUF 对应：RestrictedInformation[Key=lineExpressionIndicator]/Value。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 行修改信息（HU）：仅红票/改票 381 使用 -->
+            <xs:element name="LineModification"
+                        type="kdubl:LineModificationType"
+                        minOccurs="0" maxOccurs="1"/>
+
+            <!-- 预付款信息（HU）：仅 LineExpressionIndicator=false 的预付款抵扣行使用 -->
+            <xs:element name="AdvancePayment"
+                        type="kdubl:AdvancePaymentType"
+                        minOccurs="0" maxOccurs="1"/>
+
+            <!-- 行含税金额（计税货币，HU 外币发票，必须携带 currencyID）-->
+            <xs:element name="TaxCurrencyTaxInclusiveLineExtensionAmount"
+                        type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        行含税金额（计税货币，HU 外币发票）。
+                        必须携带 currencyID 属性（计税货币，如 HUF）。
+                        PUF 对应：TaxCurrencyTaxInclusiveLineExtensionAmount。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 行不含税净额（计税货币，HU 外币发票，必须携带 currencyID）-->
+            <xs:element name="TaxCurrencyLineExtensionAmount"
+                        type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        行不含税净额（计税货币，HU 外币发票）。
+                        必须携带 currencyID 属性（计税货币，如 HUF）。
+                        PUF 对应：TaxCurrencyLineExtensionAmount。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
     <!-- ============================================================
          TaxExtensionsType / TaxExtensionType
-         行级税务扩展，建立行 TaxSubtotal 索引与内部税码的映射关系。
+         行级税务扩展，建立行 TaxSubtotal 索引与内部税码的映射关系（SA）。
          ============================================================ -->
     <xs:complexType name="TaxExtensionsType">
         <xs:annotation>
             <xs:documentation>
-                行税务扩展集合容器。每个 TaxExtension 对应行内
+                行税务扩展集合容器（SA）。每个 TaxExtension 对应行内
                 一个 TaxSubtotal，通过 TaxIndex 标识顺序位置。
             </xs:documentation>
         </xs:annotation>
@@ -325,12 +533,12 @@
     <xs:complexType name="TaxExtensionType">
         <xs:annotation>
             <xs:documentation>
-                单条行税务扩展。将行内 TaxSubtotal 的顺序索引
+                单条行税务扩展（SA）。将行内 TaxSubtotal 的顺序索引
                 与系统内部税码进行映射，供税务计算引擎使用。
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <!-- 税务索引：从 1 开始，对应行 TaxTotal/TaxSubtotal 的排列顺序 -->
+            <!-- 税务索引：从 1 开始，对应行 TaxTotal/TaxSubtotal 排列顺序，在同一 TaxExtensions 内唯一（KDUBL-EXT-003）-->
             <xs:element name="TaxIndex" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
@@ -344,12 +552,11 @@
                 </xs:simpleType>
             </xs:element>
 
-            <!-- 内部税码：系统内部定义的税率类型标识符 -->
+            <!-- 内部税码：系统内部定义的税率类型标识符，不能为空（KDUBL-EXT-004）-->
             <xs:element name="InternalTaxCode" minOccurs="1" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         内部税码。系统内部定义的税率类型标识符，
-                        与 TaxCategory/ID 及 TaxCategory/Percent 关联，
                         供税务计算引擎识别适用税率类型。
                         例：SA_VAT_S（标准税率）、SA_VAT_E（豁免）。
                     </xs:documentation>
@@ -364,6 +571,116 @@
     </xs:complexType>
 
     <!-- ============================================================
+         LineModificationType
+         行级修改信息，仅匈牙利红票/改票（381）使用（HU）。
+         ============================================================ -->
+    <xs:complexType name="LineModificationType">
+        <xs:annotation>
+            <xs:documentation>
+                行级修改信息（HU 红票/改票 381）。
+                描述该行相对于原始发票的操作类型及连续行号。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 行操作类型：枚举值 CREATE / MODIFY / DELETE -->
+            <xs:element name="LineOperation" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        行操作类型。标识该行相对于原始发票的变更类型：
+                        CREATE = 新增行；MODIFY = 修改行；DELETE = 删除行。
+                        PUF 对应：lineModificationReferenceLineOperation。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="CREATE"/>
+                        <xs:enumeration value="MODIFY"/>
+                        <xs:enumeration value="DELETE"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <!-- 连续行号引用：延续原始发票行号的连续编号（正整数）-->
+            <xs:element name="LineNumberReference" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        连续行号引用（正整数）。延续原始发票行号的连续编号，
+                        用于在改票中明确标识行的上下文位置。
+                        PUF 对应：lineModificationReferenceLineNumberReference。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger"/>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         AdvancePaymentType
+         预付款信息，仅匈牙利预付款抵扣行（LineExpressionIndicator=false）使用（HU）。
+         ============================================================ -->
+    <xs:complexType name="AdvancePaymentType">
+        <xs:annotation>
+            <xs:documentation>
+                预付款信息（HU 预付款抵扣行）。
+                放在 LineExpressionIndicator=false 的行扩展内，
+                描述原始预付款发票的关键信息。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 预付款指示器：固定 true，标识本行为预付款抵扣行（KDUBL-EXT-013）-->
+            <xs:element name="AdvanceIndicator" type="xs:boolean"
+                        minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        预付款指示器。固定值 true，标识本行是预付款抵扣行。
+                        PUF 对应：advanceIndicator。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 原始预付款发票号，不能为空字符串（KDUBL-EXT-013）-->
+            <xs:element name="AdvanceOriginalInvoice" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        原始预付款发票的发票号。不能为空字符串。
+                        PUF 对应：advanceOriginalInvoice。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <!-- 预付款支付日期（格式 YYYY-MM-DD）-->
+            <xs:element name="AdvancePaymentDate" type="xs:date"
+                        minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        买方实际支付预付款的日期（格式 YYYY-MM-DD）。
+                        PUF 对应：advancePaymentDate。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 预付款支付时的汇率，同货币填 1.00 -->
+            <xs:element name="AdvanceExchangeRate" type="xs:decimal"
+                        minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        预付款支付时的汇率（正十进制数）。
+                        开票货币与计税货币相同时填 1.00。
+                        PUF 对应：advanceExchangeRate。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
          共用类型：AmountType
          带强制货币代码属性的金额类型，被多处金额字段复用。
          ============================================================ -->
@@ -371,7 +688,7 @@
         <xs:annotation>
             <xs:documentation>
                 货币金额类型。十进制数值，必须携带 currencyID 属性
-                （ISO 4217 三字母货币代码，如 CNY、USD、EUR）。
+                （ISO 4217 三字母货币代码）。
             </xs:documentation>
         </xs:annotation>
         <xs:simpleContent>
@@ -380,7 +697,7 @@
                 <xs:attribute name="currencyID" type="xs:string" use="required">
                     <xs:annotation>
                         <xs:documentation>
-                            ISO 4217 货币代码，必填。例：CNY、USD、EUR、SAR、THB。
+                            ISO 4217 货币代码，必填。例：CNY、USD、EUR、SAR、THB、HUF。
                         </xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
