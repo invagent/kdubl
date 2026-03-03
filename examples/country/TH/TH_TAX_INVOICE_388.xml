@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
+            <ext:ExtensionContent>
+                <kdubl:PiaozoneExtension>
+                    <kdubl:SupplierAddressInfo>
+                        <!-- 街道 -->
+                        <kdubl:SubdistrictCode>101203</kdubl:SubdistrictCode>
+                        <kdubl:SubdistrictName>Chong Nonsi</kdubl:SubdistrictName>
+                        <!-- district name -->
+                        <kdubl:CitySubdivisionCode>1012</kdubl:CitySubdivisionCode>
+                    </kdubl:SupplierAddressInfo>
+                    <kdubl:CustomerAddressInfo>
+                        <kdubl:SubdistrictCode>101203</kdubl:SubdistrictCode>
+                        <kdubl:SubdistrictName>Chong Nonsi</kdubl:SubdistrictName>
+                        <kdubl:CitySubdivisionCode>1012</kdubl:CitySubdivisionCode>
+                    </kdubl:CustomerAddressInfo>
+                </kdubl:PiaozoneExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <!-- UBL Version and Customization -->
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Header - Matching Postman Collection Data -->
+    <cbc:ID>INVTAXINVOICE20260203006</cbc:ID>
+    <cbc:IssueDate>2026-02-02</cbc:IssueDate>
+    <cbc:IssueTime>00:00:00+00:00</cbc:IssueTime>
+    <cbc:InvoiceTypeCode>388</cbc:InvoiceTypeCode>
+<!--    <cbc:Note>Test invoice for DE-TAX Thailand integration</cbc:Note>-->
+    <cbc:DocumentCurrencyCode>THB</cbc:DocumentCurrencyCode>
+    <cbc:BuyerReference>123</cbc:BuyerReference>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>PO-2026-001</cbc:ID>
+    </cac:OrderReference>
+
+    <cac:AdditionalDocumentReference>
+        <!-- 泰国的发票子类型有：
+            388	Tax Invoice
+            T02	Invoice / Tax Invoice
+            T03	Receipt / Tax Invoice
+            80	Credit
+            81	Debit -->
+        <cbc:ID schemeName="InvoiceTag">388</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Business Context: Standard -->
+<!--    <cac:AdditionalDocumentReference>-->
+<!--        <cbc:ID schemeName="InvoiceTag">Standard</cbc:ID>-->
+<!--        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>-->
+<!--    </cac:AdditionalDocumentReference>-->
+
+    <!-- Seller/Supplier Information - Matching Postman Data -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TH:BRANCH">00000</cbc:ID>
+            </cac:PartyIdentification>
+
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TH:CCPT">00000</cbc:ID>
+            </cac:PartyIdentification>
+
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TH:NIDN">00000</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>KINGDEE INTERNATIONAL SOFTWARE GROUP (THAILAND) CO., LTD.</cbc:Name>
+            </cac:PartyName>
+
+            <cac:PostalAddress>
+                <cbc:StreetName>Building xxx</cbc:StreetName>
+                <cbc:BuildingName>Building xxx</cbc:BuildingName>
+                <cbc:BuildingNumber>111</cbc:BuildingNumber>
+                <cbc:CitySubdivisionName>Yannawa District</cbc:CitySubdivisionName>
+                <cbc:CityName>Bangkok</cbc:CityName>
+                <cbc:PostalZone>10120</cbc:PostalZone>
+                <!-- 省 -->
+                <cbc:CountrySubentity>Bangkok</cbc:CountrySubentity>
+                <cbc:CountrySubentityCode>10</cbc:CountrySubentityCode>
+                <cbc:District>Yannawa</cbc:District>
+                <cac:AddressLine>
+                    <cbc:Line>1023 MS Siam Tower, Rama 3 Road, Bangkok</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>TH</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+
+            <cac:PartyTaxScheme>
+                <cbc:RegistrationName>KINGDEE INTERNATIONAL SOFTWARE GROUP (THAILAND) CO., LTD.</cbc:RegistrationName>
+                <cbc:CompanyID>0105568097339</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>KINGDEE INTERNATIONAL SOFTWARE GROUP (THAILAND) CO., LTD.</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>John Wathson</cbc:Name>
+                <cbc:ElectronicMail>contact@kingdee.co.th</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer/Customer Information - Matching Postman Data -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TH:BRANCH">00000</cbc:ID>
+            </cac:PartyIdentification>
+
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TH:CCPT">00000</cbc:ID>
+            </cac:PartyIdentification>
+
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TH:NIDN">00000</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Test Purchase Company Limited (Public Company)</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Soi XXX</cbc:StreetName>
+                <cbc:BuildingName>Soi XXX</cbc:BuildingName>
+                <cbc:BuildingNumber>222</cbc:BuildingNumber>
+                <!-- "BUYER_ADDRESS": "222 Soi XXX, XXX Street, Chong Nonsi Subdistrict, Yannawa District, Bangkok 10120" -->
+                <!-- district name -->
+                <cbc:CitySubdivisionName>Yannawa District</cbc:CitySubdivisionName>
+                <cbc:CityName>Bangkok</cbc:CityName>
+                <cbc:PostalZone>10120</cbc:PostalZone>
+                <!-- 省 -->
+                <cbc:CountrySubentity>Bangkok</cbc:CountrySubentity>
+                <cbc:CountrySubentityCode>10</cbc:CountrySubentityCode>
+                <cbc:District>Yannawa</cbc:District>
+                <cac:AddressLine>
+                    <cbc:Line>1023 MS Siam Tower, Rama 3 Road, Bangkok</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>TH</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:RegistrationName>Test Purchase Company Limited (Public Company)</cbc:RegistrationName>
+                <cbc:CompanyID>0234567891231</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Test Purchase Company Limited (Public Company)</cbc:RegistrationName>
+                <cbc:CompanyID>3333</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>03-235-02355</cbc:Telephone>
+                <cbc:ElectronicMail>555@gmail.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>42</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>TH1234567890</cbc:ID>
+            <cbc:Name>KINGDEE INTERNATIONAL SOFTWARE GROUP (THAILAND) CO., LTD.</cbc:Name>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>90 Days</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Tax Total - Matching Postman Data -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="THB">258.04</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="THB">4072.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="THB">258.04</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>7</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total - Matching Postman Data -->
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="THB">4072.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="THB">4072.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="THB">4357.04</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="THB">0.00</cbc:AllowanceTotalAmount>
+        <cbc:PayableAmount currencyID="THB">4357.04</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1 - Matching Postman Data Item 1 -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="BX">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="THB">3900.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>00000001</cbc:Description>
+            <cbc:Name>Test the product list at 1</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>7</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="THB">390</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2 - Matching Postman Data Item 2 -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="SET">2</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="THB">172.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>00000002</cbc:Description>
+            <cbc:Name>Test the product list at 2</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>7</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="THB">86</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
