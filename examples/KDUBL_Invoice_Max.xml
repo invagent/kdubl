@@ -337,7 +337,7 @@
 
     <!-- 买方信息 需要确认购方信息需要维护-->
     <cac:AccountingCustomerParty>
-        <cbc:CustomerAssignedAccountID>0003</cbc:CustomerAssignedAccountID>
+        <cbc:SupplierAssignedAccountID>0003</cbc:SupplierAssignedAccountID>
         <cac:Party>
             <cac:PartyIdentification>
                 <!-- 销方其他企业ID:GLN -->

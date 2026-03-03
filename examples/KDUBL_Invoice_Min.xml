@@ -20,7 +20,7 @@
 
     <!-- 买方信息 可以通过客户编码来映射补全购方信息-->
     <cac:AccountingCustomerParty>
-        <cbc:CustomerAssignedAccountID>0003</cbc:CustomerAssignedAccountID>
+        <cbc:SupplierAssignedAccountID>0003</cbc:SupplierAssignedAccountID>
     </cac:AccountingCustomerParty>
 
     <!-- 付款条款 -->

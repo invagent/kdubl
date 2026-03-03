@@ -22,10 +22,10 @@
 <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>
 ```
 
-| 属性 | 说明 |
-|------|------|
-| **含义** | 买方的增值税纳税人身份，决定买方信息允许内容与校验规则 |
-| **可选值** | `DOMESTIC`（境内纳税人）、`OTHER`（境外买方等） |
+| 属性 | 说明                                                      |
+|------|---------------------------------------------------------|
+| **含义** | 买方的增值税纳税人身份，决定买方信息允许内容与校验规则                             |
+| **可选值** | `DOMESTIC`（境内纳税人）、`OTHER`（境外买方等）、 `PRIVATE_PERSON`（个人）  |
 | **PUF 对应** | `puf:RestrictedInformation[Key=customerVatStatus]/Value` |
 
 #### 4.1.3 发票类型名称 — 使用文档级 `SubInvoiceTypeCode` ADR
