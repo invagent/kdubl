@@ -38,13 +38,13 @@
     </cac:OrderReference>
 
     <!-- Reference to original invoice, it is mandatory to be used when InvoiceTypeCode is 381/383 -->
-    <cac:BillingReference>
-        <cac:InvoiceDocumentReference>
-            <!-- Original invoice number -->
-            <cbc:ID>HU20260121001</cbc:ID>
-            <cbc:IssueDate>2026-01-01</cbc:IssueDate>
-        </cac:InvoiceDocumentReference>
-    </cac:BillingReference>
+<!--    <cac:BillingReference>-->
+<!--        <cac:InvoiceDocumentReference>-->
+<!--            &lt;!&ndash; Original invoice number &ndash;&gt;-->
+<!--            <cbc:ID>HU20260121001</cbc:ID>-->
+<!--            <cbc:IssueDate>2026-01-01</cbc:IssueDate>-->
+<!--        </cac:InvoiceDocumentReference>-->
+<!--    </cac:BillingReference>-->
 
     <!-- 销方信息
     最少只需要传这个字段就可以<cbc:ID schemeID="ERP">ORGID001</cbc:ID>，系统可在主数据匹配到对应的数据；
@@ -75,7 +75,7 @@
                 <cbc:RegistrationName>Kingdee Test Supplier EU</cbc:RegistrationName>
             </cac:PartyLegalEntity>
             <cac:Contact>
-                <cbc:Name>COntact Name</cbc:Name>
+                <cbc:Name>Contact Name</cbc:Name>
                 <cbc:Telephone>+36 01 002 03 04</cbc:Telephone>
                 <cbc:ElectronicMail>supplierxxxx@xxxx.com</cbc:ElectronicMail>
             </cac:Contact>

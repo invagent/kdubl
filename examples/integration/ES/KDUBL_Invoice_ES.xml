@@ -38,6 +38,15 @@
         <cbc:ID>order id 123</cbc:ID>
     </cac:OrderReference>
 
+    <!-- Reference to original invoice, it is mandatory to be used when InvoiceTypeCode is 381/383 -->
+<!--    <cac:BillingReference>-->
+<!--        <cac:InvoiceDocumentReference>-->
+<!--            &lt;!&ndash; Original invoice number &ndash;&gt;-->
+<!--            <cbc:ID>INV20260121001</cbc:ID>-->
+<!--            <cbc:IssueDate>2026-01-01</cbc:IssueDate>-->
+<!--        </cac:InvoiceDocumentReference>-->
+<!--    </cac:BillingReference>-->
+
     <!-- 销方信息
     最少只需要传这个字段就可以<cbc:ID schemeID="ERP">ORGID001</cbc:ID>，系统可在主数据匹配到对应的数据；
     其他字段也可以传，不会被覆盖；-->
@@ -60,7 +69,7 @@
                     <cbc:Line>Sales department</cbc:Line>
                 </cac:AddressLine>
                 <cac:Country>
-                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
@@ -92,7 +101,7 @@
                     <cbc:Line>Sales department</cbc:Line>
                 </cac:AddressLine>
                 <cac:Country>
-                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
@@ -122,7 +131,7 @@
                     <cbc:Line>XXX department</cbc:Line>
                 </cac:AddressLine>
                 <cac:Country>
-                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
