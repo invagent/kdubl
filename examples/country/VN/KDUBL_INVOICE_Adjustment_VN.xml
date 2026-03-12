@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!--    参考https://pagero.github.io/puf-billing/-->
+
+    <!--    hardcode  逻辑字段通道处理-->
+    <!-- Values in invoice are examples values only. -->
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <!-- 发票头信息 -->
+    <!--    Invoice Number-->
+<!--    <cbc:ID>C25TKK-10000026</cbc:ID>-->
+    <!--    Invoice Date-->
+    <cbc:IssueDate>2026-03-12</cbc:IssueDate>
+    <cbc:IssueTime>14:48:00+08:00</cbc:IssueTime>
+    <!--    截止日期-->
+    <cbc:DueDate>2025-08-24</cbc:DueDate>
+    <!--    发票类型 -->
+<!--    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>-->
+    <cbc:InvoiceTypeCode>388</cbc:InvoiceTypeCode>
+    <cbc:Note>Ordered at trade show</cbc:Note>
+    <!--    发票货币代码-->
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+    <!-- 购买方联系人 -->
+    <cbc:BuyerReference>123</cbc:BuyerReference>
+    <!--   TODO
+     发票周期A period to which the Invoice applies. -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-01-10</cbc:StartDate>
+        <cbc:EndDate>2026-05-16</cbc:EndDate>
+    </cac:InvoicePeriod>
+    <!-- 关联采购订单号 -->
+    <cac:OrderReference>
+        <cbc:ID>123</cbc:ID>
+    </cac:OrderReference>
+    <!--    逻辑字段 红票 -->
+    <cac:BillingReference>
+        <cac:InvoiceDocumentReference>
+            <cbc:ID>C26TKK-10001146</cbc:ID>
+            <cbc:IssueDate>2026-03-12</cbc:IssueDate>
+            <cbc:IssueTime>14:48:00+08:00</cbc:IssueTime>
+        </cac:InvoiceDocumentReference>
+    </cac:BillingReference>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
+        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+    <!--    逻辑字段 业务类型 TODO need more check-->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">Adjustment</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+    <!--    逻辑字段 是否反向开票
+    TODO need more check -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">False</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+    <!--    逻辑字段 判断是否为mtt开票-->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">01GTKT</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+    <!--    逻辑字段 对应越南的Serial字段-->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">C26TKK</cbc:ID>
+        <cbc:DocumentType>InvoiceCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- TODO
+     运货单ID CMR 发票业务字段-->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>09728/09727</cbc:ID>
+        <cbc:DocumentType>CMR</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- 附件 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>doc1</cbc:ID>
+        <cbc:DocumentDescription>Usage breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>http://www.salescompany.be/breakdown001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>doc2</cbc:ID>
+        <cbc:DocumentDescription>Usage breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>http://www.salescompany.be/breakdown002.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>doc2</cbc:ID>
+        <cbc:DocumentDescription>Usage summary</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cbc:EmbeddedDocumentBinaryObject filename="report.csv" mimeCode="text/csv">
+                aHR0cHM6Ly90ZXN0LXZlZmEuZGlmaS5uby9wZXBwb2xiaXMvcG9hY2MvYmlsbGluZy8zLjAvYmlzLw==
+            </cbc:EmbeddedDocumentBinaryObject>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- 卖方信息 -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+
+            <!--            如果有Peppol ID， 在此传入 0195-->
+                        <cbc:EndpointID schemeID="0195">SG1234567891</cbc:EndpointID>
+            <!--            逻辑字段，需要通道处理 在欧洲，PartyTaxScheme/CompanyID放入此值；schemeID需要根据税种+国家读-https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/ -->
+<!--            <cbc:EndpointID schemeID="9932">NL827333365B01</cbc:EndpointID>-->
+<!--            <cac:PartyIdentification>-->
+<!--                &lt;!&ndash; 销方其他企业ID:GLN &ndash;&gt;-->
+<!--                <cbc:ID schemeID="PEPPOL">0195:NL00000003</cbc:ID>-->
+<!--            </cac:PartyIdentification>-->
+<!--            <cac:PartyIdentification>-->
+<!--                &lt;!&ndash; 销方其他企业ID:GLN &ndash;&gt;-->
+<!--                <cbc:ID schemeID="IBAN">NL00000003</cbc:ID>-->
+<!--            </cac:PartyIdentification>-->
+            <cac:PartyIdentification>
+                <!-- 销方其他企业ID:GLN -->
+                <cbc:ID schemeID="">0104128565-999</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Supplier3 NL</cbc:Name>
+            </cac:PartyName>
+            <!--            [NL-R-003] For suppliers in the Netherlands, the legal entity identifier MUST be either a KVK or OIN number (schemeID 0106 or 0190)-->
+            <!-- 销方地址信息 -->
+            <cac:PostalAddress>
+                <cbc:StreetName>32132</cbc:StreetName>
+                <cbc:CityName>312</cbc:CityName>
+                <cbc:PostalZone>60311</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+<!--            <cac:PostalAddress>-->
+<!--                <cbc:StreetName>Neue Mainzer Straße 75</cbc:StreetName>-->
+<!--                <cbc:AdditionalStreetName>Building 3</cbc:AdditionalStreetName>-->
+<!--                <cbc:CityName>Frankfurt am Main</cbc:CityName>-->
+<!--                <cbc:PostalZone>60311</cbc:PostalZone>-->
+<!--                <cbc:CountrySubentity>xxxx</cbc:CountrySubentity>-->
+<!--                <cac:Country>-->
+<!--                    <cbc:IdentificationCode>NL</cbc:IdentificationCode>-->
+<!--                </cac:Country>-->
+<!--            </cac:PostalAddress>-->
+            <cac:PartyTaxScheme>
+                <!--                税务ID-->
+                <cbc:CompanyID>0104128565-999</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <!--                    税种-->
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!--            企业合法信息-->
+            <cac:PartyLegalEntity>
+                <!--                企业名称-->
+                <cbc:RegistrationName>Kingdee Test Supplier3 NL</cbc:RegistrationName>
+                <!--                合法国家ID；新加坡对应UEN，必填-->
+                <cbc:CompanyID schemeID="KVK">0104128565-999</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:ElectronicMail>quanchun_lei@pkingdee.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- 买方信息 需要确认购方信息需要维护-->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <!--            https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/ -->
+            <cbc:EndpointID schemeID="9932">GB559403414101</cbc:EndpointID>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="">0104128565-999</cbc:ID>
+            </cac:PartyIdentification>
+<!--            <cac:PartyIdentification>-->
+<!--                &lt;!&ndash; 销方其他企业ID:GLN &ndash;&gt;-->
+<!--                <cbc:ID schemeID="GLN">NL00000003</cbc:ID>-->
+<!--            </cac:PartyIdentification>-->
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Buyer DE</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>312</cbc:StreetName>
+                <cbc:CityName>312</cbc:CityName>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>0104128565-999</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Buyer DE</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="HR">0104128565-999</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <!--            不必填-->
+            <cac:Contact>
+<!--                <cbc:Telephone>+46 73 572 50 32</cbc:Telephone>-->
+                <cbc:ElectronicMail>quanchun_lei@kingdee.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- 税务代理 还需要设计原型
+    TODO -->
+    <cac:TaxRepresentativeParty>
+        <cac:PartyName>
+            <cbc:Name>06in Warehousing &amp; Logistics BV</cbc:Name> <!-- BT-62 -->
+        </cac:PartyName>
+        <cac:PostalAddress>
+            <cbc:StreetName>Klongomakersstraat 89</cbc:StreetName>
+            <cbc:CityName>Rotterdam-Hoogville</cbc:CityName>
+            <cbc:PostalZone>3194 DD</cbc:PostalZone>
+            <cac:Country>
+                <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+            </cac:Country>
+        </cac:PostalAddress>
+        <cac:PartyTaxScheme>
+            <cbc:CompanyID>NL813392081B01</cbc:CompanyID>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:PartyTaxScheme>
+    </cac:TaxRepresentativeParty>
+
+
+    <!-- 货运信息 -->
+    <cac:Delivery>
+        <!--        交货日期
+        [BR-IC-11]-In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118) is "Intra-community supply" the Actual delivery date (BT-72) or the Invoicing period (BG-14) shall not be blank.-->
+        <cbc:ActualDeliveryDate>2025-01-01</cbc:ActualDeliveryDate>
+        <cac:DeliveryAddress>
+            <!-- Address of Discharge -->
+            <cbc:StreetName>Discharge Street 123</cbc:StreetName>
+            <cbc:CityName>Antwerp</cbc:CityName>
+            <cbc:PostalZone>2000</cbc:PostalZone>
+            <cac:Country>
+                <cbc:IdentificationCode>BE</cbc:IdentificationCode>
+            </cac:Country>
+        </cac:DeliveryAddress>
+
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cac:Country>
+                    <!--    逻辑需要处理，自动加上国家，为DeliveryAddress/Country/IdentificationCode
+                     [BR-IC-12]-In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118)
+                     is "Intra-community supply" the Deliver to country code (BT-80) shall not be blank.-->
+                    <cbc:IdentificationCode>NL</cbc:IdentificationCode> <!-- 就是 BT-80 -->
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+
+        <cac:DeliveryTerms>
+            <cbc:ID>RCA</cbc:ID>
+        </cac:DeliveryTerms>
+        <cac:Shipment>
+            <cbc:ID>SHIPMENTID</cbc:ID>
+            <!-- VIA: BY TRUCK -->
+            <cac:ShipmentStage>
+                <cbc:TransportModeCode>3</cbc:TransportModeCode> <!-- 3 = Road -->
+                <cbc:Instructions>BY TRUCK</cbc:Instructions>
+                <!--        <cac:CarrierParty>-->
+                <!--          <cac:PartyName>-->
+                <!--            <cbc:Name>Example Trucking Co.</cbc:Name>-->
+                <!--          </cac:PartyName>-->
+                <!--        </cac:CarrierParty>-->
+            </cac:ShipmentStage>
+
+            <!-- Shipped From -->
+            <cac:OriginAddress>
+                <cac:Country>
+                    <cbc:IdentificationCode>CN</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:OriginAddress>
+            <!-- Port of Loading -->
+            <cac:LastExitPortLocation>
+                <cbc:Name>Rotterdam</cbc:Name>
+            </cac:LastExitPortLocation>
+        </cac:Shipment>
+    </cac:Delivery>
+
+    <!-- 银行账户信息 -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode name="Cash payment">TM</cbc:PaymentMeansCode> <!-- paym -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>DE29300700100978759900</cbc:ID>
+            <cbc:Name>TONGWEI SOLAR (GERMANY) GmbH</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>DEUTDEDDXXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>Doutache Bank AG</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- 付款条款 -->
+    <cac:PaymentTerms>
+        <cbc:Note>10% advance payment by T/T within 3 working days after contract signing, 90% balance before Rotterdam
+            pick up date
+        </cbc:Note>
+    </cac:PaymentTerms>
+
+    <!--    表头折扣/收费-->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="EUR">20</cbc:Amount>
+        <!--        LegalMonetaryTotal/LineExtensionAmount-->
+        <cbc:BaseAmount currencyID="EUR">200</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>21</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>-100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="EUR">-20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>21</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <cac:TaxExchangeRate>
+        <cbc:SourceCurrencyCode>EUR</cbc:SourceCurrencyCode>
+        <cbc:TargetCurrencyCode>VND</cbc:TargetCurrencyCode>
+        <cbc:CalculationRate>2000</cbc:CalculationRate>   <!-- exrt -->
+        <cbc:MathematicOperatorCode>Multiply</cbc:MathematicOperatorCode>
+    </cac:TaxExchangeRate>
+
+    <!--    税额统计-->
+    <cac:TaxTotal>
+        <!--        总税额=sum(所有商品行税额)-表头折扣税额+表头收费的税额-->
+        <cbc:TaxAmount currencyID="EUR">21</cbc:TaxAmount> <!-- BT-110 -->
+        <!--        分类统计税码对应的税额-->
+        <cac:TaxSubtotal>
+            <!--            税码是S的所有不含税金额的和-->
+            <cbc:TaxableAmount currencyID="EUR">-100</cbc:TaxableAmount> <!-- BT-116 -->
+            <!--            税码是S的所有税额的和-->
+            <cbc:TaxAmount currencyID="EUR">-21</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 -->
+                <cbc:Percent>21</cbc:Percent> <!-- BT-119 -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID> <!-- BT-118, qualifier -->
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">-100</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="EUR">0</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>K</cbc:ID> <!-- BT-118 -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT
+                    ID: DE123456789.
+                </cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID> <!-- BT-118, qualifier -->
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- 总计 -->
+    <cac:LegalMonetaryTotal>
+        <!--        所有商品行的不含税金额的和-->
+        <cbc:LineExtensionAmount currencyID="EUR">-200</cbc:LineExtensionAmount>
+        <!--        所有商品行-折扣+收费的不含税金额的和-->
+        <cbc:TaxExclusiveAmount currencyID="EUR">-200</cbc:TaxExclusiveAmount>
+        <!--        所有含税金额的和-->
+        <cbc:TaxInclusiveAmount currencyID="EUR">-221</cbc:TaxInclusiveAmount>
+        <!--        所有表头折扣的和-->
+        <cbc:AllowanceTotalAmount currencyID="EUR">-20</cbc:AllowanceTotalAmount>
+        <!--        所有表头收费的和-->
+        <cbc:ChargeTotalAmount currencyID="EUR">-20</cbc:ChargeTotalAmount>
+        <!--        总金额-->
+        <cbc:PayableAmount currencyID="EUR">-221</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+
+    <!-- 商品行项目1 -->
+    <cac:InvoiceLine>
+        <!--        行号-->
+        <cbc:ID>1</cbc:ID>
+        <!--        单位 https://docs.peppol.eu/poacc/billing/3.0/codelist/UNECERec20/ / 数量-->
+        <!--        https://github.com/OpenPEPPOL/peppol-bis-invoice-3/blob/master/structure/codelist/UNECERec20-11e.xml-->
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <!--        不含税金额（包含折扣和收费）-->
+        <cbc:LineExtensionAmount currencyID="EUR">-100</cbc:LineExtensionAmount>
+        <cac:Item>
+            <!--            商品名称-->
+            <cbc:Name>Solar Module</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <!--                税码-->
+                <cbc:ID>S</cbc:ID>
+                <!--                税率-->
+                <cbc:Percent>21</cbc:Percent>
+                <!--                税码-->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <!--            单价-->
+            <cbc:PriceAmount currencyID="EUR">5</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- 商品行项目2 -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <!--        LineExtensionAmount = 数量*单价-折扣+收费 100 = 10*10-5+5-->
+        <cbc:LineExtensionAmount currencyID="EUR">-100</cbc:LineExtensionAmount>
+        <!--        折扣/收费行-->
+        <cac:AllowanceCharge>
+            <!--   false是折扣 ，就是减        -->
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <!--            折扣原因和编码，二者必填一个-->
+            <cbc:AllowanceChargeReasonCode>-100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <!--            折扣百分比-->
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <!--        BaseAmount*  MultiplierFactorNumeric/100   折扣金额  -->
+            <cbc:Amount currencyID="EUR">-5</cbc:Amount>
+            <!--            等于单价*数量-->
+            <cbc:BaseAmount currencyID="EUR">-100</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <!--   false是收费 ，就是加        -->
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="EUR">-5</cbc:Amount>
+            <cbc:BaseAmount currencyID="EUR">-100</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>TWMND-72HD590</cbc:Description>
+            <cbc:Name>Solar Module</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <!--    TODO
+                    当税率为零时，必须填写ID。从G/O/K/AE/E选择，TaxExemptionReasonCode或者TaxExemptionReason 免税原因两者必填一个-->
+                <!--                https://github.com/OpenPEPPOL/peppol-bis-invoice-3/blob/master/structure/codelist/VATEX.xml-->
+                <!--                https://docs.peppol.eu/poacc/billing/3.0/codelist/vatex/-->
+                <cbc:ID>K</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT
+                    ID: DE123456789.
+                </cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">10</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
