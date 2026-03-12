@@ -192,13 +192,9 @@
         <cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason>
         <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
         <cbc:Amount>20</cbc:Amount>
-        <cbc:BaseAmount>200</cbc:BaseAmount>
         <cac:TaxCategory>
             <cbc:ID>S</cbc:ID>
             <cbc:Percent>21</cbc:Percent>
-            <cac:TaxScheme>
-                <cbc:ID>VAT</cbc:ID>
-            </cac:TaxScheme>
         </cac:TaxCategory>
     </cac:AllowanceCharge>
 
@@ -210,9 +206,6 @@
         <cac:TaxCategory>
             <cbc:ID>S</cbc:ID>
             <cbc:Percent>21</cbc:Percent>
-            <cac:TaxScheme>
-                <cbc:ID>VAT</cbc:ID>
-            </cac:TaxScheme>
         </cac:TaxCategory>
     </cac:AllowanceCharge>
 
@@ -249,9 +242,6 @@
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID>
                 <cbc:Percent>21</cbc:Percent>
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID>
-                </cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
         </cac:Item>
         <cac:Price>
@@ -276,9 +266,7 @@
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
-            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
             <cbc:Amount>5</cbc:Amount>
-            <cbc:BaseAmount>100</cbc:BaseAmount>
         </cac:AllowanceCharge>
         <cac:Item>
             <cbc:Description>TWMND-72HD590</cbc:Description>
@@ -286,12 +274,10 @@
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>K</cbc:ID>
                 <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>ICS</cbc:TaxExemptionReasonCode>
                 <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT
                     ID: DE123456789.
                 </cbc:TaxExemptionReason>
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID>
-                </cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
         </cac:Item>
         <cac:Price>
