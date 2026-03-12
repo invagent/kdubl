@@ -165,21 +165,6 @@
                 </cac:Country>
             </cac:Address>
         </cac:DeliveryLocation>
-
-        <cac:Despatch>
-            <cac:DespatchAddress>
-                <cbc:StreetName>Warehouse 5</cbc:StreetName>
-                <cbc:CityName>Hamburg</cbc:CityName>
-                <cbc:PostalZone>20095</cbc:PostalZone>
-                <cbc:CountrySubentity>xxx</cbc:CountrySubentity>
-                <cac:AddressLine>
-                    <cbc:Line>despatch department</cbc:Line>
-                </cac:AddressLine>
-                <cac:Country>
-                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
-                </cac:Country>
-            </cac:DespatchAddress>
-        </cac:Despatch>
     </cac:Delivery>
 
     <!-- 银行账户信息 -->
