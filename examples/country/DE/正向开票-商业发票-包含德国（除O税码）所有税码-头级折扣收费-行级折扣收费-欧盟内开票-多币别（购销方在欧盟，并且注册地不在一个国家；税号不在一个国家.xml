@@ -99,11 +99,11 @@
          <cac:Contact>
             <cbc:Name>Bob</cbc:Name>
             <cbc:Telephone>5489633</cbc:Telephone>
-            <cbc:ElectronicMail>xxxxx@DJI.com</cbc:ElectronicMail>
+            <cbc:ElectronicMail>xxxxx@XXXXXX.com</cbc:ElectronicMail>
          </cac:Contact>
       </cac:Party>
       <cac:AccountingContact>
-         <cbc:ElectronicMail>xxxxx@DJI.com</cbc:ElectronicMail>
+         <cbc:ElectronicMail>xxxxx@XXXXXX.com</cbc:ElectronicMail>
       </cac:AccountingContact>
    </cac:AccountingCustomerParty>
    <cac:Delivery>
