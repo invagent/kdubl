@@ -197,7 +197,7 @@
     <cbc:ID>TW20250147-0090</cbc:ID>
     <!--    Invoice Date-->
     <cbc:IssueDate>2025-03-31</cbc:IssueDate>
-    <cbc:IssueTime>12:00:00</cbc:IssueTime>
+    <cbc:IssueTime>12:00:00+08:00</cbc:IssueTime>
     <!--    截止日期-->
     <cbc:DueDate>2025-08-14</cbc:DueDate>
     <!--    发票类型 -->
