@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
          xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
-         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-         xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0">
-
-<!--    和Common的不同-->
-<!--    1: 增加发票行的商品属性，是货物还是服务-->
-<!--    2: 去掉发票头的折扣和收费-->
-
-    <ext:UBLExtensions>
-        <ext:UBLExtension>
-            <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
-            <ext:ExtensionContent>
-                <kdubl:PiaozoneExtension>
-                    <!-- HU: Invoice appearance - how the document is distributed, system will hardcode to ELECTRONIC -->
-<!--                    <kdubl:InvoiceAppearance>ELECTRONIC</kdubl:InvoiceAppearance>-->
-                    <!-- HU: Customer VAT status - determines allowed content and rules
-                    DOMESTIC、PRIVATE_PERSON、OTHER
-                    根据传入参数TradeType和CustomerType，可以得出该值，系统可补全-->
-<!--                    <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>-->
-                    <!-- HU: Line-level extensions -->
-                    <kdubl:LineExtensions>
-                        画<kdubl:LineExtension>
-                            <kdubl:LineID>1</kdubl:LineID>
-                            <!-- HU: Whether the unit can be expressed as a natural unit of measurement -->
-                            <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
-                        </kdubl:LineExtension>
-                    </kdubl:LineExtensions>
-                </kdubl:PiaozoneExtension>
-            </ext:ExtensionContent>
-        </ext:UBLExtension>
-    </ext:UBLExtensions>
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 
     <!-- Values in invoice are examples values only. -->
 
@@ -49,19 +19,12 @@
     <cbc:DueDate>2025-08-14</cbc:DueDate>
     <!--    发票类型 -->
     <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
-    <cbc:Note>Ordered at trade show</cbc:Note>
+    <cbc:Note>this is invoice notes for b2c</cbc:Note>
     <cbc:TaxPointDate>2025-09-14</cbc:TaxPointDate>
     <!--    发票货币代码-->
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
-    <!--    发票计税货币代码 跨境贸易使用-->
-    <cbc:TaxCurrencyCode>NLG</cbc:TaxCurrencyCode>
     <!-- 购买方联系人 -->
     <cbc:BuyerReference>test@buyer.com</cbc:BuyerReference>
-    <!--  结算/交付周期；预付款必填 -->
-    <cac:InvoicePeriod>
-        <cbc:StartDate>2025-10-10</cbc:StartDate>
-        <cbc:EndDate>2025-10-16</cbc:EndDate>
-    </cac:InvoicePeriod>
     <!-- 关联客户方的采购订单号 -->
     <cac:OrderReference>
         <cbc:ID>order id 123</cbc:ID>
@@ -76,24 +39,29 @@
 <!--        </cac:InvoiceDocumentReference>-->
 <!--    </cac:BillingReference>-->
 
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
     <!-- 销方信息
     最少只需要传这个字段就可以<cbc:ID schemeID="ERP">ORGID001</cbc:ID>，系统可在主数据匹配到对应的数据；
     其他字段也可以传，不会被覆盖；-->
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>
-                <cbc:ID schemeID="ERP">ORGID001</cbc:ID>
+                <cbc:ID schemeID="ERP">BU-00008</cbc:ID>
             </cac:PartyIdentification>
             <!--企业ID（税号）信息-->
             <cac:PartyIdentification>
-                <cbc:ID schemeID="HU:VAT">HU827333365B01</cbc:ID>
+                <cbc:ID schemeID="DE:VAT">DE827333365B01</cbc:ID>
             </cac:PartyIdentification>
             <!-- 销方地址信息 -->
             <cac:PostalAddress>
                 <cbc:StreetName>Mainstreet 112</cbc:StreetName>
-                <cbc:CityName>Singapore</cbc:CityName>
-                <cbc:PostalZone>1000</cbc:PostalZone>
-                <cbc:CountrySubentity>Singapore</cbc:CountrySubentity>
+                <cbc:CityName>DE CITY</cbc:CityName>
+                <cbc:PostalZone>10001</cbc:PostalZone>
+                <cbc:CountrySubentity>DE State</cbc:CountrySubentity>
                 <cac:AddressLine>
                     <cbc:Line>Sales department</cbc:Line>
                 </cac:AddressLine>
@@ -102,11 +70,11 @@
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Kingdee Test Supplier EU</cbc:RegistrationName>
+                <cbc:RegistrationName>Kingdee Test Supplier DE</cbc:RegistrationName>
             </cac:PartyLegalEntity>
             <cac:Contact>
-                <cbc:Name>COntact Name</cbc:Name>
-                <cbc:Telephone>+36 01 002 03 04</cbc:Telephone>
+                <cbc:Name>Contact Name</cbc:Name>
+                <cbc:Telephone>+48 01 002 03 04</cbc:Telephone>
                 <cbc:ElectronicMail>supplierxxxx@xxxx.com</cbc:ElectronicMail>
             </cac:Contact>
         </cac:Party>
@@ -114,82 +82,45 @@
 
     <!-- 买方信息-->
     <cac:AccountingCustomerParty>
-        <!-- 买方信息的编号 可以通过此编码在系统中匹配买方信息-->
-        <cbc:SupplierAssignedAccountID>0003</cbc:SupplierAssignedAccountID>
         <cac:Party>
-            <!--企业ID（税号）信息-->
-            <cac:PartyIdentification>
-                <cbc:ID schemeID="GB:VAT">GB559403414101</cbc:ID>
-            </cac:PartyIdentification>
             <cac:PostalAddress>
-                <cbc:StreetName>Customer Street Name</cbc:StreetName>
-                <cbc:CityName>Customer City Name</cbc:CityName>
-                <cbc:PostalZone>Customer PostalZone</cbc:PostalZone>
-                <cbc:CountrySubentity>Customer Province/State</cbc:CountrySubentity>
+                <cbc:StreetName>Consumer Street Name</cbc:StreetName>
+                <cbc:CityName>Consumer City Name</cbc:CityName>
+                <cbc:PostalZone>12345</cbc:PostalZone>
+                <cbc:CountrySubentity>DE State</cbc:CountrySubentity>
                 <cac:AddressLine>
-                    <cbc:Line>Sales department</cbc:Line>
+                    <cbc:Line>DE Sales department</cbc:Line>
                 </cac:AddressLine>
                 <cac:Country>
-                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Kingdee Test Buyer EU</cbc:RegistrationName>
+                <cbc:RegistrationName>Kingdee Test Consumer Buyer DE</cbc:RegistrationName>
             </cac:PartyLegalEntity>
             <cac:Contact>
-                <cbc:Name>Test Customer Name</cbc:Name>
+                <cbc:Name>Test Consumer Name</cbc:Name>
                 <cbc:Telephone>+46 73 572 50 32</cbc:Telephone>
                 <cbc:ElectronicMail>buyer@xxxx.com</cbc:ElectronicMail>
             </cac:Contact>
         </cac:Party>
     </cac:AccountingCustomerParty>
-
-    <!-- 实际收货客户信息 -->
-    <cac:BuyerCustomerParty>
-        <cac:Party>
-            <!--企业ID（税号）信息-->
-            <cac:PartyIdentification>
-                <cbc:ID schemeID="DE:VAT">DE559403414101</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PostalAddress>
-                <cbc:StreetName>Buyer Customer Street Name</cbc:StreetName>
-                <cbc:CityName>Buyer Customer City Name</cbc:CityName>
-                <cbc:PostalZone>Buyer Customer PostalZone</cbc:PostalZone>
-                <cbc:CountrySubentity>Buyer Customer Province/State</cbc:CountrySubentity>
-                <cac:AddressLine>
-                    <cbc:Line>XXX department</cbc:Line>
-                </cac:AddressLine>
-                <cac:Country>
-                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
-                </cac:Country>
-            </cac:PostalAddress>
-            <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Kingdee Test Buyer EU</cbc:RegistrationName>
-            </cac:PartyLegalEntity>
-            <cac:Contact>
-                <cbc:Name>Test Buyer Customer Name</cbc:Name>
-                <cbc:Telephone>+46 73 572 50 32</cbc:Telephone>
-                <cbc:ElectronicMail>buyer@xxxx.com</cbc:ElectronicMail>
-            </cac:Contact>
-        </cac:Party>
-    </cac:BuyerCustomerParty>
-
     <!-- 运输发货信息 -->
     <cac:Delivery>
-<!--        实际签收日期-->
+    <!-- 实际签收日期-->
         <cbc:ActualDeliveryDate>2025-01-01</cbc:ActualDeliveryDate>
-<!--送货地址-->
+        <!--送货地址-->
         <cac:DeliveryLocation>
             <cac:Address>
                 <cbc:StreetName>Coolsingel Rotterdam 12</cbc:StreetName>
                 <cbc:CityName>Rotterdam</cbc:CityName>
-                <cbc:PostalZone>700</cbc:PostalZone>
+                <cbc:PostalZone>7001</cbc:PostalZone>
                 <cbc:CountrySubentity>South Holland</cbc:CountrySubentity>
                 <cac:AddressLine>
                     <cbc:Line>Delivery department</cbc:Line>
                 </cac:AddressLine>
                 <cac:Country>
-                    <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
                 </cac:Country>
             </cac:Address>
         </cac:DeliveryLocation>
@@ -200,7 +131,7 @@
         <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
         <cac:PayeeFinancialAccount>
             <cbc:ID>DE23400700****787**300</cbc:ID>
-            <cbc:Name>XXX SOLAR (GERMANY) GmbH</cbc:Name>
+            <cbc:Name>XXXXXX (GERMANY) GmbH</cbc:Name>
             <cac:FinancialInstitutionBranch>
                 <cbc:ID>DEUTDEDDXXX</cbc:ID>
                 <cac:FinancialInstitution>
@@ -216,11 +147,28 @@
         </cbc:Note>
     </cac:PaymentTerms>
 
-    <cac:TaxExchangeRate>
-        <cbc:SourceCurrencyCode>EUR</cbc:SourceCurrencyCode>
-        <cbc:TargetCurrencyCode>USD</cbc:TargetCurrencyCode>
-        <cbc:CalculationRate>1.16</cbc:CalculationRate>
-    </cac:TaxExchangeRate>
+    <!--    表头折扣/收费-->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount>20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>21</cbc:Percent>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <!--        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>-->
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount>20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>21</cbc:Percent>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
 
     <cac:TaxTotal>
         <!-- 总税额=sum(所有商品行税额)-表头折扣税额+表头收费的税额-->
@@ -245,13 +193,10 @@
         <cbc:LineExtensionAmount>100</cbc:LineExtensionAmount>
         <cac:Item>
             <!--            商品名称-->
-            <cbc:Name>Item Module 01</cbc:Name>
+            <cbc:Name>Item01</cbc:Name>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID>
                 <cbc:Percent>21</cbc:Percent>
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID>
-                </cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
         </cac:Item>
         <cac:Price>
@@ -276,26 +221,18 @@
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
-            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
             <cbc:Amount>5</cbc:Amount>
-            <cbc:BaseAmount>100</cbc:BaseAmount>
         </cac:AllowanceCharge>
         <cac:Item>
-            <cbc:Description>TWMND-72HD590</cbc:Description>
-            <cbc:Name>Item01</cbc:Name>
+            <cbc:Name>Item02</cbc:Name>
             <cac:ClassifiedTaxCategory>
-                <cbc:ID>K</cbc:ID>
+                <cbc:ID>Z</cbc:ID>
                 <cbc:Percent>0</cbc:Percent>
-                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT
-                    ID: DE123456789.
-                </cbc:TaxExemptionReason>
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID>
-                </cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
         </cac:Item>
         <cac:Price>
             <cbc:PriceAmount>10</cbc:PriceAmount>
         </cac:Price>
     </cac:InvoiceLine>
+
 </Invoice>
