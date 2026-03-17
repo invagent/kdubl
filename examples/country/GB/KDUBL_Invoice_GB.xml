@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- United Kingdom (GB) KDUBL Invoice Sample -->
+    <!-- UK VAT standard rate: 20% -->
+    <!-- Zero-rated (Z) exports outside UK/EU -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>GB20260317001001</cbc:ID>
+    <!-- Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+00:00</cbc:IssueTime>
+    <!-- Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>VAT Invoice as required by HMRC VAT regulations</cbc:Note>
+    <!-- Currency: GBP -->
+    <cbc:DocumentCurrencyCode>GBP</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference -->
+    <cbc:BuyerReference>GB-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>GB-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>GB-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Invoice breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.co.uk/invoice/breakdown001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee UK Limited</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address -->
+            <cac:PostalAddress>
+                <cbc:StreetName>1 Canada Square</cbc:StreetName>
+                <cbc:AdditionalStreetName>Canary Wharf</cbc:AdditionalStreetName>
+                <cbc:CityName>London</cbc:CityName>
+                <cbc:PostalZone>E14 5AB</cbc:PostalZone>
+                <cbc:CountrySubentity>England</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- UK VAT Registration Number: GB + 9 digits -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>GB123456789</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- Companies House Registration Number -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee UK Limited</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="GB:COH">12345678</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>James Wilson</cbc:Name>
+                <cbc:Telephone>+44-20-1234-5678</cbc:Telephone>
+                <cbc:ElectronicMail>james.wilson@kingdee.co.uk</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) Information -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>British Buyer plc</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>10 Downing Street</cbc:StreetName>
+                <cbc:AdditionalStreetName>Westminster</cbc:AdditionalStreetName>
+                <cbc:CityName>London</cbc:CityName>
+                <cbc:PostalZone>SW1A 2AA</cbc:PostalZone>
+                <cbc:CountrySubentity>England</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- Buyer VAT number -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>DE987654321</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>British Buyer plc</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="GB:COH">87654321</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Sarah Thompson</cbc:Name>
+                <cbc:Telephone>+44-20-9876-5432</cbc:Telephone>
+                <cbc:ElectronicMail>sarah.thompson@britishbuyer.co.uk</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Delivery Information -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>123 High Street</cbc:StreetName>
+                <cbc:CityName>Manchester</cbc:CityName>
+                <cbc:PostalZone>M1 1AE</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>GB29NWBK60161331926819</cbc:ID>
+            <cbc:Name>Kingdee UK Limited</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>NWBKGB2LXXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>NatWest Bank plc</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>Payment due within 30 days of invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge (Standard rate 20% VAT) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="GBP">20.00</cbc:Amount>
+        <cbc:BaseAmount currencyID="GBP">200.00</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>20</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount (Standard rate 20% VAT) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="GBP">20.00</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>20</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total -->
+    <cac:TaxTotal>
+        <!-- Total VAT = sum(line VAT) - header discount VAT + header charge VAT -->
+        <cbc:TaxAmount currencyID="GBP">20.00</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Standard rate 20% UK VAT -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="GBP">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="GBP">20.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rated -->
+                <cbc:Percent>20</cbc:Percent> <!-- BT-119 UK VAT standard rate -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- Zero-rated export (Z category) -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="GBP">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="GBP">0.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>Z</cbc:ID> <!-- BT-118 Zero-rated -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+<!--                <cbc:TaxExemptionReasonCode>VATEX-EU-132</cbc:TaxExemptionReasonCode>-->
+<!--                <cbc:TaxExemptionReason>Zero-rated goods exported outside the UK. VATA 1994, Schedule 8.</cbc:TaxExemptionReason>-->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total -->
+    <cac:LegalMonetaryTotal>
+        <!-- Sum of all line net amounts -->
+        <cbc:LineExtensionAmount currencyID="GBP">200.00</cbc:LineExtensionAmount>
+        <!-- Tax exclusive amount -->
+        <cbc:TaxExclusiveAmount currencyID="GBP">200.00</cbc:TaxExclusiveAmount>
+        <!-- Tax inclusive total -->
+        <cbc:TaxInclusiveAmount currencyID="GBP">220.00</cbc:TaxInclusiveAmount>
+        <!-- Total header allowances -->
+        <cbc:AllowanceTotalAmount currencyID="GBP">20.00</cbc:AllowanceTotalAmount>
+        <!-- Total header charges -->
+        <cbc:ChargeTotalAmount currencyID="GBP">20.00</cbc:ChargeTotalAmount>
+        <!-- Amount due for payment -->
+        <cbc:PayableAmount currencyID="GBP">220.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Standard 20% UK VAT -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="GBP">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Electronic Components</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="GBP">5.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Zero-rated export (Z category) -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="GBP">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="GBP">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="GBP">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="GBP">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="GBP">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Exported goods - zero-rated for UK VAT</cbc:Description>
+            <cbc:Name>Industrial Machinery for Export</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>Z</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-132</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Zero-rated goods exported outside the UK. VATA 1994, Schedule 8.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="GBP">10.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

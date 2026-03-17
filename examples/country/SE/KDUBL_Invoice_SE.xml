@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Sweden (SE) KDUBL Invoice Sample -->
+    <!-- Swedish VAT (Moms) standard rate: 25% -->
+    <!-- Intra-community supply to EU buyer: K category (zero-rated) -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>SE20260317001001</cbc:ID>
+    <!-- Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+01:00</cbc:IssueTime>
+    <!-- Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>Faktura / Swedish VAT Invoice</cbc:Note>
+    <!-- Currency: SEK -->
+    <cbc:DocumentCurrencyCode>SEK</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference -->
+    <cbc:BuyerReference>SE-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>SE-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>SE-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Fakturaspecifikation / Invoice specification</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.se/faktura/spec001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Sverige AB</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address -->
+            <cac:PostalAddress>
+                <cbc:StreetName>Kungsgatan 1</cbc:StreetName>
+                <cbc:AdditionalStreetName>Box 100</cbc:AdditionalStreetName>
+                <cbc:CityName>Stockholm</cbc:CityName>
+                <cbc:PostalZone>10120</cbc:PostalZone>
+                <cbc:CountrySubentity>Stockholm</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- Swedish VAT number: SE + organization number (10 digits) + 01 -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>SE556677123401</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- Swedish organization number -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Sverige AB</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="SE:ORGNR">5566771234</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Erik Andersson</cbc:Name>
+                <cbc:Telephone>+46-8-123-45-67</cbc:Telephone>
+                <cbc:ElectronicMail>erik.andersson@kingdee.se</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) Information (EU buyer for intra-community supply) -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Nordic Buyer AB</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Storgatan 10</cbc:StreetName>
+                <cbc:AdditionalStreetName>Lgh 2</cbc:AdditionalStreetName>
+                <cbc:CityName>Göteborg</cbc:CityName>
+                <cbc:PostalZone>41101</cbc:PostalZone>
+                <cbc:CountrySubentity>Västra Götaland</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- German buyer VAT number for intra-community supply -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>DE987654321</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Nordic Buyer AB</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="DE:STNR">DE987654321</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Anna Lindqvist</cbc:Name>
+                <cbc:Telephone>+46-31-987-65-43</cbc:Telephone>
+                <cbc:ElectronicMail>anna.lindqvist@nordicbuyer.se</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Delivery Information -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>Industrivägen 5</cbc:StreetName>
+                <cbc:CityName>Malmö</cbc:CityName>
+                <cbc:PostalZone>21120</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>SE3550000000054910000003</cbc:ID>
+            <cbc:Name>Kingdee Sverige AB</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>ESSESESSXXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>Skandinaviska Enskilda Banken AB</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>Betalningsvillkor: 30 dagar netto / Net 30 days</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge (Standard rate 25% VAT) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Hanteringsavgift / Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="SEK">200</cbc:Amount>
+        <cbc:BaseAmount currencyID="SEK">2000</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>25</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount (Standard rate 25% VAT) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Rabatt / Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="SEK">200</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>25</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total -->
+    <cac:TaxTotal>
+        <!-- Total VAT = sum(line VAT) - header discount VAT + header charge VAT -->
+        <cbc:TaxAmount currencyID="SEK">250</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Standard rate 25% -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="SEK">1000</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="SEK">250</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rated -->
+                <cbc:Percent>25</cbc:Percent> <!-- BT-119 Swedish VAT standard rate -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- Intra-community supply K at 0% -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="SEK">1000</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="SEK">0</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>K</cbc:ID> <!-- BT-118 Intra-community supply -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT ID: DE987654321.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total -->
+    <cac:LegalMonetaryTotal>
+        <!-- Sum of all line net amounts -->
+        <cbc:LineExtensionAmount currencyID="SEK">2000</cbc:LineExtensionAmount>
+        <!-- Tax exclusive amount -->
+        <cbc:TaxExclusiveAmount currencyID="SEK">2000</cbc:TaxExclusiveAmount>
+        <!-- Tax inclusive total -->
+        <cbc:TaxInclusiveAmount currencyID="SEK">2250</cbc:TaxInclusiveAmount>
+        <!-- Total header allowances -->
+        <cbc:AllowanceTotalAmount currencyID="SEK">200</cbc:AllowanceTotalAmount>
+        <!-- Total header charges -->
+        <cbc:ChargeTotalAmount currencyID="SEK">200</cbc:ChargeTotalAmount>
+        <!-- Amount due for payment -->
+        <cbc:PayableAmount currencyID="SEK">2250</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Standard 25% VAT -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="SEK">1000</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Elektronikkomponent / Electronic Component</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>25</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="SEK">50</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Intra-community supply K at 0% -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="SEK">1000</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Radrabatt / Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="SEK">50</cbc:Amount>
+            <cbc:BaseAmount currencyID="SEK">1000</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Radtillägg / Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="SEK">50</cbc:Amount>
+            <cbc:BaseAmount currencyID="SEK">1000</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Industrimaskiner för export till EU</cbc:Description>
+            <cbc:Name>Industrimaskin / Industrial Machine for EU Export</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>K</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT ID: DE987654321.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="SEK">100</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

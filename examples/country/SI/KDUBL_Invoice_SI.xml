@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Slovenia (SI) KDUBL Invoice Sample -->
+    <!-- Slovenian VAT (DDV - Davek na dodano vrednost) standard rate: 22% -->
+    <!-- Intra-community supply to EU buyer: K category (zero-rated) -->
+    <!-- Currency: EUR (Slovenia uses Euro since 2007) -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>SI20260317001001</cbc:ID>
+    <!-- Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+01:00</cbc:IssueTime>
+    <!-- Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>Račun / Slovenian DDV Invoice</cbc:Note>
+    <!-- Currency: EUR (Slovenia uses Euro) -->
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference -->
+    <cbc:BuyerReference>SI-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>SI-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>SI-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Specifikacija računa / Invoice specification</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.si/racun/spec001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Slovenija d.o.o.</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address -->
+            <cac:PostalAddress>
+                <cbc:StreetName>Slovenska cesta 54</cbc:StreetName>
+                <cbc:AdditionalStreetName>3. nadstropje</cbc:AdditionalStreetName>
+                <cbc:CityName>Ljubljana</cbc:CityName>
+                <cbc:PostalZone>1000</cbc:PostalZone>
+                <cbc:CountrySubentity>Osrednjeslovenska</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>SI</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- Slovenian VAT number: SI + 8 digits (DDV ID) -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>SI12345678</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- Matična številka (Business Registration Number) -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Slovenija d.o.o.</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="SI:TRR">1234567000</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Janez Novak</cbc:Name>
+                <cbc:Telephone>+386-1-234-56-78</cbc:Telephone>
+                <cbc:ElectronicMail>janez.novak@kingdee.si</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) Information (EU buyer for intra-community supply) -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>European Buyer GmbH</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Dunajska cesta 100</cbc:StreetName>
+                <cbc:AdditionalStreetName>Pisarna 5</cbc:AdditionalStreetName>
+                <cbc:CityName>Maribor</cbc:CityName>
+                <cbc:PostalZone>2000</cbc:PostalZone>
+                <cbc:CountrySubentity>Podravska</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- German buyer VAT number for intra-community supply -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>DE765432198</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>European Buyer GmbH</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="DE:STNR">DE765432198</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Ana Kovač</cbc:Name>
+                <cbc:Telephone>+386-2-876-54-32</cbc:Telephone>
+                <cbc:ElectronicMail>ana.kovac@eubuyer.de</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Tax Representative (for intra-community transactions) -->
+    <cac:TaxRepresentativeParty>
+        <cac:PartyName>
+            <cbc:Name>DDV Zastopnik d.o.o. / VAT Representative Ltd.</cbc:Name>
+        </cac:PartyName>
+        <cac:PostalAddress>
+            <cbc:StreetName>Tržaška cesta 19</cbc:StreetName>
+            <cbc:CityName>Ljubljana</cbc:CityName>
+            <cbc:PostalZone>1000</cbc:PostalZone>
+            <cac:Country>
+                <cbc:IdentificationCode>SI</cbc:IdentificationCode>
+            </cac:Country>
+        </cac:PostalAddress>
+        <cac:PartyTaxScheme>
+            <cbc:CompanyID>SI87654321</cbc:CompanyID>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:PartyTaxScheme>
+    </cac:TaxRepresentativeParty>
+
+    <!-- Delivery Information -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>Koprska ulica 98</cbc:StreetName>
+                <cbc:CityName>Koper</cbc:CityName>
+                <cbc:PostalZone>6000</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>SI56191000000123438</cbc:ID>
+            <cbc:Name>Kingdee Slovenija d.o.o.</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>LJBASI2XXXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>Nova Ljubljanska Banka d.d.</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>Plačilni rok: 30 dni / Net 30 days from invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge (Standard rate 22% DDV) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Strošek ravnanja / Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="EUR">20.00</cbc:Amount>
+        <cbc:BaseAmount currencyID="EUR">200.00</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>22</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount (Standard rate 22% DDV) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Popust / Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="EUR">20.00</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>22</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total (DDV) -->
+    <cac:TaxTotal>
+        <!-- Total DDV = sum(line DDV) - header discount DDV + header charge DDV -->
+        <cbc:TaxAmount currencyID="EUR">22.00</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Standard rate 22% DDV -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="EUR">22.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rated -->
+                <cbc:Percent>22</cbc:Percent> <!-- BT-119 Slovenian DDV standard rate -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- Intra-community supply K at 0% -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>K</cbc:ID> <!-- BT-118 Intra-community supply -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT ID: DE765432198. Article 46/ZDDV-1.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total -->
+    <cac:LegalMonetaryTotal>
+        <!-- Sum of all line net amounts -->
+        <cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+        <!-- Tax exclusive amount -->
+        <cbc:TaxExclusiveAmount currencyID="EUR">200.00</cbc:TaxExclusiveAmount>
+        <!-- Tax inclusive total -->
+        <cbc:TaxInclusiveAmount currencyID="EUR">222.00</cbc:TaxInclusiveAmount>
+        <!-- Total header allowances -->
+        <cbc:AllowanceTotalAmount currencyID="EUR">20.00</cbc:AllowanceTotalAmount>
+        <!-- Total header charges -->
+        <cbc:ChargeTotalAmount currencyID="EUR">20.00</cbc:ChargeTotalAmount>
+        <!-- Amount due for payment -->
+        <cbc:PayableAmount currencyID="EUR">222.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Standard 22% DDV -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Elektronska komponenta / Electronic Component</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>SI</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>22</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">5.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Intra-community supply K at 0% -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Popust na vrstico / Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="EUR">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="EUR">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Doplačilo na vrstico / Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="EUR">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="EUR">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Industrijski stroj za izvoz v EU</cbc:Description>
+            <cbc:Name>Industrijski stroj / Industrial Machine for EU Export</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>SI</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>K</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT ID: DE765432198. Article 46/ZDDV-1.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">10.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

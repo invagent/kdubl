@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Australia (AU) KDUBL Invoice Sample -->
+    <!-- Goods and Services Tax (GST) at 10% standard rate -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>AU20260317001001</cbc:ID>
+    <!-- Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+11:00</cbc:IssueTime>
+    <!-- Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>Tax Invoice as required by A New Tax System (Goods and Services Tax) Act 1999</cbc:Note>
+    <!-- Currency: AUD -->
+    <cbc:DocumentCurrencyCode>AUD</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference -->
+    <cbc:BuyerReference>AU-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>AU-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>AU-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Invoice breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.com.au/invoice/breakdown001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Australia Pty Ltd</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address -->
+            <cac:PostalAddress>
+                <cbc:StreetName>123 Pitt Street</cbc:StreetName>
+                <cbc:AdditionalStreetName>Level 10</cbc:AdditionalStreetName>
+                <cbc:CityName>Sydney</cbc:CityName>
+                <cbc:PostalZone>2000</cbc:PostalZone>
+                <cbc:CountrySubentity>NSW</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>AU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- ABN: Australian Business Number (11 digits) -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>51824753556</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- ACN: Australian Company Number -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Australia Pty Ltd</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="AU:ABN">51824753556</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>John Smith</cbc:Name>
+                <cbc:Telephone>+61-2-1234-5678</cbc:Telephone>
+                <cbc:ElectronicMail>john.smith@kingdee.com.au</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) Information -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Australian Buyer Corp</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>456 Collins Street</cbc:StreetName>
+                <cbc:AdditionalStreetName>Level 5</cbc:AdditionalStreetName>
+                <cbc:CityName>Melbourne</cbc:CityName>
+                <cbc:PostalZone>3000</cbc:PostalZone>
+                <cbc:CountrySubentity>VIC</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>AU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- Buyer ABN -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>12345678901</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Australian Buyer Corp</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="AU:ABN">12345678901</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Jane Doe</cbc:Name>
+                <cbc:Telephone>+61-3-9876-5432</cbc:Telephone>
+                <cbc:ElectronicMail>jane.doe@buyer.com.au</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Delivery Information -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>789 George Street</cbc:StreetName>
+                <cbc:CityName>Brisbane</cbc:CityName>
+                <cbc:PostalZone>4000</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>AU</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>AU12345678901234</cbc:ID>
+            <cbc:Name>Kingdee Australia Pty Ltd</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>CTBAAU2SXXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>Commonwealth Bank of Australia</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>Net 30 days from invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="AUD">20</cbc:Amount>
+        <cbc:BaseAmount currencyID="AUD">200</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>10</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="AUD">20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>10</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total (GST 10%) -->
+    <cac:TaxTotal>
+        <!-- Total GST = sum of all line GST - header discount GST + header charge GST -->
+        <cbc:TaxAmount currencyID="AUD">10.00</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Standard Rate 10% GST -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="AUD">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="AUD">10.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rated -->
+                <cbc:Percent>10</cbc:Percent> <!-- BT-119 GST 10% -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- GST-free (Zero-rated export) -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="AUD">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="AUD">0.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>G</cbc:ID> <!-- BT-118 Free export item -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-G</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>GST-free export. Supply is a taxable supply at 0%.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total -->
+    <cac:LegalMonetaryTotal>
+        <!-- Sum of all line net amounts -->
+        <cbc:LineExtensionAmount currencyID="AUD">200.00</cbc:LineExtensionAmount>
+        <!-- Sum of lines - discounts + charges (tax exclusive) -->
+        <cbc:TaxExclusiveAmount currencyID="AUD">200.00</cbc:TaxExclusiveAmount>
+        <!-- Tax inclusive total -->
+        <cbc:TaxInclusiveAmount currencyID="AUD">210.00</cbc:TaxInclusiveAmount>
+        <!-- Total header allowances -->
+        <cbc:AllowanceTotalAmount currencyID="AUD">20.00</cbc:AllowanceTotalAmount>
+        <!-- Total header charges -->
+        <cbc:ChargeTotalAmount currencyID="AUD">20.00</cbc:ChargeTotalAmount>
+        <!-- Amount due for payment -->
+        <cbc:PayableAmount currencyID="AUD">210.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Standard 10% GST -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="AUD">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Industrial Equipment</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>AU</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="AUD">5.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: GST-free export -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="AUD">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="AUD">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="AUD">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="AUD">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="AUD">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Export product - GST free</cbc:Description>
+            <cbc:Name>Mining Equipment for Export</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>AU</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>G</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-G</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>GST-free export. Supply is a taxable supply at 0%.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="AUD">10.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

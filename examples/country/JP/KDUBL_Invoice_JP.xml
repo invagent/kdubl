@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Japan (JP) KDUBL Invoice Sample -->
+    <!-- Consumption Tax (消費税) at 10% standard rate -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- 発票番号 Invoice Number -->
+    <cbc:ID>JP20260317001001</cbc:ID>
+    <!-- 発行日 Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+09:00</cbc:IssueTime>
+    <!-- 支払期日 Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- 発票タイプ Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>適格請求書 / Qualified Invoice</cbc:Note>
+    <!-- 通貨 Currency: JPY -->
+    <cbc:DocumentCurrencyCode>JPY</cbc:DocumentCurrencyCode>
+    <!-- 購入者担当者 Buyer Reference -->
+    <cbc:BuyerReference>JP-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- 請求期間 Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- 注文番号 Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>JP-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- 添付ファイル Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>JP-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Invoice breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.co.jp/invoice/breakdown001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- 売方情報 Supplier (Seller) Information -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>株式会社キングディー Japan Supplier</cbc:Name>
+            </cac:PartyName>
+            <!-- 売方住所 Supplier Address -->
+            <cac:PostalAddress>
+                <cbc:StreetName>千代田区丸の内1-1-1</cbc:StreetName>
+                <cbc:AdditionalStreetName>丸の内ビルディング</cbc:AdditionalStreetName>
+                <cbc:CityName>東京都</cbc:CityName>
+                <cbc:PostalZone>100-0005</cbc:PostalZone>
+                <cbc:CountrySubentity>東京都</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>JP</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- 適格請求書発行事業者登録番号 Qualified Invoice Issuer Registration Number -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>T1234567890123</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- 法人番号 Corporate Number -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>株式会社キングディー Japan Supplier</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="JP:CN">1234567890123</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>山田 太郎</cbc:Name>
+                <cbc:Telephone>+81-3-1234-5678</cbc:Telephone>
+                <cbc:ElectronicMail>yamada.taro@kingdee.co.jp</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- 買方情報 Buyer (Customer) Information -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Japan Buyer Corporation</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>新宿区西新宿2-8-1</cbc:StreetName>
+                <cbc:AdditionalStreetName>新宿ビル</cbc:AdditionalStreetName>
+                <cbc:CityName>東京都</cbc:CityName>
+                <cbc:PostalZone>163-8001</cbc:PostalZone>
+                <cbc:CountrySubentity>東京都</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>JP</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- 適格請求書発行事業者登録番号 -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>T9876543210987</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Japan Buyer Corporation</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="JP:CN">9876543210987</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>鈴木 次郎</cbc:Name>
+                <cbc:Telephone>+81-3-9876-5432</cbc:Telephone>
+                <cbc:ElectronicMail>suzuki.jiro@buyer.co.jp</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- 配送情報 Delivery Information -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>大阪市北区梅田1-3-1</cbc:StreetName>
+                <cbc:CityName>大阪市</cbc:CityName>
+                <cbc:PostalZone>530-0001</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>JP</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- 支払方法 Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>1234567890</cbc:ID>
+            <cbc:Name>株式会社キングディー Japan Supplier</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>TOKYOJPJT</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>東京銀行 Tokyo Bank</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- 支払条件 Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>月末締め翌月末払い / Net 30 days from invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- 表頭請求費用 Header Charge -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="JPY">2000</cbc:Amount>
+        <cbc:BaseAmount currencyID="JPY">20000</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>10</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- 表頭値引き Header Discount -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="JPY">2000</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>10</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- 税額合計 Tax Total (Consumption Tax 10%) -->
+    <cac:TaxTotal>
+        <!-- 税額合計 = 全行税額 - 表頭値引税額 + 表頭請求費税額 -->
+        <cbc:TaxAmount currencyID="JPY">2000</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- 標準税率10% TaxSubtotal -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="JPY">20000</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="JPY">2000</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rate -->
+                <cbc:Percent>10</cbc:Percent> <!-- BT-119 Japan Consumption Tax Standard Rate -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID> <!-- Consumption Tax -->
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- 軽減税率8% TaxSubtotal (Reduced rate for food / subscription newspapers) -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="JPY">20000</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="JPY">0</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>G</cbc:ID> <!-- BT-118 Free export item -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-G</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Export outside Japan, consumption tax exempt.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- 金額合計 Legal Monetary Total -->
+    <cac:LegalMonetaryTotal>
+        <!-- 全行金額の合計 Sum of all line net amounts -->
+        <cbc:LineExtensionAmount currencyID="JPY">40000</cbc:LineExtensionAmount>
+        <!-- 全行 - 値引 + 請求費の合計 -->
+        <cbc:TaxExclusiveAmount currencyID="JPY">40000</cbc:TaxExclusiveAmount>
+        <!-- 税込合計 -->
+        <cbc:TaxInclusiveAmount currencyID="JPY">42000</cbc:TaxInclusiveAmount>
+        <!-- 表頭値引合計 -->
+        <cbc:AllowanceTotalAmount currencyID="JPY">2000</cbc:AllowanceTotalAmount>
+        <!-- 表頭請求費合計 -->
+        <cbc:ChargeTotalAmount currencyID="JPY">2000</cbc:ChargeTotalAmount>
+        <!-- 支払金額 -->
+        <cbc:PayableAmount currencyID="JPY">42000</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- 商品行 1: Standard rate 10% consumption tax -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="JPY">20000</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>電子部品 / Electronic Components</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>JP</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="JPY">1000</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- 商品行 2: Zero-rated (export) -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="JPY">20000</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="JPY">1000</cbc:Amount>
+            <cbc:BaseAmount currencyID="JPY">20000</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="JPY">1000</cbc:Amount>
+            <cbc:BaseAmount currencyID="JPY">20000</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>輸出品 Export goods</cbc:Description>
+            <cbc:Name>輸出向け工業製品 / Industrial Products for Export</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>JP</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>G</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-G</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Export outside Japan, consumption tax exempt.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="JPY">2000</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

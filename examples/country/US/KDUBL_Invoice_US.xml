@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- United States (US) KDUBL Invoice Sample -->
+    <!-- No federal VAT; tax category O (Not subject to VAT) used -->
+    <!-- Per EN16931 BR-O-02: when using "O" category, no VAT identifiers shall be present -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>US20260317001001</cbc:ID>
+    <!-- Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00-05:00</cbc:IssueTime>
+    <!-- Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>Commercial Invoice - Not subject to federal VAT</cbc:Note>
+    <!-- Currency: USD -->
+    <cbc:DocumentCurrencyCode>USD</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference -->
+    <cbc:BuyerReference>US-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>US-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>US-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Invoice breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.com/invoice/breakdown001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) Information -->
+    <!-- Note: No VAT/tax scheme identifiers per BR-O-02 when all lines are "Not subject to VAT" -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee US Inc.</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address -->
+            <cac:PostalAddress>
+                <cbc:StreetName>100 Silicon Valley Blvd</cbc:StreetName>
+                <cbc:AdditionalStreetName>Suite 500</cbc:AdditionalStreetName>
+                <cbc:CityName>San Jose</cbc:CityName>
+                <cbc:PostalZone>95101</cbc:PostalZone>
+                <cbc:CountrySubentity>CA</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>US</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- EIN: Employer Identification Number (Tax Registration) -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee US Inc.</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="US:EIN">12-3456789</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Robert Johnson</cbc:Name>
+                <cbc:Telephone>+1-408-123-4567</cbc:Telephone>
+                <cbc:ElectronicMail>robert.johnson@kingdee.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) Information -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>US Buyer Corporation</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>200 Park Avenue</cbc:StreetName>
+                <cbc:AdditionalStreetName>Floor 30</cbc:AdditionalStreetName>
+                <cbc:CityName>New York</cbc:CityName>
+                <cbc:PostalZone>10166</cbc:PostalZone>
+                <cbc:CountrySubentity>NY</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>US</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>US Buyer Corporation</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="US:EIN">98-7654321</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Emily Davis</cbc:Name>
+                <cbc:Telephone>+1-212-987-6543</cbc:Telephone>
+                <cbc:ElectronicMail>emily.davis@buyer.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Delivery Information -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>300 Michigan Avenue</cbc:StreetName>
+                <cbc:CityName>Chicago</cbc:CityName>
+                <cbc:PostalZone>60601</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>US</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>US12345678901234567890</cbc:ID>
+            <cbc:Name>Kingdee US Inc.</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>CHASUS33XXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>JPMorgan Chase Bank, N.A.</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms -->
+    <cac:PaymentTerms>
+        <cbc:Note>Net 30 days from invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge (Not subject to VAT) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="USD">20.00</cbc:Amount>
+        <cbc:BaseAmount currencyID="USD">200.00</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>O</cbc:ID>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount (Not subject to VAT) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="USD">20.00</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>O</cbc:ID>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total (Not subject to VAT) -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="USD">0.00</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Not subject to VAT: O category -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="USD">200.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="USD">0.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>O</cbc:ID> <!-- BT-118 Not subject to VAT -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-O</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Not subject to VAT. No federal VAT in the United States.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total -->
+    <cac:LegalMonetaryTotal>
+        <!-- Sum of all line net amounts -->
+        <cbc:LineExtensionAmount currencyID="USD">200.00</cbc:LineExtensionAmount>
+        <!-- Tax exclusive amount -->
+        <cbc:TaxExclusiveAmount currencyID="USD">200.00</cbc:TaxExclusiveAmount>
+        <!-- Tax inclusive total (same as tax exclusive since no VAT) -->
+        <cbc:TaxInclusiveAmount currencyID="USD">200.00</cbc:TaxInclusiveAmount>
+        <!-- Total header allowances -->
+        <cbc:AllowanceTotalAmount currencyID="USD">20.00</cbc:AllowanceTotalAmount>
+        <!-- Total header charges -->
+        <cbc:ChargeTotalAmount currencyID="USD">20.00</cbc:ChargeTotalAmount>
+        <!-- Amount due for payment -->
+        <cbc:PayableAmount currencyID="USD">200.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Not subject to VAT -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="USD">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Software License</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>US</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>O</cbc:ID>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-O</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Not subject to VAT. No federal VAT in the United States.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="USD">5.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Not subject to VAT -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="USD">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="USD">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="USD">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="USD">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="USD">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Professional services - consulting</cbc:Description>
+            <cbc:Name>Consulting Services</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>US</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>O</cbc:ID>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-O</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Not subject to VAT. No federal VAT in the United States.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="USD">10.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
