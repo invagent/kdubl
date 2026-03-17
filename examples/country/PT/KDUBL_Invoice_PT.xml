@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Portugal (PT) KDUBL Invoice Sample -->
+    <!-- Portuguese VAT (IVA - Imposto sobre o Valor Acrescentado) standard rate: 23% -->
+    <!-- Intra-community supply to EU buyer: K category (zero-rated) -->
+    <!-- Currency: EUR (Portugal uses Euro) -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number / Número de fatura -->
+    <cbc:ID>PT20260317001001</cbc:ID>
+    <!-- Issue Date / Data de emissão -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+00:00</cbc:IssueTime>
+    <!-- Due Date / Data de vencimento -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>Fatura / Portuguese IVA Invoice (23%)</cbc:Note>
+    <!-- Currency: EUR -->
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference / Referência do comprador -->
+    <cbc:BuyerReference>PT-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period / Período da fatura -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference / Referência da encomenda -->
+    <cac:OrderReference>
+        <cbc:ID>PT-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment / Anexo -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>PT-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Especificação da fatura / Invoice specification</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.pt/fatura/spec001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) / Fornecedor (Vendedor) -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Portugal, Lda.</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address / Morada do fornecedor -->
+            <cac:PostalAddress>
+                <cbc:StreetName>Avenida da Liberdade 110</cbc:StreetName>
+                <cbc:AdditionalStreetName>4.º andar</cbc:AdditionalStreetName>
+                <cbc:CityName>Lisboa</cbc:CityName>
+                <cbc:PostalZone>1269-046</cbc:PostalZone>
+                <cbc:CountrySubentity>Lisboa</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>PT</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- Portuguese VAT number (NIF/NIPC): PT + 9 digits -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>PT123456789</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- NIPC: Número de Identificação de Pessoa Coletiva -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Portugal, Lda.</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="PT:NIPC">123456789</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>João Silva</cbc:Name>
+                <cbc:Telephone>+351-21-123-45-67</cbc:Telephone>
+                <cbc:ElectronicMail>joao.silva@kingdee.pt</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) / Comprador (EU buyer for intra-community supply) -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>European Buyer GmbH</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Rua de Santa Catarina 50</cbc:StreetName>
+                <cbc:AdditionalStreetName>2.º andar</cbc:AdditionalStreetName>
+                <cbc:CityName>Porto</cbc:CityName>
+                <cbc:PostalZone>4000-450</cbc:PostalZone>
+                <cbc:CountrySubentity>Porto</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- German buyer VAT number for intra-community supply -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>DE654321987</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>European Buyer GmbH</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="DE:STNR">DE654321987</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Maria Santos</cbc:Name>
+                <cbc:Telephone>+351-22-987-65-43</cbc:Telephone>
+                <cbc:ElectronicMail>maria.santos@eubuyer.de</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Delivery / Entrega -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>Rua de Faro 30</cbc:StreetName>
+                <cbc:CityName>Faro</cbc:CityName>
+                <cbc:PostalZone>8000-283</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means / Meios de pagamento -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>PT50000201231234567890154</cbc:ID>
+            <cbc:Name>Kingdee Portugal, Lda.</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>CGDIPTPLXXX</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>Caixa Geral de Depósitos, S.A.</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms / Condições de pagamento -->
+    <cac:PaymentTerms>
+        <cbc:Note>Prazo de pagamento: 30 dias / Net 30 days from invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge / Encargo de cabeçalho (Standard rate 23% IVA) -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Taxa de manuseamento / Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="EUR">20.00</cbc:Amount>
+        <cbc:BaseAmount currencyID="EUR">200.00</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>23</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount / Desconto de cabeçalho -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Desconto / Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="EUR">20.00</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>23</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total / Total de IVA -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">23.00</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Standard rate 23% IVA -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="EUR">23.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rated -->
+                <cbc:Percent>23</cbc:Percent> <!-- BT-119 Portuguese IVA standard rate -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- Intra-community supply K at 0% -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>K</cbc:ID> <!-- BT-118 Intra-community supply -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Transmissão intracomunitária de bens. IVA com autoliquidação. NIF do cliente: DE654321987.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total / Total monetário legal -->
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="EUR">200.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="EUR">223.00</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="EUR">20.00</cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="EUR">20.00</cbc:ChargeTotalAmount>
+        <cbc:PayableAmount currencyID="EUR">223.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Standard 23% IVA -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Componentes eletrónicos / Electronic Components</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>PT</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>23</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">5.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Intra-community supply K at 0% -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Desconto de linha / Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="EUR">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="EUR">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Encargo de linha / Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="EUR">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="EUR">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Máquinas industriais para transmissão intracomunitária para a Alemanha</cbc:Description>
+            <cbc:Name>Máquinas Industriais / Industrial Machines for EU Export</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>PT</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>K</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Transmissão intracomunitária de bens. IVA com autoliquidação. NIF do cliente: DE654321987.</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">10.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

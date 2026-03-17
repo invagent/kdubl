@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Romania (RO) KDUBL Invoice Sample -->
+    <!-- Taxa pe Valoarea Adăugată (TVA) at 19% standard rate -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- Invoice Number -->
+    <cbc:ID>RO20260317001001</cbc:ID>
+    <!-- Issue Date -->
+    <cbc:IssueDate>2026-03-17</cbc:IssueDate>
+    <cbc:IssueTime>10:00:00+02:00</cbc:IssueTime>
+    <!-- Due Date -->
+    <cbc:DueDate>2026-04-17</cbc:DueDate>
+    <!-- Invoice Type: 380 = Commercial invoice / Factură comercială -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:Note>Factură fiscală / Tax Invoice - TVA 19%</cbc:Note>
+    <!-- Currency: RON -->
+    <cbc:DocumentCurrencyCode>RON</cbc:DocumentCurrencyCode>
+    <!-- Buyer Reference -->
+    <cbc:BuyerReference>RO-BUYER-REF-001</cbc:BuyerReference>
+
+    <!-- Invoice Period -->
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-03-01</cbc:StartDate>
+        <cbc:EndDate>2026-03-31</cbc:EndDate>
+    </cac:InvoicePeriod>
+
+    <!-- Order Reference -->
+    <cac:OrderReference>
+        <cbc:ID>RO-ORDER-20260301</cbc:ID>
+    </cac:OrderReference>
+
+    <!-- InvoiceContext -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">NA</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- SelfBilled -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Attachment -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>RO-DOC-001</cbc:ID>
+        <cbc:DocumentDescription>Detalii factură / Invoice breakdown</cbc:DocumentDescription>
+        <cac:Attachment>
+            <cac:ExternalReference>
+                <cbc:URI>https://www.example.ro/invoice/breakdown001.html</cbc:URI>
+            </cac:ExternalReference>
+        </cac:Attachment>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier (Seller) Information / Furnizor -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Romania SRL</cbc:Name>
+            </cac:PartyName>
+            <!-- Supplier Address / Adresa furnizorului -->
+            <cac:PostalAddress>
+                <cbc:StreetName>Strada Victoriei 10</cbc:StreetName>
+                <cbc:AdditionalStreetName>Etaj 3</cbc:AdditionalStreetName>
+                <cbc:CityName>București</cbc:CityName>
+                <cbc:PostalZone>010061</cbc:PostalZone>
+                <cbc:CountrySubentity>Sector 1</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>RO</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- CIF: Cod de Identificare Fiscală (RO + up to 10 digits) -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>RO12345678</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <!-- Legal Entity / Entitate juridică -->
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Romania SRL</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="RO:CIF">RO12345678</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Ion Popescu</cbc:Name>
+                <cbc:Telephone>+40-21-123-4567</cbc:Telephone>
+                <cbc:ElectronicMail>ion.popescu@kingdee.ro</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer (Customer) Information / Cumpărător -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Romanian Buyer SA</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Calea Floreasca 50</cbc:StreetName>
+                <cbc:AdditionalStreetName>Etaj 2</cbc:AdditionalStreetName>
+                <cbc:CityName>București</cbc:CityName>
+                <cbc:PostalZone>014476</cbc:PostalZone>
+                <cbc:CountrySubentity>Sector 2</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>RO</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- Buyer CIF -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>RO98765432</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Romanian Buyer SA</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="RO:CIF">RO98765432</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Maria Ionescu</cbc:Name>
+                <cbc:Telephone>+40-21-987-6543</cbc:Telephone>
+                <cbc:ElectronicMail>maria.ionescu@buyer.ro</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- Delivery Information / Informații de livrare -->
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-15</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>Strada Mihai Eminescu 25</cbc:StreetName>
+                <cbc:CityName>Cluj-Napoca</cbc:CityName>
+                <cbc:PostalZone>400001</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>RO</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- Payment Means / Modalitate de plată -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer / Transfer bancar -->
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>RO49AAAA1B31007593840000</cbc:ID>
+            <cbc:Name>Kingdee Romania SRL</cbc:Name>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>RNCBROBU</cbc:ID>
+                <cac:FinancialInstitution>
+                    <cbc:Name>Banca Comercială Română (BCR)</cbc:Name>
+                </cac:FinancialInstitution>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- Payment Terms / Termeni de plată -->
+    <cac:PaymentTerms>
+        <cbc:Note>Net 30 zile de la data facturii / Net 30 days from invoice date</cbc:Note>
+    </cac:PaymentTerms>
+
+    <!-- Header Charge / Taxă antet -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Taxă de manipulare / Handling charge</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="RON">20</cbc:Amount>
+        <cbc:BaseAmount currencyID="RON">200</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>19</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Header Discount / Reducere antet -->
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+        <cbc:AllowanceChargeReason>Reducere / Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="RON">20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>19</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <!-- Tax Total (TVA) -->
+    <cac:TaxTotal>
+        <!-- Total TVA = sum of all line TVA - header discount TVA + header charge TVA -->
+        <!-- Line 1: 100 * 19% = 19.00; Line 2 (K): 0.00; Net header: (20-20)*19% = 0.00 -->
+        <cbc:TaxAmount currencyID="RON">19.00</cbc:TaxAmount> <!-- BT-110 -->
+        <!-- Standard Rate 19% TVA (S) -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="RON">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="RON">19.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- BT-118 Standard rated -->
+                <cbc:Percent>19</cbc:Percent> <!-- BT-119 TVA 19% -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <!-- Intra-community supply (K) - zero rated -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="RON">100.00</cbc:TaxableAmount> <!-- BT-116 -->
+            <cbc:TaxAmount currencyID="RON">0.00</cbc:TaxAmount> <!-- BT-117 -->
+            <cac:TaxCategory>
+                <cbc:ID>K</cbc:ID> <!-- BT-118 Intra-community supply -->
+                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Livrare intracomunitară scutită de TVA / Intra-community supply exempt from VAT</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- Legal Monetary Total / Total monetar legal -->
+    <cac:LegalMonetaryTotal>
+        <!-- Sum of all line net amounts / Suma valorilor nete ale liniilor -->
+        <cbc:LineExtensionAmount currencyID="RON">200.00</cbc:LineExtensionAmount>
+        <!-- Sum of lines - discounts + charges (tax exclusive) -->
+        <cbc:TaxExclusiveAmount currencyID="RON">200.00</cbc:TaxExclusiveAmount>
+        <!-- Tax inclusive total / Total cu TVA -->
+        <cbc:TaxInclusiveAmount currencyID="RON">219.00</cbc:TaxInclusiveAmount>
+        <!-- Total header allowances / Total reduceri antet -->
+        <cbc:AllowanceTotalAmount currencyID="RON">20.00</cbc:AllowanceTotalAmount>
+        <!-- Total header charges / Total taxe antet -->
+        <cbc:ChargeTotalAmount currencyID="RON">20.00</cbc:ChargeTotalAmount>
+        <!-- Amount due for payment / Sumă de plată -->
+        <cbc:PayableAmount currencyID="RON">219.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Invoice Line 1: Standard 19% TVA / Linie factură 1: TVA standard 19% -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">20</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="RON">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Echipament industrial / Industrial Equipment</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>RO</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>19</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="RON">5.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <!-- Invoice Line 2: Intra-community supply K 0% / Linie factură 2: Livrare intracomunitară K 0% -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="RON">100.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Reducere linie / Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="RON">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="RON">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>ADE</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Taxă linie / Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="RON">5.00</cbc:Amount>
+            <cbc:BaseAmount currencyID="RON">100.00</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:Item>
+            <cbc:Description>Livrare intracomunitară - scutită de TVA / Intra-community supply - VAT exempt</cbc:Description>
+            <cbc:Name>Software licență / Software License</cbc:Name>
+            <cac:OriginCountry>
+                <cbc:IdentificationCode>RO</cbc:IdentificationCode>
+            </cac:OriginCountry>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>K</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-IC</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Livrare intracomunitară scutită de TVA / Intra-community supply exempt from VAT</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="RON">10.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
