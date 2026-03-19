@@ -4,7 +4,7 @@
          xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
 	<cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
-	<cbc:ProfileID>urn:www.piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+	<cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
 	<cbc:ID>INVOICE_NO-20251013-0125</cbc:ID>
 	<cbc:IssueDate>2025-10-13</cbc:IssueDate>
 	<cbc:DueDate>2025-10-01</cbc:DueDate>
