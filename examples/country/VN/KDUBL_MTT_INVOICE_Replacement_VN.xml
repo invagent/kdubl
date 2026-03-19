@@ -43,21 +43,10 @@
             <cbc:IssueTime>14:54:00+08:00</cbc:IssueTime>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
-
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
-        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
     <!--    逻辑字段 业务类型 TODO need more check-->
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">Replacement</cbc:ID>
         <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
-    <!--    逻辑字段 是否反向开票
-    TODO need more check -->
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
-        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
     <!--    逻辑字段 判断是否为mtt开票-->
     <cac:AdditionalDocumentReference>
