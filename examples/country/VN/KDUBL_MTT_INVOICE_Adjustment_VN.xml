@@ -43,21 +43,10 @@
             <cbc:IssueTime>14:58:00+08:00</cbc:IssueTime>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
-
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
-        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
     <!--    逻辑字段 业务类型 TODO need more check-->
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">Adjustment</cbc:ID>
         <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
-    <!--    逻辑字段 是否反向开票
-    TODO need more check -->
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">False</cbc:ID>
-        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
     <!--    逻辑字段 判断是否为mtt开票-->
     <cac:AdditionalDocumentReference>
@@ -113,16 +102,6 @@
 
             <!--            如果有Peppol ID， 在此传入 0195-->
                         <cbc:EndpointID schemeID="0195">SG1234567891</cbc:EndpointID>
-            <!--            逻辑字段，需要通道处理 在欧洲，PartyTaxScheme/CompanyID放入此值；schemeID需要根据税种+国家读-https://docs.peppol.eu/poacc/billing/3.0/codelist/eas/ -->
-<!--            <cbc:EndpointID schemeID="9932">NL827333365B01</cbc:EndpointID>-->
-<!--            <cac:PartyIdentification>-->
-<!--                &lt;!&ndash; 销方其他企业ID:GLN &ndash;&gt;-->
-<!--                <cbc:ID schemeID="PEPPOL">0195:NL00000003</cbc:ID>-->
-<!--            </cac:PartyIdentification>-->
-<!--            <cac:PartyIdentification>-->
-<!--                &lt;!&ndash; 销方其他企业ID:GLN &ndash;&gt;-->
-<!--                <cbc:ID schemeID="IBAN">NL00000003</cbc:ID>-->
-<!--            </cac:PartyIdentification>-->
             <cac:PartyIdentification>
                 <!-- 销方其他企业ID:GLN -->
                 <cbc:ID schemeID="">0104128565-999</cbc:ID>
@@ -130,26 +109,15 @@
             <cac:PartyName>
                 <cbc:Name>Kingdee Test Supplier3 NL</cbc:Name>
             </cac:PartyName>
-            <!--            [NL-R-003] For suppliers in the Netherlands, the legal entity identifier MUST be either a KVK or OIN number (schemeID 0106 or 0190)-->
             <!-- 销方地址信息 -->
             <cac:PostalAddress>
                 <cbc:StreetName>32132</cbc:StreetName>
                 <cbc:CityName>312</cbc:CityName>
                 <cbc:PostalZone>60311</cbc:PostalZone>
                 <cac:Country>
-                    <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>VN</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-<!--            <cac:PostalAddress>-->
-<!--                <cbc:StreetName>Neue Mainzer Straße 75</cbc:StreetName>-->
-<!--                <cbc:AdditionalStreetName>Building 3</cbc:AdditionalStreetName>-->
-<!--                <cbc:CityName>Frankfurt am Main</cbc:CityName>-->
-<!--                <cbc:PostalZone>60311</cbc:PostalZone>-->
-<!--                <cbc:CountrySubentity>xxxx</cbc:CountrySubentity>-->
-<!--                <cac:Country>-->
-<!--                    <cbc:IdentificationCode>NL</cbc:IdentificationCode>-->
-<!--                </cac:Country>-->
-<!--            </cac:PostalAddress>-->
             <cac:PartyTaxScheme>
                 <!--                税务ID-->
                 <cbc:CompanyID>0104128565-999</cbc:CompanyID>
@@ -162,7 +130,6 @@
             <cac:PartyLegalEntity>
                 <!--                企业名称-->
                 <cbc:RegistrationName>Kingdee Test Supplier3 NL</cbc:RegistrationName>
-                <!--                合法国家ID；新加坡对应UEN，必填-->
                 <cbc:CompanyID schemeID="KVK">0104128565-999</cbc:CompanyID>
             </cac:PartyLegalEntity>
             <cac:Contact>
@@ -179,10 +146,6 @@
             <cac:PartyIdentification>
                 <cbc:ID schemeID="">0104128565-999</cbc:ID>
             </cac:PartyIdentification>
-<!--            <cac:PartyIdentification>-->
-<!--                &lt;!&ndash; 销方其他企业ID:GLN &ndash;&gt;-->
-<!--                <cbc:ID schemeID="GLN">NL00000003</cbc:ID>-->
-<!--            </cac:PartyIdentification>-->
             <cac:PartyName>
                 <cbc:Name>Kingdee Test Buyer DE</cbc:Name>
             </cac:PartyName>
@@ -205,7 +168,6 @@
             </cac:PartyLegalEntity>
             <!--            不必填-->
             <cac:Contact>
-<!--                <cbc:Telephone>+46 73 572 50 32</cbc:Telephone>-->
                 <cbc:ElectronicMail>quanchun_lei@kingdee.com</cbc:ElectronicMail>
             </cac:Contact>
         </cac:Party>
@@ -255,7 +217,7 @@
                     <!--    逻辑需要处理，自动加上国家，为DeliveryAddress/Country/IdentificationCode
                      [BR-IC-12]-In an Invoice with a VAT breakdown (BG-23) where the VAT category code (BT-118)
                      is "Intra-community supply" the Deliver to country code (BT-80) shall not be blank.-->
-                    <cbc:IdentificationCode>NL</cbc:IdentificationCode> <!-- 就是 BT-80 -->
+                    <cbc:IdentificationCode>VN</cbc:IdentificationCode> <!-- 就是 BT-80 -->
                 </cac:Country>
             </cac:Address>
         </cac:DeliveryLocation>
