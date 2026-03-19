@@ -112,6 +112,10 @@
                 <cbc:ElectronicMail>buyer@xxxx.com</cbc:ElectronicMail>
             </cac:Contact>
         </cac:Party>
+        <cac:AccountingContact>
+<!--            the email address for delivery-->
+            <cbc:ElectronicMail>xxxx@xxx.com</cbc:ElectronicMail>
+        </cac:AccountingContact>
     </cac:AccountingCustomerParty>
 
     <!-- 实际收货客户信息 -->

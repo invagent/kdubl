@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <!-- fix value. -->
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+<!--    &lt;!&ndash; KDUBL identifier &ndash;&gt;-->
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <!-- KDUBL ProfileID -->
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+<!--    <cbc:ID>InvoiceCode-InvoiceNumber</cbc:ID> &lt;!&ndash; serial-seq &ndash;&gt;-->
+<!--    <cbc:IssueDate>2025-10-01</cbc:IssueDate> &lt;!&ndash; idt &ndash;&gt;-->
+<!--    <cbc:IssueTime>12:01:02</cbc:IssueTime> &lt;!&ndash; idt &ndash;&gt;-->
+    <cbc:InvoiceTypeCode>388</cbc:InvoiceTypeCode> <!-- 380 - invoice -->
+    <cbc:Note>this is notes for VN</cbc:Note> <!-- note -->
+    <cbc:DocumentCurrencyCode>ERU</cbc:DocumentCurrencyCode> <!-- curr -->
+    <cbc:TaxCurrencyCode>VND</cbc:TaxCurrencyCode>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">01GTKT</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">C26TKK</cbc:ID>
+        <cbc:DocumentType>InvoiceCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="ERP">HXB-VN-001124</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cbc:StreetName>Mainstreet 112</cbc:StreetName>
+                <cbc:AdditionalStreetName>Building 3</cbc:AdditionalStreetName>
+                <cbc:CityName>VN</cbc:CityName>
+                <cbc:PostalZone>1000</cbc:PostalZone>
+                <cbc:CountrySubentity>VN</cbc:CountrySubentity>
+                <cac:AddressLine>
+                    <cbc:Line>Sales department</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>VN</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>0100100008-999</cbc:CompanyID> <!-- stax -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Gallery Photo Supplier</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cbc:SupplierAssignedAccountID>KH001</cbc:SupplierAssignedAccountID> <!-- bcode -->
+        <cac:Party>
+            <cac:PostalAddress>
+                <cbc:StreetName>Central road 56</cbc:StreetName> <!-- BT-50 -->
+                <cbc:CityName>Singapore</cbc:CityName> <!-- BT-52 -->
+                <cbc:PostalZone>101</cbc:PostalZone> <!-- BT-53 -->
+                <cbc:CountrySubentity>Singapore</cbc:CountrySubentity> <!-- BT-54 -->
+                <cac:AddressLine>
+                    <cbc:Line>25 Bà Triệu, Pơ.., Q .., Hà nội</cbc:Line> <!-- baddr -->
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>VN</cbc:IdentificationCode> <!-- VN -->
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>2222100008-999</cbc:CompanyID> <!-- btax -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Nguyễn Văn A</cbc:RegistrationName> <!-- buyer -->
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Công ty TNHH</cbc:Name> <!-- bnane -->
+                <cbc:Telephone>+840438250000</cbc:Telephone> <!-- btel -->
+                <cbc:ElectronicMail>abc@fpt.com.vn</cbc:ElectronicMail> <!-- bmail -->
+            </cac:Contact>
+            <cac:FinancialAccount>
+                <cbc:ID>000166000001</cbc:ID> <!-- bacc -->
+                <cac:FinancialInstitutionBranch>
+                     <!--bbank -->
+                    <cac:FinancialInstitution>
+                        <cbc:Name>XXX BANK NAME</cbc:Name>
+                    </cac:FinancialInstitution>
+                </cac:FinancialInstitutionBranch>
+            </cac:FinancialAccount>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode name="Cash payment">TM</cbc:PaymentMeansCode> <!-- paym -->
+    </cac:PaymentMeans>
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:Amount currencyID="EUR">20</cbc:Amount>
+        <cbc:BaseAmount currencyID="EUR">90</cbc:BaseAmount>
+    </cac:AllowanceCharge>
+    <cac:TaxExchangeRate>
+        <cbc:SourceCurrencyCode>EUR</cbc:SourceCurrencyCode>
+        <cbc:TargetCurrencyCode>VND</cbc:TargetCurrencyCode>
+        <cbc:CalculationRate>1000</cbc:CalculationRate>   <!-- exrt -->
+    </cac:TaxExchangeRate>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="ERU">9</cbc:TaxAmount> <!-- vat -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="ERU">100</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="ERU">90</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="VND">9000</cbc:TaxAmount> <!-- vatv -->
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="ERU">90</cbc:LineExtensionAmount> <!-- BT-106 -->
+        <cbc:TaxExclusiveAmount currencyID="ERU">70</cbc:TaxExclusiveAmount> <!-- BT-109 -->
+        <cbc:TaxInclusiveAmount currencyID="ERU">79</cbc:TaxInclusiveAmount> <!-- BT-112 -->
+        <cbc:AllowanceTotalAmount currencyID="ERU">20</cbc:AllowanceTotalAmount> <!-- BT-107 -->
+        <cbc:PayableAmount currencyID="ERU">79</cbc:PayableAmount> <!--total -->
+    </cac:LegalMonetaryTotal>
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID> <!-- BT-126 -->
+        <cbc:InvoicedQuantity unitCode="H87">1</cbc:InvoicedQuantity> <!--unit quantity -->
+        <cbc:LineExtensionAmount currencyID="ERU">90</cbc:LineExtensionAmount> <!-- amount -->
+        <cac:AllowanceCharge>
+            <!--   false是折扣 ，就是减        -->
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <!-- type KM: Promotion CK: Discount MT: Describe If empty:  Default is normal-->
+            <cbc:AllowanceChargeReasonCode>KM</cbc:AllowanceChargeReasonCode>
+            <cbc:AllowanceChargeReason>Promotion</cbc:AllowanceChargeReason>
+            <!--            折扣百分比 perdiscount-->
+            <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+            <!--        BaseAmount*  MultiplierFactorNumeric/100   折扣金额  amtdiscount-->
+            <cbc:Amount currencyID="EUR">10</cbc:Amount>
+            <!--            等于单价*数量-->
+            <cbc:BaseAmount currencyID="EUR">100</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:TaxTotal>
+            <!-- vat -->
+            <cbc:TaxAmount currencyID="ERU">9</cbc:TaxAmount>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Name>Yashica MG2</cbc:Name> <!-- name -->
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode>HH9</cbc:ItemClassificationCode> <!-- code -->
+            </cac:CommodityClassification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID> <!-- hardcode -->
+                <cbc:Percent>10</cbc:Percent> <!-- vrt (0, 5, 8, 10, -1, -2) -->
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="ERU">100.00</cbc:PriceAmount> <!-- price -->
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>

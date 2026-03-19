@@ -357,7 +357,7 @@
                 <cbc:ItemClassificationCode listID="PTC">10059000</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:CommodityClassification>
-                <cbc:ItemClassificationCode listID="CLASS">022</cbc:ItemClassificationCode>
+                <cbc:ItemClassificationCode listID="CLASS" name="xxxxxxxx">022</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>02</cbc:ID>
