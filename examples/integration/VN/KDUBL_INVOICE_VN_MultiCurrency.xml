@@ -14,7 +14,8 @@
 <!--    <cbc:IssueTime>12:01:02</cbc:IssueTime> &lt;!&ndash; idt &ndash;&gt;-->
     <cbc:InvoiceTypeCode>388</cbc:InvoiceTypeCode> <!-- 380 - invoice -->
     <cbc:Note>this is notes for VN</cbc:Note> <!-- note -->
-    <cbc:DocumentCurrencyCode>VND</cbc:DocumentCurrencyCode> <!-- curr -->
+    <cbc:DocumentCurrencyCode>ERU</cbc:DocumentCurrencyCode> <!-- curr -->
+    <cbc:TaxCurrencyCode>VND</cbc:TaxCurrencyCode>
 
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">01GTKT</cbc:ID>
@@ -105,8 +106,8 @@
     </cac:PaymentMeans>
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-        <cbc:Amount>20</cbc:Amount>
-        <cbc:BaseAmount>90</cbc:BaseAmount>
+        <cbc:Amount currencyID="EUR">20</cbc:Amount>
+        <cbc:BaseAmount currencyID="EUR">90</cbc:BaseAmount>
     </cac:AllowanceCharge>
     <cac:TaxExchangeRate>
         <cbc:SourceCurrencyCode>EUR</cbc:SourceCurrencyCode>
@@ -114,10 +115,10 @@
         <cbc:CalculationRate>1000</cbc:CalculationRate>   <!-- exrt -->
     </cac:TaxExchangeRate>
     <cac:TaxTotal>
-        <cbc:TaxAmount >9</cbc:TaxAmount> <!-- vat -->
+        <cbc:TaxAmount currencyID="ERU">9</cbc:TaxAmount> <!-- vat -->
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount >100</cbc:TaxableAmount>
-            <cbc:TaxAmount >90</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="ERU">100</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="ERU">90</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cbc:ID>S</cbc:ID>
                 <cbc:Percent>10</cbc:Percent>
@@ -127,17 +128,20 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="VND">9000</cbc:TaxAmount> <!-- vatv -->
+    </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
-<!--        <cbc:LineExtensionAmount >90</cbc:LineExtensionAmount> &lt;!&ndash; BT-106 &ndash;&gt;-->
-        <cbc:TaxExclusiveAmount>70</cbc:TaxExclusiveAmount> <!-- BT-109 -->
-        <cbc:TaxInclusiveAmount>79</cbc:TaxInclusiveAmount> <!-- BT-112 -->
-<!--        <cbc:AllowanceTotalAmount >20</cbc:AllowanceTotalAmount> &lt;!&ndash; BT-107 &ndash;&gt;-->
-<!--        <cbc:PayableAmount >79</cbc:PayableAmount> &lt;!&ndash;total &ndash;&gt;-->
+        <cbc:LineExtensionAmount currencyID="ERU">90</cbc:LineExtensionAmount> <!-- BT-106 -->
+        <cbc:TaxExclusiveAmount currencyID="ERU">70</cbc:TaxExclusiveAmount> <!-- BT-109 -->
+        <cbc:TaxInclusiveAmount currencyID="ERU">79</cbc:TaxInclusiveAmount> <!-- BT-112 -->
+        <cbc:AllowanceTotalAmount currencyID="ERU">20</cbc:AllowanceTotalAmount> <!-- BT-107 -->
+        <cbc:PayableAmount currencyID="ERU">79</cbc:PayableAmount> <!--total -->
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID> <!-- BT-126 -->
         <cbc:InvoicedQuantity unitCode="H87">1</cbc:InvoicedQuantity> <!--unit quantity -->
-        <cbc:LineExtensionAmount>90</cbc:LineExtensionAmount> <!-- amount -->
+        <cbc:LineExtensionAmount currencyID="ERU">90</cbc:LineExtensionAmount> <!-- amount -->
         <cac:AllowanceCharge>
             <!--   false是折扣 ，就是减        -->
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
@@ -147,13 +151,13 @@
             <!--            折扣百分比 perdiscount-->
             <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
             <!--        BaseAmount*  MultiplierFactorNumeric/100   折扣金额  amtdiscount-->
-            <cbc:Amount>10</cbc:Amount>
+            <cbc:Amount currencyID="EUR">10</cbc:Amount>
             <!--            等于单价*数量-->
-            <cbc:BaseAmount>100</cbc:BaseAmount>
+            <cbc:BaseAmount currencyID="EUR">100</cbc:BaseAmount>
         </cac:AllowanceCharge>
         <cac:TaxTotal>
             <!-- vat -->
-            <cbc:TaxAmount >9</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="ERU">9</cbc:TaxAmount>
         </cac:TaxTotal>
         <cac:Item>
             <cbc:Name>Yashica MG2</cbc:Name> <!-- name -->
@@ -169,7 +173,7 @@
             </cac:ClassifiedTaxCategory>
         </cac:Item>
         <cac:Price>
-            <cbc:PriceAmount >100.00</cbc:PriceAmount> <!-- price -->
+            <cbc:PriceAmount currencyID="ERU">100.00</cbc:PriceAmount> <!-- price -->
         </cac:Price>
     </cac:InvoiceLine>
 </Invoice>
