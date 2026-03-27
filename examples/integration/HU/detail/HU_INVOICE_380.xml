@@ -116,7 +116,7 @@
 
     <!-- Tax Total: 27% VAT on 5433 HUF = 1467 HUF -->
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="HUF">1467.00</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="HUF">1466.91</cbc:TaxAmount>
 <!--        <cac:TaxSubtotal>-->
 <!--            <cbc:TaxableAmount currencyID="HUF">5433.00</cbc:TaxableAmount>-->
 <!--            <cbc:TaxAmount currencyID="HUF">1467.00</cbc:TaxAmount>-->
@@ -134,7 +134,7 @@
     <cac:LegalMonetaryTotal>
 <!--        <cbc:LineExtensionAmount currencyID="HUF">5433.00</cbc:LineExtensionAmount>-->
         <cbc:TaxExclusiveAmount currencyID="HUF">5433.00</cbc:TaxExclusiveAmount>
-        <cbc:TaxInclusiveAmount currencyID="HUF">6900.00</cbc:TaxInclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="HUF">6899.91</cbc:TaxInclusiveAmount>
 <!--        <cbc:PayableAmount currencyID="HUF">6900.00</cbc:PayableAmount>-->
     </cac:LegalMonetaryTotal>
 
@@ -143,9 +143,9 @@
         <cbc:ID>1</cbc:ID>
         <cbc:InvoicedQuantity unitCode="EA">1.00</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="HUF">5433.00</cbc:LineExtensionAmount>
-        <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="HUF">1467.00</cbc:TaxAmount>
-        </cac:TaxTotal>
+<!--        <cac:TaxTotal>-->
+<!--            <cbc:TaxAmount currencyID="HUF">1467.00</cbc:TaxAmount>-->
+<!--        </cac:TaxTotal>-->
         <cac:Item>
             <cbc:Name>Item 1</cbc:Name>
             <cac:ClassifiedTaxCategory>
