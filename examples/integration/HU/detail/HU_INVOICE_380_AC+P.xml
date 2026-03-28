@@ -154,7 +154,7 @@
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>
         <cbc:InvoicedQuantity unitCode="EA">1.00</cbc:InvoicedQuantity>
-        <cbc:LineExtensionAmount currencyID="HUF">5433.00</cbc:LineExtensionAmount>
+<!--        <cbc:LineExtensionAmount currencyID="HUF">5433.00</cbc:LineExtensionAmount>-->
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
