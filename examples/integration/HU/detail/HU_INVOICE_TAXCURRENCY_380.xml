@@ -21,58 +21,58 @@
 <!--                    <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>-->
 
                     <!-- HU: Tax subtotal extensions for tax currency amounts per tax category -->
-                    <kdubl:TaxTotalExtensions>
-                        <kdubl:TaxTotalExtension>
-                            <kdubl:TaxSubtotalExtensions>
-                                <kdubl:TaxSubtotalExtension>
-                                    <!-- Total amount including tax in document currency (EUR) for S/27% category -->
-                                    <kdubl:TaxInclusiveAmount currencyID="EUR">317.50</kdubl:TaxInclusiveAmount>
-                                </kdubl:TaxSubtotalExtension>
-                            </kdubl:TaxSubtotalExtensions>
-                        </kdubl:TaxTotalExtension>
-                        <kdubl:TaxTotalExtension>
-                            <kdubl:TaxSubtotalExtensions>
-                                <kdubl:TaxSubtotalExtension>
-                                    <!-- Total amount including tax in tax currency (HUF) for S/27% category -->
-                                    <kdubl:TaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxInclusiveAmount>
-                                </kdubl:TaxSubtotalExtension>
-                            </kdubl:TaxSubtotalExtensions>
-                        </kdubl:TaxTotalExtension>
-                    </kdubl:TaxTotalExtensions>
+<!--                    <kdubl:TaxTotalExtensions>-->
+<!--                        <kdubl:TaxTotalExtension>-->
+<!--                            <kdubl:TaxSubtotalExtensions>-->
+<!--                                <kdubl:TaxSubtotalExtension>-->
+<!--                                    &lt;!&ndash; Total amount including tax in document currency (EUR) for S/27% category &ndash;&gt;-->
+<!--                                    <kdubl:TaxInclusiveAmount currencyID="EUR">317.50</kdubl:TaxInclusiveAmount>-->
+<!--                                </kdubl:TaxSubtotalExtension>-->
+<!--                            </kdubl:TaxSubtotalExtensions>-->
+<!--                        </kdubl:TaxTotalExtension>-->
+<!--                        <kdubl:TaxTotalExtension>-->
+<!--                            <kdubl:TaxSubtotalExtensions>-->
+<!--                                <kdubl:TaxSubtotalExtension>-->
+<!--                                    &lt;!&ndash; Total amount including tax in tax currency (HUF) for S/27% category &ndash;&gt;-->
+<!--                                    <kdubl:TaxInclusiveAmount currencyID="HUF">114830.23</kdubl:TaxInclusiveAmount>-->
+<!--                                </kdubl:TaxSubtotalExtension>-->
+<!--                            </kdubl:TaxSubtotalExtensions>-->
+<!--                        </kdubl:TaxTotalExtension>-->
+<!--                    </kdubl:TaxTotalExtensions>-->
 
-                    <!-- HU: Tax currency monetary totals (when document currency != tax currency) -->
-                    <kdubl:TaxCurrencyLegalMonetaryTotal>
-                        <cbc:LineExtensionAmount currencyID="HUF">90417.50</cbc:LineExtensionAmount>
-                        <cbc:TaxExclusiveAmount currencyID="HUF">90417.50</cbc:TaxExclusiveAmount>
-                        <cbc:TaxInclusiveAmount currencyID="HUF">114830.23</cbc:TaxInclusiveAmount>
-                        <!-- <cbc:AllowanceTotalAmount currencyID="HUF">0.00</cbc:AllowanceTotalAmount> -->
-                        <!-- <cbc:ChargeTotalAmount currencyID="HUF">0.00</cbc:ChargeTotalAmount> -->
-                        <!-- <cbc:PayableRoundingAmount currencyID="HUF">0.00</cbc:PayableRoundingAmount> -->
-                        <cbc:PayableAmount currencyID="HUF">114830.23</cbc:PayableAmount>
-                    </kdubl:TaxCurrencyLegalMonetaryTotal>
+<!--                    &lt;!&ndash; HU: Tax currency monetary totals (when document currency != tax currency) &ndash;&gt;-->
+<!--                    <kdubl:TaxCurrencyLegalMonetaryTotal>-->
+<!--                        <cbc:LineExtensionAmount currencyID="HUF">90417.50</cbc:LineExtensionAmount>-->
+<!--                        <cbc:TaxExclusiveAmount currencyID="HUF">90417.50</cbc:TaxExclusiveAmount>-->
+<!--                        <cbc:TaxInclusiveAmount currencyID="HUF">114830.23</cbc:TaxInclusiveAmount>-->
+<!--                        &lt;!&ndash; <cbc:AllowanceTotalAmount currencyID="HUF">0.00</cbc:AllowanceTotalAmount> &ndash;&gt;-->
+<!--                        &lt;!&ndash; <cbc:ChargeTotalAmount currencyID="HUF">0.00</cbc:ChargeTotalAmount> &ndash;&gt;-->
+<!--                        &lt;!&ndash; <cbc:PayableRoundingAmount currencyID="HUF">0.00</cbc:PayableRoundingAmount> &ndash;&gt;-->
+<!--                        <cbc:PayableAmount currencyID="HUF">114830.23</cbc:PayableAmount>-->
+<!--                    </kdubl:TaxCurrencyLegalMonetaryTotal>-->
 
                     <!-- HU: Line-level extensions -->
-                    <kdubl:LineExtensions>
-                        <kdubl:LineExtension>
-                            <kdubl:LineID>1</kdubl:LineID>
-                            <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
-                            <!-- Tax currency line amounts -->
-                            <!-- Total line amount including tax in tax currency (HUF) -->
-                            <kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount>
-                            <!-- Net line amount in tax currency (HUF) -->
-                            <kdubl:TaxCurrencyLineExtensionAmount currencyID="HUF">90417.50</kdubl:TaxCurrencyLineExtensionAmount>
-                            <!-- Total line amount including tax in document currency (EUR) -->
-                            <kdubl:TaxInclusiveLineExtensionAmount currencyID="EUR">317.50</kdubl:TaxInclusiveLineExtensionAmount>
-                        </kdubl:LineExtension>
-                    </kdubl:LineExtensions>
+<!--                    <kdubl:LineExtensions>-->
+<!--                        <kdubl:LineExtension>-->
+<!--                            <kdubl:LineID>1</kdubl:LineID>-->
+<!--                            <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>-->
+<!--                            &lt;!&ndash; Tax currency line amounts &ndash;&gt;-->
+<!--                            &lt;!&ndash; Total line amount including tax in tax currency (HUF) &ndash;&gt;-->
+<!--                            <kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount>-->
+<!--                            &lt;!&ndash; Net line amount in tax currency (HUF) &ndash;&gt;-->
+<!--                            <kdubl:TaxCurrencyLineExtensionAmount currencyID="HUF">90417.50</kdubl:TaxCurrencyLineExtensionAmount>-->
+<!--                            &lt;!&ndash; Total line amount including tax in document currency (EUR) &ndash;&gt;-->
+<!--                            <kdubl:TaxInclusiveLineExtensionAmount currencyID="EUR">317.50</kdubl:TaxInclusiveLineExtensionAmount>-->
+<!--                        </kdubl:LineExtension>-->
+<!--                    </kdubl:LineExtensions>-->
                 </kdubl:PiaozoneExtension>
             </ext:ExtensionContent>
         </ext:UBLExtension>
     </ext:UBLExtensions>
 
-    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
-    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
-    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+<!--    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>-->
+<!--    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>-->
+<!--    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>-->
 
     <!-- Invoice Number -->
 <!--    <cbc:ID>HU20260121004</cbc:ID>-->
@@ -89,10 +89,10 @@
     <cbc:BuyerReference>HU-PO-2026-004</cbc:BuyerReference>
 
     <!-- HU: Invoice type name → InvoiceTypeCode/@name in PUF (same mechanism as SA SubInvoiceTypeCode) -->
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">NORMAL</cbc:ID>
-        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
+<!--    <cac:AdditionalDocumentReference>-->
+<!--        <cbc:ID schemeName="InvoiceTag">NORMAL</cbc:ID>-->
+<!--        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>-->
+<!--    </cac:AdditionalDocumentReference>-->
 <!--    <cac:AdditionalDocumentReference>-->
 <!--        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>-->
 <!--        <cbc:DocumentType>SenderEmail</cbc:DocumentType>-->
@@ -131,9 +131,6 @@
                 <!-- HU: Buyer group member tax number -->
                 <cbc:ID schemeID="HU:GroupAFA">23545565414</cbc:ID>
             </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name>Buyer name</cbc:Name>
-            </cac:PartyName>
             <cac:PostalAddress>
                 <cbc:StreetName>Buyer street name</cbc:StreetName>
                 <cbc:CityName>Buyer city name</cbc:CityName>

@@ -15,7 +15,7 @@
                     <!-- HU: Invoice appearance - how the document is distributed -->
 <!--                    <kdubl:InvoiceAppearance>ELECTRONIC</kdubl:InvoiceAppearance>-->
                     <!-- HU: Customer VAT status - determines allowed content and rules -->
-<!--                    <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>-->
+<!--                    <kdubl:CustomerVatStatus>PRIVATE_PERSON</kdubl:CustomerVatStatus>-->
                     <!-- HU: Line-level extensions -->
                     <kdubl:LineExtensions>
                         <kdubl:LineExtension>
@@ -85,31 +85,46 @@
     <!-- Buyer Information -->
     <cac:AccountingCustomerParty>
         <cac:Party>
-            <cac:PartyIdentification>
-                <!-- HU: Buyer group member tax number -->
-                <cbc:ID schemeID="HU:GroupAFA">23545565414</cbc:ID>
-            </cac:PartyIdentification>
             <cac:PostalAddress>
-                <cbc:StreetName>Buyer street name</cbc:StreetName>
-                <cbc:CityName>Buyer city name</cbc:CityName>
-                <cbc:PostalZone>1342</cbc:PostalZone>
                 <cac:Country>
                     <cbc:IdentificationCode>HU</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-            <cac:PartyTaxScheme>
-                <cbc:CompanyID>HU23544565214</cbc:CompanyID>
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID>
-                </cac:TaxScheme>
-            </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Buyer name</cbc:RegistrationName>
-                <!-- HU: Buyer main taxpayer number -->
-                <cbc:CompanyID schemeID="HU:AFA">23544565214</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
+
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <!--        <cbc:AllowanceChargeReasonCode>CG</cbc:AllowanceChargeReasonCode>-->
+        <cbc:AllowanceChargeReason>Cleaning</cbc:AllowanceChargeReason>
+        <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="HUF">20</cbc:Amount>
+        <cbc:BaseAmount currencyID="HUF">200</cbc:BaseAmount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>27</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
+
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <!--        <cbc:AllowanceChargeReasonCode>100</cbc:AllowanceChargeReasonCode>-->
+        <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
+        <cbc:Amount currencyID="HUF">20</cbc:Amount>
+        <cac:TaxCategory>
+            <cbc:ID>S</cbc:ID>
+            <cbc:Percent>27</cbc:Percent>
+            <cac:TaxScheme>
+                <cbc:ID>VAT</cbc:ID>
+            </cac:TaxScheme>
+        </cac:TaxCategory>
+    </cac:AllowanceCharge>
 
     <!-- Tax Total: 27% VAT on 5433 HUF = 1467 HUF -->
     <cac:TaxTotal>
@@ -140,6 +155,20 @@
         <cbc:ID>1</cbc:ID>
         <cbc:InvoicedQuantity unitCode="EA">1.00</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="HUF">5433.00</cbc:LineExtensionAmount>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="HUF">5</cbc:Amount>
+            <cbc:BaseAmount currencyID="HUF">100</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
+            <cbc:MultiplierFactorNumeric>5</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="HUF">5</cbc:Amount>
+            <cbc:BaseAmount currencyID="HUF">100</cbc:BaseAmount>
+        </cac:AllowanceCharge>
 <!--        <cac:TaxTotal>-->
 <!--            <cbc:TaxAmount currencyID="HUF">1467.00</cbc:TaxAmount>-->
 <!--        </cac:TaxTotal>-->
