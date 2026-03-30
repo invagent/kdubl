@@ -14,11 +14,16 @@
                    4. PrepaidPaymentExtension         — 预付款税务扩展（SA）
                    5. InvoiceAppearance               — 发票呈现方式（HU）
                    6. CustomerVatStatus               — 买方增值税状态（HU）
-                   7. ModificationIndex               — 改票序号（HU）
-                   8. ModifyWithoutMaster             — 原始发票是否已上报（HU）
-                   9. TaxTotalExtensions              — 税额合计扩展（HU）
-                  10. TaxCurrencyLegalMonetaryTotal   — 计税货币发票合计（HU）
-                  11. LineExtensions                  — 行项目扩展（通用）
+                   7. PeriodicalSettlement            — 周期性结算标识（HU）
+                   8. SmallBusinessIndicator          — 小微企业税制标识（HU）
+                   9. CashAccountingIndicator         — 现金收付制增值税标识（HU）
+                  10. ProductFeeSummary               — 产品环境税汇总（HU）
+                  11. ModificationIndex               — 改票序号（HU）
+                  12. BatchIndex                      — 批量提交发票位置序号（HU）
+                  13. ModifyWithoutMaster             — 原始发票是否已上报（HU）
+                  14. TaxTotalExtensions              — 税额合计扩展（HU）
+                  15. TaxCurrencyLegalMonetaryTotal   — 计税货币发票合计（HU）
+                  16. LineExtensions                  — 行项目扩展（通用）
     ============================================================
 -->
 <xs:schema
@@ -100,7 +105,45 @@
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
-            <!-- 7. 改票序号（HU，仅红票/改票 381 使用，从 1 开始递增）-->
+            <!-- 7. 周期性结算标识（HU）：true = 周期性/汇总结算发票（gyűjtőszámla）-->
+            <xs:element name="PeriodicalSettlement" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        周期性结算标识（匈牙利）。标识发票属于周期性/汇总结算场景，
+                        即买卖双方约定按时间段合并结算（如月结、季结）。
+                        对应 NAV RTIR invoiceData/periodicalSettlement。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 8. 小微企业税制标识（HU）：true = 开票方属于 KATA 小微企业纳税人 -->
+            <xs:element name="SmallBusinessIndicator" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        小微企业税制（KATA）标识（匈牙利）。
+                        标识开票方是否属于小微企业税制纳税人（kisadózó）。
+                        对应 NAV RTIR invoiceData/smallBusinessIndicator。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 9. 现金收付制增值税标识（HU）：true = 发票适用现金收付制 VAT（pénzforgalmi áfa）-->
+            <xs:element name="CashAccountingIndicator" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        现金收付制增值税标识（匈牙利）。
+                        标识发票适用现金收付制增值税（匈牙利增值税法第 169 条 h 款），
+                        即实际收款时才产生纳税义务。
+                        对应 NAV RTIR invoiceData/cashAccountingIndicator。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 10. 产品环境税汇总（HU，termékdíj，对应 NAV RTIR productFeeSummary）-->
+            <xs:element name="ProductFeeSummary"
+                        type="kdubl:ProductFeeSummaryType"
+                        minOccurs="0" maxOccurs="1"/>
+            <!-- 11. 改票序号（HU，仅红票/改票 381 使用，从 1 开始递增）-->
             <xs:element name="ModificationIndex" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
@@ -113,7 +156,20 @@
                     <xs:restriction base="xs:positiveInteger"/>
                 </xs:simpleType>
             </xs:element>
-            <!-- 8. 原始发票是否已上报 RTIR（HU，仅红票/改票 381 使用）-->
+            <!-- 12. 批量提交位置序号（HU，batchInvoice 场景，标识此张发票在批次中的顺序，从 1 开始）-->
+            <xs:element name="BatchIndex" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        批量提交发票位置序号（匈牙利 batchInvoice 场景）。
+                        标识本张发票在一次批量提交中的排列位置，从 1 开始递增。
+                        对应 NAV RTIR ManageInvoiceRequest/invoiceOperations/invoiceOperation/index。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger"/>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 13. 原始发票是否已上报 RTIR（HU，仅红票/改票 381 使用）-->
             <!-- false = 原始发票已上报；true = 原始发票未上报（主记录缺失）-->
             <xs:element name="ModifyWithoutMaster" type="xs:boolean"
                         minOccurs="0" maxOccurs="1">
@@ -126,15 +182,15 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <!-- 9. 税额合计扩展（HU，外币发票，与 UBL body 中的双 TaxTotal 一一对应）-->
+            <!-- 14. 税额合计扩展（HU，外币发票，与 UBL body 中的双 TaxTotal 一一对应）-->
             <xs:element name="TaxTotalExtensions"
                         type="kdubl:TaxTotalExtensionsType"
                         minOccurs="0" maxOccurs="1"/>
-            <!-- 10. 计税货币发票合计（HU，外币发票，DocumentCurrencyCode != TaxCurrencyCode 时使用）-->
+            <!-- 15. 计税货币发票合计（HU，外币发票，DocumentCurrencyCode != TaxCurrencyCode 时使用）-->
             <xs:element name="TaxCurrencyLegalMonetaryTotal"
                         type="kdubl:TaxCurrencyLegalMonetaryTotalType"
                         minOccurs="0" maxOccurs="1"/>
-            <!-- 11. 行项目扩展集合（对应 UBL InvoiceLine 的国家级扩展字段，通用）-->
+            <!-- 16. 行项目扩展集合（对应 UBL InvoiceLine 的国家级扩展字段，通用）-->
             <xs:element name="LineExtensions"
                         type="kdubl:LineExtensionsType"
                         minOccurs="0" maxOccurs="1"/>
@@ -474,6 +530,33 @@
                 </xs:annotation>
             </xs:element>
 
+            <!-- 汇总发票行交货数据（HU，gyűjtőszámla）：汇总发票每行独立的交货日期和汇率 -->
+            <xs:element name="AggregateLineData"
+                        type="kdubl:AggregateLineDataType"
+                        minOccurs="0" maxOccurs="1"/>
+
+            <!-- 是否应缴产品环境税标识（HU，termékdíj，true = 该行涉及产品环境税义务）-->
+            <xs:element name="ObligatedForProductFee" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        是否应缴产品环境税（匈牙利）。
+                        标识该行商品是否受产品环境税（termékdíj）约束。
+                        对应 NAV RTIR lineData/obligatedForProductFee。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 产品环境税转让条款（HU，termékdíj takeoverData，takeoverReason 不为 01 时使用）-->
+            <xs:element name="ProductFeeClause"
+                        type="kdubl:ProductFeeClauseType"
+                        minOccurs="0" maxOccurs="1"/>
+
+            <!-- 产品环境税明细（HU，termékdíj productFeeData，同一行可有多个税种，如 KT/4MA + KT/702）-->
+            <xs:element name="ProductFeeContent"
+                        type="kdubl:ProductFeeContentType"
+                        minOccurs="0" maxOccurs="unbounded"/>
+
             <!-- 行修改信息（HU）：仅红票/改票 381 使用 -->
             <xs:element name="LineModification"
                         type="kdubl:LineModificationType"
@@ -640,8 +723,8 @@
                 </xs:annotation>
             </xs:element>
 
-            <!-- 原始预付款发票号，不能为空字符串（KDUBL-EXT-013）-->
-            <xs:element name="AdvanceOriginalInvoice" minOccurs="1" maxOccurs="1">
+            <!-- 原始预付款发票号，出现时不能为空字符串（KDUBL-EXT-013），最终发票中使用，预付款发票本身可省略 -->
+            <xs:element name="AdvanceOriginalInvoice" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         原始预付款发票的发票号。不能为空字符串。
@@ -655,20 +738,21 @@
                 </xs:simpleType>
             </xs:element>
 
-            <!-- 预付款支付日期（格式 YYYY-MM-DD）-->
+            <!-- 预付款支付日期（格式 YYYY-MM-DD），最终发票抵扣行必填，预付款发票本身可省略 -->
             <xs:element name="AdvancePaymentDate" type="xs:date"
-                        minOccurs="1" maxOccurs="1">
+                        minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         买方实际支付预付款的日期（格式 YYYY-MM-DD）。
+                        最终发票的预付款抵扣行必填；预付款发票自身可省略。
                         PUF 对应：advancePaymentDate。
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
 
-            <!-- 预付款支付时的汇率，同货币填 1.00 -->
+            <!-- 预付款支付时的汇率，同货币填 1.00，最终发票抵扣行必填，预付款发票本身可省略 -->
             <xs:element name="AdvanceExchangeRate" type="xs:decimal"
-                        minOccurs="1" maxOccurs="1">
+                        minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
                         预付款支付时的汇率（正十进制数）。
@@ -677,6 +761,233 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         AggregateLineDataType
+         汇总发票行交货数据（HU，gyűjtőszámla）。
+         每行独立记录实际交货日期和当时汇率，供 NAV RTIR 汇总报告使用。
+         ============================================================ -->
+    <xs:complexType name="AggregateLineDataType">
+        <xs:annotation>
+            <xs:documentation>
+                汇总发票行级别的交货数据（匈牙利）。
+                在汇总结算发票（gyűjtőszámla）中，每行可以有不同的交货日期和汇率。
+                对应 NAV RTIR lineData/aggregateInvoiceLineData。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 行交货日期（格式 YYYY-MM-DD）-->
+            <xs:element name="LineDeliveryDate" type="xs:date"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        该行货物/服务的实际交货或完成日期（格式 YYYY-MM-DD）。
+                        对应 NAV RTIR lineData/lineDeliveryDate。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 行汇率（外币发票时使用，与该行交货日期对应的汇率）-->
+            <xs:element name="LineExchangeRate" type="xs:decimal"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        该行货物/服务的汇率（外币汇总发票，正十进制数）。
+                        开票货币与计税货币相同时可省略。
+                        对应 NAV RTIR lineData/lineExchangeRate。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         ProductFeeSummaryType / ProductFeeDataType
+         产品环境税发票级汇总（HU，termékdíj）。
+         对应 NAV RTIR invoiceData/productFeeSummary。
+         ============================================================ -->
+    <xs:complexType name="ProductFeeSummaryType">
+        <xs:annotation>
+            <xs:documentation>
+                产品环境税发票级汇总（匈牙利）。
+                记录整张发票的产品环境税操作类型、税种明细及合计金额。
+                对应 NAV RTIR invoiceData/productFeeSummary。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 操作类型：DEPOSIT（纳入）或 RECLAIM（退还）-->
+            <xs:element name="ProductFeeOperation" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        产品环境税操作类型。
+                        DEPOSIT = 纳入（产品进入流通，需缴纳环境税）；
+                        RECLAIM = 退还（满足法定条件可申请退税）。
+                        对应 NAV RTIR productFeeSummary/productFeeOperation。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 各税种明细（可多个），每个对应一个 KT 分类下的税种 -->
+            <xs:element name="ProductFeeData"
+                        type="kdubl:ProductFeeDataType"
+                        minOccurs="0" maxOccurs="unbounded"/>
+            <!-- 发票级产品环境税合计金额 -->
+            <xs:element name="ProductChargeSum"
+                        type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        发票级产品环境税合计金额。必须携带 currencyID 属性。
+                        对应 NAV RTIR productFeeSummary/productChargeSum。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ProductFeeDataType">
+        <xs:annotation>
+            <xs:documentation>
+                单个产品环境税种明细（匈牙利）。
+                记录某一 KT 税种分类下的数量、税率和金额。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 税种代码（KT 分类），如 702、4MA、801 等 -->
+            <xs:element name="ProductFeeCode" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        产品环境税种代码。对应 KT（Környezetterhelési Termékek）分类。
+                        常见值：702（电子产品）、4MA（涂料）、801（纸品）等。
+                        携带 schemeID 属性标识分类体系（通常为 KT）。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="schemeID" type="xs:string" use="optional"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <!-- 应税数量，携带计量单位属性 -->
+            <xs:element name="ProductFeeQuantity" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>应税产品数量，携带 unitCode 属性（如 KG、PCS）。</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:decimal">
+                            <xs:attribute name="unitCode" type="xs:string" use="optional"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <!-- 税率（每单位金额）-->
+            <xs:element name="ProductFeeRate" type="xs:decimal"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>每单位产品环境税率（HUF/单位）。</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 该税种应缴金额 -->
+            <xs:element name="ProductFeeAmount"
+                        type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>该税种应缴产品环境税金额。必须携带 currencyID 属性。</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         ProductFeeClauseType
+         产品环境税转让条款（HU，termékdíj takeoverData）。
+         仅当 takeoverReason != 01 时出现。
+         ============================================================ -->
+    <xs:complexType name="ProductFeeClauseType">
+        <xs:annotation>
+            <xs:documentation>
+                产品环境税转让条款（匈牙利）。
+                当产品环境税义务由买方承担（如 02_a、02_b 等场景）时使用，
+                记录转让原因代码和对应金额。
+                对应 NAV RTIR lineData/productFeeClause/takeoverData。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 转让原因代码，如 02_a、02_b 等 -->
+            <xs:element name="TakeoverReason" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        产品环境税转让原因代码。
+                        对应 NAV RTIR lineData/productFeeClause/takeoverData/takeoverReason。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 转让金额（0 表示全部转让给买方）-->
+            <xs:element name="TakeoverAmount"
+                        type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>产品环境税转让金额。必须携带 currencyID 属性。</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ============================================================
+         ProductFeeContentType
+         行级产品环境税明细（HU，termékdíj productFeeData）。
+         同一行可有多个税种（如同一商品同时涉及 KT/4MA 和 KT/702）。
+         ============================================================ -->
+    <xs:complexType name="ProductFeeContentType">
+        <xs:annotation>
+            <xs:documentation>
+                行级产品环境税明细（匈牙利）。
+                记录该行商品对应的单个 KT 税种数量、税率和应缴金额。
+                同一 InvoiceLine 可以有多个 ProductFeeContent（不同税种）。
+                对应 NAV RTIR lineData/productFeeData。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 税种代码 -->
+            <xs:element name="ProductFeeCode" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="schemeID" type="xs:string" use="optional"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <!-- 数量 -->
+            <xs:element name="ProductFeeQuantity" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:decimal">
+                            <xs:attribute name="unitCode" type="xs:string" use="optional"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <!-- 税率 -->
+            <xs:element name="ProductFeeRate" type="xs:decimal"
+                        minOccurs="0" maxOccurs="1"/>
+            <!-- 应缴金额 -->
+            <xs:element name="ProductFeeAmount"
+                        type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 

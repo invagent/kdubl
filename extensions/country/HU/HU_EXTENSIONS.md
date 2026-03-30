@@ -62,6 +62,43 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 
 **PUF 对应**：`puf:RestrictedInformation[Key=lineExpressionIndicator]/Value`
 
+#### 4.1.5 `kdubl:PeriodicalSettlement` — 周期性结算标识
+
+```xml
+<kdubl:PeriodicalSettlement>true</kdubl:PeriodicalSettlement>
+```
+
+| 属性 | 说明 |
+|------|------|
+| **含义** | 标识发票属于周期性/汇总结算场景（买卖双方约定按时间段合并结算，如月结、季结） |
+| **可选值** | `true` / `false` |
+| **适用场景** | 汇总发票（AGGREGATE，gyűjtőszámla） |
+| **NAV 对应** | `invoiceData/periodicalSettlement` |
+
+#### 4.1.6 `kdubl:SmallBusinessIndicator` — 小微企业税制标识
+
+```xml
+<kdubl:SmallBusinessIndicator>true</kdubl:SmallBusinessIndicator>
+```
+
+| 属性 | 说明 |
+|------|------|
+| **含义** | 标识开票方是否属于小微企业税制（KATA，kisadózó）纳税人 |
+| **可选值** | `true` / `false` |
+| **NAV 对应** | `invoiceData/smallBusinessIndicator` |
+
+#### 4.1.7 `kdubl:CashAccountingIndicator` — 现金收付制增值税标识
+
+```xml
+<kdubl:CashAccountingIndicator>true</kdubl:CashAccountingIndicator>
+```
+
+| 属性 | 说明 |
+|------|------|
+| **含义** | 标识发票适用现金收付制增值税（实际收款时才产生纳税义务，匈牙利增值税法第 169 条 h 款） |
+| **可选值** | `true` / `false` |
+| **NAV 对应** | `invoiceData/cashAccountingIndicator` |
+
 ---
 
 ### 4.2 红票（改票）专用扩展 — `HU_CREDITNOTE_381.xml`
@@ -124,6 +161,22 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 </kdubl:LineExtensions>
 ```
 
+#### 4.2.4 `kdubl:BatchIndex` — 批量提交位置序号
+
+适用于 NAV `batchInvoice` 场景（一次请求提交多张发票），标识本张发票在该批次中的排列位置：
+
+```xml
+<kdubl:BatchIndex>1</kdubl:BatchIndex>
+```
+
+| 属性 | 说明 |
+|------|------|
+| **含义** | 本张发票在一次批量提交中的排列序号，从 1 开始递增 |
+| **必填** | 仅批量提交场景（`batchInvoice`）时使用 |
+| **NAV 对应** | `ManageInvoiceRequest/invoiceOperations/invoiceOperation/index` |
+
+> **注意**：`BatchIndex` 与 `ModificationIndex` 独立。同一批次中改票的 `ModificationIndex` 描述对原始发票的第几次修改，`BatchIndex` 描述该发票在当前批次中的位置。
+
 ---
 
 ### 4.3 预付款抵扣行专用扩展 — `HU_INVOICE_ADVANCE_380.xml`
@@ -141,12 +194,14 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 </kdubl:AdvancePayment>
 ```
 
-| 子标签 | 含义 | PUF 对应 |
-|--------|------|---------|
-| `AdvanceIndicator` | 标识本行是预付款抵扣行，固定 `true` | `advanceIndicator` |
-| `AdvanceOriginalInvoice` | 原始预付款发票的发票号 | `advanceOriginalInvoice` |
-| `AdvancePaymentDate` | 买方实际支付预付款的日期（`YYYY-MM-DD`） | `advancePaymentDate` |
-| `AdvanceExchangeRate` | 预付款支付时的汇率，同货币填 `1.00` | `advanceExchangeRate` |
+| 子标签 | 必填 | 含义 | PUF 对应 |
+|--------|------|------|---------|
+| `AdvanceIndicator` | 是 | 标识本行是预付款抵扣行，固定 `true` | `advanceIndicator` |
+| `AdvanceOriginalInvoice` | 否* | 原始预付款发票的发票号 | `advanceOriginalInvoice` |
+| `AdvancePaymentDate` | 否* | 买方实际支付预付款的日期（`YYYY-MM-DD`） | `advancePaymentDate` |
+| `AdvanceExchangeRate` | 否* | 预付款支付时的汇率，同货币填 `1.00` | `advanceExchangeRate` |
+
+> **\* 字段说明**：`AdvanceOriginalInvoice`、`AdvancePaymentDate`、`AdvanceExchangeRate` 在**最终结算发票（végszámla）的抵扣行**中必须填写；在**预付款发票（elolegszamla）自身**的行扩展中可省略，仅填 `AdvanceIndicator=true`。
 
 **完整预付款抵扣行示例：**
 
@@ -307,3 +362,134 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 |---------|----------|------|
 | `PartyIdentification/ID` | `HU:GroupMemberTaxpayerId` | 集团成员税号，识别买方所属集团中的具体成员 |
 | `PartyLegalEntity/CompanyID` | `HU:TaxpayerId` | 主纳税人号，买方在匈牙利税务局的主税号 |
+
+---
+
+### 4.6 汇总发票专用扩展 — `NAV_HU_AGGREGATE`
+
+汇总发票（gyűjtőszámla）是买卖双方约定按周期合并结算的发票，每行对应某一天发生的实际交货。因为每行交货日期和外币汇率可能不同，需要行级扩展字段携带这些信息。
+
+发票头需同时设置：
+```xml
+<kdubl:PeriodicalSettlement>true</kdubl:PeriodicalSettlement>
+```
+
+以及通过 `SubInvoiceTypeCode` ADR 标识：
+```xml
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">AGGREGATE</cbc:ID>
+    <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+```
+
+#### 4.6.1 `kdubl:AggregateLineData` — 汇总发票行交货数据
+
+放在每行的 `kdubl:LineExtension` 内（`LineExpressionIndicator` 之后）：
+
+```xml
+<kdubl:AggregateLineData>
+    <kdubl:LineDeliveryDate>2021-05-02</kdubl:LineDeliveryDate>
+    <kdubl:LineExchangeRate>308.50</kdubl:LineExchangeRate>
+</kdubl:AggregateLineData>
+```
+
+| 子标签 | 含义 | NAV 对应 |
+|--------|------|---------|
+| `LineDeliveryDate` | 该行货物/服务实际交货或完成日期（`YYYY-MM-DD`） | `lineData/lineDeliveryDate` |
+| `LineExchangeRate` | 该行交货日期对应的汇率（外币发票使用，同货币可省略） | `lineData/lineExchangeRate` |
+
+**完整汇总发票行扩展示例：**
+
+```xml
+<kdubl:LineExtensions>
+    <kdubl:LineExtension>
+        <kdubl:LineID>1</kdubl:LineID>
+        <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
+        <kdubl:AggregateLineData>
+            <kdubl:LineDeliveryDate>2021-05-02</kdubl:LineDeliveryDate>
+            <kdubl:LineExchangeRate>308.50</kdubl:LineExchangeRate>
+        </kdubl:AggregateLineData>
+    </kdubl:LineExtension>
+    <kdubl:LineExtension>
+        <kdubl:LineID>2</kdubl:LineID>
+        <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
+        <kdubl:AggregateLineData>
+            <kdubl:LineDeliveryDate>2021-05-06</kdubl:LineDeliveryDate>
+            <kdubl:LineExchangeRate>309.00</kdubl:LineExchangeRate>
+        </kdubl:AggregateLineData>
+    </kdubl:LineExtension>
+</kdubl:LineExtensions>
+```
+
+---
+
+### 4.7 产品环境税（termékdíj）专用扩展 — `NAV_HU_PRODUCT_FEE`
+
+匈牙利《产品环境税法》要求对特定商品（电子产品、涂料、纸品等）在进入流通时缴纳环境税（termékdíj）。发票需同时携带发票级汇总和行级明细。
+
+#### 4.7.1 `kdubl:ProductFeeSummary` — 发票级产品环境税汇总
+
+放在 `kdubl:PiaozoneExtension` 内（`CashAccountingIndicator` 之后、`ModificationIndex` 之前）：
+
+```xml
+<kdubl:ProductFeeSummary>
+    <kdubl:ProductFeeOperation>DEPOSIT</kdubl:ProductFeeOperation>
+    <kdubl:ProductFeeData>
+        <kdubl:ProductFeeCode schemeID="KT">702</kdubl:ProductFeeCode>
+        <kdubl:ProductFeeQuantity unitCode="KG">50.000</kdubl:ProductFeeQuantity>
+        <kdubl:ProductFeeRate>57.00</kdubl:ProductFeeRate>
+        <kdubl:ProductFeeAmount currencyID="HUF">2850.00</kdubl:ProductFeeAmount>
+    </kdubl:ProductFeeData>
+    <kdubl:ProductFeeData>
+        <kdubl:ProductFeeCode schemeID="KT">801</kdubl:ProductFeeCode>
+        <kdubl:ProductFeeQuantity unitCode="KG">1200.000</kdubl:ProductFeeQuantity>
+        <kdubl:ProductFeeRate>19.00</kdubl:ProductFeeRate>
+        <kdubl:ProductFeeAmount currencyID="HUF">22800.00</kdubl:ProductFeeAmount>
+    </kdubl:ProductFeeData>
+    <kdubl:ProductChargeSum currencyID="HUF">25935.00</kdubl:ProductChargeSum>
+</kdubl:ProductFeeSummary>
+```
+
+| 子标签 | 必填 | 含义 | NAV 对应 |
+|--------|------|------|---------|
+| `ProductFeeOperation` | 是 | 操作类型：`DEPOSIT`（纳入）或 `RECLAIM`（退还） | `productFeeSummary/productFeeOperation` |
+| `ProductFeeData` | 否 | 单个税种明细，可重复（每个 KT 分类一条） | `productFeeSummary/productFeeData` |
+| `ProductFeeData/ProductFeeCode` | 是 | 税种代码，携带 `schemeID="KT"` 属性 | `productFeeCode` |
+| `ProductFeeData/ProductFeeQuantity` | 否 | 应税数量，携带 `unitCode` 属性（如 `KG`） | `productFeeQuantity` |
+| `ProductFeeData/ProductFeeRate` | 否 | 每单位税率（HUF/单位） | `productFeeRate` |
+| `ProductFeeData/ProductFeeAmount` | 否 | 该税种应缴金额，携带 `currencyID` | `productFeeAmount` |
+| `ProductChargeSum` | 否 | 发票级产品环境税合计，携带 `currencyID` | `productChargeSum` |
+
+#### 4.7.2 行级产品环境税字段
+
+放在对应行的 `kdubl:LineExtension` 内（`LineExpressionIndicator` 之后）：
+
+```xml
+<kdubl:LineExtension>
+    <kdubl:LineID>1</kdubl:LineID>
+    <kdubl:LineExpressionIndicator>true</kdubl:LineExpressionIndicator>
+    <!-- 标识该行有产品环境税义务 -->
+    <kdubl:ObligatedForProductFee>true</kdubl:ObligatedForProductFee>
+    <!-- 当税务义务转让给买方时使用（takeoverReason != 01） -->
+    <kdubl:ProductFeeClause>
+        <kdubl:TakeoverReason>02_b</kdubl:TakeoverReason>
+        <kdubl:TakeoverAmount currencyID="HUF">0</kdubl:TakeoverAmount>
+    </kdubl:ProductFeeClause>
+    <!-- 该行的税种明细，同一行可有多个（不同 KT 税种） -->
+    <kdubl:ProductFeeContent>
+        <kdubl:ProductFeeCode schemeID="KT">801</kdubl:ProductFeeCode>
+        <kdubl:ProductFeeQuantity unitCode="KG">1200.00</kdubl:ProductFeeQuantity>
+        <kdubl:ProductFeeRate>19.00</kdubl:ProductFeeRate>
+        <kdubl:ProductFeeAmount currencyID="HUF">22800.00</kdubl:ProductFeeAmount>
+    </kdubl:ProductFeeContent>
+</kdubl:LineExtension>
+```
+
+| 字段 | 含义 | NAV 对应 |
+|------|------|---------|
+| `ObligatedForProductFee` | 该行商品是否有产品环境税缴纳义务（`true`/`false`） | `lineData/obligatedForProductFee` |
+| `ProductFeeClause/TakeoverReason` | 税务义务转让原因代码（如 `02_a`、`02_b`），义务由开票方承担时可省略 | `takeoverData/takeoverReason` |
+| `ProductFeeClause/TakeoverAmount` | 转让金额，`0` 表示全额转让给买方 | `takeoverData/takeoverAmount` |
+| `ProductFeeContent` | 行级税种明细，结构与 `ProductFeeData` 相同，**同一行可重复**（多个 KT 税种） | `lineData/productFeeData` |
+
+> **`ProductFeeClause` vs `ProductFeeContent` 区别**：`ProductFeeClause` 描述税务义务的**转让关系**（谁来缴税）；`ProductFeeContent` 描述**实际税种和金额**（缴多少）。两者可同时存在。

@@ -29,6 +29,9 @@
         KDUBL-EXT-011  CustomerVatStatus 不能为空字符串（出现时）
         KDUBL-EXT-012  ModificationIndex 出现时必须为正整数（> 0）
         KDUBL-EXT-013  AdvanceOriginalInvoice 不能为空字符串（出现时）
+        KDUBL-EXT-014  PeriodicalSettlement 出现时必须为有效 boolean（true/false）
+        KDUBL-EXT-015  SmallBusinessIndicator 出现时必须为有效 boolean（true/false）
+        KDUBL-EXT-016  CashAccountingIndicator 出现时必须为有效 boolean（true/false）
     ============================================================
 -->
 <xsl:stylesheet
@@ -75,6 +78,9 @@
                 <xsl:call-template name="rule-EXT-011"/>
                 <xsl:call-template name="rule-EXT-012"/>
                 <xsl:call-template name="rule-EXT-013"/>
+                <xsl:call-template name="rule-EXT-014"/>
+                <xsl:call-template name="rule-EXT-015"/>
+                <xsl:call-template name="rule-EXT-016"/>
             </Rules>
 
             <!-- 汇总统计 -->
@@ -83,7 +89,7 @@
             <xsl:variable name="warnings"
                 select="count(//RuleResult[@status='WARNING'])"/>
             <Summary>
-                <TotalRules>13</TotalRules>
+                <TotalRules>16</TotalRules>
                 <Errors><xsl:value-of select="$errors"/></Errors>
                 <Warnings><xsl:value-of select="$warnings"/></Warnings>
                 <xsl:choose>
@@ -441,6 +447,90 @@
                             <Location>kdubl:AdvancePayment/kdubl:AdvanceOriginalInvoice（所属行 LineID: <xsl:value-of select="ancestor::kdubl:LineExtension/kdubl:LineID"/>）</Location>
                             <Message>AdvanceOriginalInvoice 标签存在但值为空</Message>
                             <Fix>填写原始预付款发票的发票号，确保可追溯预付款来源</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-014
+         规则  : PeriodicalSettlement 出现时必须为有效 boolean（true 或 false）
+         级别  : ERROR
+         说明  : 周期性结算标识必须是明确的布尔值，空值或非法值会导致
+                 NAV RTIR 的 periodicalSettlement 字段无法解析。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-014">
+        <xsl:variable name="violations"
+            select="//kdubl:PeriodicalSettlement[
+                normalize-space(.) = ''
+                or (normalize-space(.) != 'true' and normalize-space(.) != 'false')]"/>
+        <RuleResult id="KDUBL-EXT-014" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>PeriodicalSettlement 出现时必须为有效 boolean（true 或 false）</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:PiaozoneExtension/kdubl:PeriodicalSettlement</Location>
+                            <Message>PeriodicalSettlement 值无效：'<xsl:value-of select="."/>'（应为 true 或 false）</Message>
+                            <Fix>填写 true（周期性结算）或 false，或删除空标签</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-015
+         规则  : SmallBusinessIndicator 出现时必须为有效 boolean（true 或 false）
+         级别  : ERROR
+         说明  : 小微企业税制标识必须是明确的布尔值，空值或非法值会导致
+                 NAV RTIR 的 smallBusinessIndicator 字段无法解析。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-015">
+        <xsl:variable name="violations"
+            select="//kdubl:SmallBusinessIndicator[
+                normalize-space(.) = ''
+                or (normalize-space(.) != 'true' and normalize-space(.) != 'false')]"/>
+        <RuleResult id="KDUBL-EXT-015" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>SmallBusinessIndicator 出现时必须为有效 boolean（true 或 false）</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:PiaozoneExtension/kdubl:SmallBusinessIndicator</Location>
+                            <Message>SmallBusinessIndicator 值无效：'<xsl:value-of select="."/>'（应为 true 或 false）</Message>
+                            <Fix>填写 true（小微企业 KATA 纳税人）或 false，或删除空标签</Fix>
+                        </Failure>
+                    </xsl:for-each>
+                </Failures>
+            </xsl:if>
+        </RuleResult>
+    </xsl:template>
+
+    <!-- ============================================================
+         KDUBL-EXT-016
+         规则  : CashAccountingIndicator 出现时必须为有效 boolean（true 或 false）
+         级别  : ERROR
+         说明  : 现金收付制增值税标识必须是明确的布尔值，空值或非法值会导致
+                 NAV RTIR 的 cashAccountingIndicator 字段无法解析。
+         ============================================================ -->
+    <xsl:template name="rule-EXT-016">
+        <xsl:variable name="violations"
+            select="//kdubl:CashAccountingIndicator[
+                normalize-space(.) = ''
+                or (normalize-space(.) != 'true' and normalize-space(.) != 'false')]"/>
+        <RuleResult id="KDUBL-EXT-016" status="{if (count($violations) = 0) then 'PASSED' else 'ERROR'}">
+            <Description>CashAccountingIndicator 出现时必须为有效 boolean（true 或 false）</Description>
+            <xsl:if test="count($violations) > 0">
+                <Failures>
+                    <xsl:for-each select="$violations">
+                        <Failure>
+                            <Location>kdubl:PiaozoneExtension/kdubl:CashAccountingIndicator</Location>
+                            <Message>CashAccountingIndicator 值无效：'<xsl:value-of select="."/>'（应为 true 或 false）</Message>
+                            <Fix>填写 true（现金收付制增值税）或 false，或删除空标签</Fix>
                         </Failure>
                     </xsl:for-each>
                 </Failures>
