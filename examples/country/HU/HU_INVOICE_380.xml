@@ -15,7 +15,7 @@
                     <!-- HU: Invoice appearance - how the document is distributed -->
                     <kdubl:InvoiceAppearance>ELECTRONIC</kdubl:InvoiceAppearance>
                     <!-- HU: Customer VAT status - determines allowed content and rules -->
-                    <kdubl:CustomerVatStatus>DOMESTIC</kdubl:CustomerVatStatus>
+                    <kdubl:CustomerVatStatus>OTHER</kdubl:CustomerVatStatus>
                     <!-- HU: Line-level extensions -->
                     <kdubl:LineExtensions>
                         <kdubl:LineExtension>
@@ -34,9 +34,9 @@
     <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
 
     <!-- Invoice Number -->
-    <cbc:ID>HU20260121001</cbc:ID>
+    <cbc:ID>HU20260324005</cbc:ID>
     <!-- Invoice Issue Date -->
-    <cbc:IssueDate>2026-01-21</cbc:IssueDate>
+    <cbc:IssueDate>2026-03-23</cbc:IssueDate>
     <cbc:IssueTime>00:00:00+01:00</cbc:IssueTime>
     <!-- Invoice Type Code: 380 = Standard Invoice -->
     <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
@@ -69,47 +69,39 @@
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyTaxScheme>
-                <cbc:CompanyID>HU000000001</cbc:CompanyID>
+                <cbc:CompanyID>30417856-2-51</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Supplier Name</cbc:RegistrationName>
-                <!-- Seller Legal Registration Identifier -->
-                <cbc:CompanyID>23542378214</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
 
-    <!-- Buyer Information -->
+    <!-- Buyer Information (foreign buyer - Germany) -->
     <cac:AccountingCustomerParty>
         <cac:Party>
-            <cac:PartyIdentification>
-                <!-- HU: Buyer group member tax number -->
-                <cbc:ID schemeID="HU:GroupMemberTaxpayerId">23545565414</cbc:ID>
-            </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name>Buyer name</cbc:Name>
+                <cbc:Name>German Buyer GmbH</cbc:Name>
             </cac:PartyName>
             <cac:PostalAddress>
-                <cbc:StreetName>Buyer street name</cbc:StreetName>
-                <cbc:CityName>Buyer city name</cbc:CityName>
-                <cbc:PostalZone>1342</cbc:PostalZone>
+                <cbc:StreetName>Musterstraße 1</cbc:StreetName>
+                <cbc:CityName>Berlin</cbc:CityName>
+                <cbc:PostalZone>10115</cbc:PostalZone>
                 <cac:Country>
-                    <cbc:IdentificationCode>HU</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyTaxScheme>
-                <cbc:CompanyID>HU23544565214</cbc:CompanyID>
+                <cbc:CompanyID>DE123456789</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Buyer name</cbc:RegistrationName>
-                <!-- HU: Buyer main taxpayer number -->
-                <cbc:CompanyID schemeID="HU:TaxpayerId">23544565214</cbc:CompanyID>
+                <cbc:RegistrationName>German Buyer GmbH</cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
