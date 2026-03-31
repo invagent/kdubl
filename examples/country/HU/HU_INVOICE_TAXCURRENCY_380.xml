@@ -63,6 +63,7 @@
                             <kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount currencyID="HUF">114830.23</kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount>
                             <!-- Net line amount in tax currency (HUF) -->
                             <kdubl:TaxCurrencyLineExtensionAmount currencyID="HUF">90417.50</kdubl:TaxCurrencyLineExtensionAmount>
+
                         </kdubl:LineExtension>
                     </kdubl:LineExtensions>
                 </kdubl:PiaozoneExtension>
@@ -75,7 +76,7 @@
     <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
 
     <!-- Invoice Number -->
-    <cbc:ID>HU20260121004</cbc:ID>
+    <cbc:ID>HU20260303009</cbc:ID>
     <!-- Invoice Issue Date -->
     <cbc:IssueDate>2026-01-21</cbc:IssueDate>
     <cbc:IssueTime>00:00:00+01:00</cbc:IssueTime>
@@ -111,7 +112,7 @@
                     <cbc:IdentificationCode>HU</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-                        <cac:PartyTaxScheme>
+            <cac:PartyTaxScheme>
                 <cbc:CompanyID>30417856-2-51</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
@@ -119,6 +120,7 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Supplier Name</cbc:RegistrationName>
+<!--                <cbc:CompanyID>23542378-2-14</cbc:CompanyID>-->
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -141,14 +143,16 @@
                     <cbc:IdentificationCode>HU</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-                        <cac:PartyTaxScheme>
-                <cbc:CompanyID>30417856-2-14</cbc:CompanyID>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>23544565-2-14</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Buyer name</cbc:RegistrationName>
+                <!-- HU: Buyer main taxpayer number -->
+<!--                <cbc:CompanyID schemeID="HU:TaxpayerId">23544565-2-14</cbc:CompanyID>-->
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
