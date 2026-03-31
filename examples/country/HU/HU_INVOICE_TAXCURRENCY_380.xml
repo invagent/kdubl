@@ -94,10 +94,6 @@
         <cbc:ID schemeName="InvoiceTag">NORMAL</cbc:ID>
         <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">quanchun_lei@kingdee.com</cbc:ID>
-        <cbc:DocumentType>SenderEmail</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
     <!-- Seller Information -->
     <cac:AccountingSupplierParty>
         <cac:Party>
@@ -120,7 +116,6 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Supplier Name</cbc:RegistrationName>
-<!--                <cbc:CompanyID>23542378-2-14</cbc:CompanyID>-->
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -151,8 +146,6 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Buyer name</cbc:RegistrationName>
-                <!-- HU: Buyer main taxpayer number -->
-<!--                <cbc:CompanyID schemeID="HU:TaxpayerId">23544565-2-14</cbc:CompanyID>-->
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
