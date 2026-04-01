@@ -112,6 +112,7 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 | 属性 | 说明 |
 |------|------|
 | **含义** | 针对同一张原始发票的第几次修改，从 1 开始递增。匈牙利允许对同一原始发票多次出具改票 |
+| **取值范围** | 正整数，**最小值 1，最大值 100**（NAV XSD `InvoiceIndexType`：`minInclusive=1, maxInclusive=100`） |
 | **必填** | 是（所有改票/红票） |
 | **PUF 对应** | `puf:RestrictedInformation[Key=modificationIndex]/Value` |
 
@@ -141,7 +142,7 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 
 | 子标签 | 可选值 | 说明 |
 |--------|--------|------|
-| `kdubl:LineOperation` | `CREATE` / `MODIFY` / `DELETE` | 该行相对于原始发票的操作类型 |
+| `kdubl:LineOperation` | `CREATE` / `MODIFY` | 该行相对于原始发票的操作类型（NAV XSD `LineOperationType` 仅定义这两个值） |
 | `kdubl:LineNumberReference` | 正整数 | 延续原始发票行号的连续编号。原始发票有行 1，则改票新增行的引用号为 2 |
 
 **PUF 对应**：`lineModificationReferenceLineOperation` / `lineModificationReferenceLineNumberReference`
