@@ -439,6 +439,30 @@
             </cac:PartyLegalEntity>
         </cac:DeliveryParty>
 
+        <!-- 发货方信息 -->
+        <cac:Despatch>
+            <cbc:ID>DESPATCH-001</cbc:ID>
+            <cbc:RequestedDespatchDate>2025-01-15</cbc:RequestedDespatchDate>
+            <cac:DespatchAddress>
+                <cbc:StreetName>Warehouse Street 88</cbc:StreetName>
+                <cbc:AdditionalStreetName>Building A</cbc:AdditionalStreetName>
+                <cbc:CityName>Amsterdam</cbc:CityName>
+                <cbc:PostalZone>1011 AB</cbc:PostalZone>
+                <cbc:CountrySubentity>North Holland</cbc:CountrySubentity>
+                <cac:AddressLine>
+                    <cbc:Line>Despatch department</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>NL</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:DespatchAddress>
+            <cac:DespatchParty>
+                <cac:PartyName>
+                    <cbc:Name>Kingdee Despatch Party</cbc:Name>
+                </cac:PartyName>
+            </cac:DespatchParty>
+        </cac:Despatch>
+
         <cac:DeliveryTerms>
             <cbc:ID>RCA</cbc:ID>
         </cac:DeliveryTerms>
@@ -698,6 +722,7 @@
                 <cac:TaxCategory>
                     <cbc:ID>K</cbc:ID>
                     <cbc:Percent>0.00</cbc:Percent>
+                    <cbc:TaxExemptionReasonCode>Intra-Community supply to Germany, VAT reverse charge applies. </cbc:TaxExemptionReasonCode>
                     <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. </cbc:TaxExemptionReason>
                     <cac:TaxScheme>
                         <cbc:ID>VAT</cbc:ID>
@@ -712,7 +737,7 @@
                 <cbc:IdentificationCode>CN</cbc:IdentificationCode>
             </cac:OriginCountry>
             <cac:CommodityClassification>
-                <cbc:ItemClassificationCode>12345678</cbc:ItemClassificationCode>
+                <cbc:ItemClassificationCode listID="Custom_L4">四节分类例子</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>K</cbc:ID>
@@ -728,6 +753,9 @@
                 <cbc:Name>Weight</cbc:Name>
                 <cbc:Value>0.45kg</cbc:Value>
             </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+                <cbc:Name>ProductNature</cbc:Name>
+                <cbc:Value>Finished Product / Kit / Component</cbc:Value> </cac:AdditionalItemProperty>
         </cac:Item>
         <cac:Price>
             <cbc:PriceAmount currencyID="EUR">10</cbc:PriceAmount>
