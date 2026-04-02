@@ -17,7 +17,7 @@
 <!--    <cbc:IssueDate>2025-03-31</cbc:IssueDate>-->
     <!--    截止日期-->
     <!--    发票类型 -->
-<!--    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>-->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
 <!--    <cbc:Note>This is invoice notes</cbc:Note>-->
     <!--    发票货币代码-->
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
@@ -45,7 +45,7 @@
         <cac:Party>
             <cbc:IndustryClassificationCode name="Other information technology service activities n.e.c.">62099</cbc:IndustryClassificationCode>
             <cac:PartyIdentification>
-                <cbc:ID schemeID="ERP">HXB-MY-1112</cbc:ID>
+                <cbc:ID schemeID="ERP">Test01</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyIdentification>
                 <cbc:ID schemeID="MY:BRN">202501024926</cbc:ID>
@@ -73,6 +73,11 @@
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>马来西亚测试企业</cbc:RegistrationName>
             </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Test Supplier Name</cbc:Name>
+                <cbc:Telephone>233331234124</cbc:Telephone>
+                <cbc:ElectronicMail>supplier@xxxx.com</cbc:ElectronicMail>
+            </cac:Contact>
         </cac:Party>
     </cac:AccountingSupplierParty>
 

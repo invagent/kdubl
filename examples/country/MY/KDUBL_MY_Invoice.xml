@@ -11,45 +11,13 @@
     <cbc:IssueTime>21:32:52</cbc:IssueTime>
     <cbc:DueDate>2024-03-01</cbc:DueDate>
     <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
-    <cbc:Note>Header Text 1</cbc:Note>
     <cbc:DocumentCurrencyCode>MYR</cbc:DocumentCurrencyCode>
-    <cbc:AccountingCost>Accounting Cost</cbc:AccountingCost>
-    <cbc:BuyerReference>Buyer Reference</cbc:BuyerReference>
-    <cac:InvoicePeriod>
-        <cbc:StartDate>2024-01-01</cbc:StartDate>
-        <cbc:EndDate>2024-01-31</cbc:EndDate>
-        <cbc:Description>Monthly</cbc:Description>
-    </cac:InvoicePeriod>
-    <cac:OrderReference>
-        <cbc:ID>PO Number</cbc:ID>
-    </cac:OrderReference>
-    <cac:BillingReference>
-        <cac:AdditionalDocumentReference>
-            <cbc:ID>151891-1981</cbc:ID>
-        </cac:AdditionalDocumentReference>
-    </cac:BillingReference>
-    <cac:DespatchDocumentReference>
-        <cbc:ID>Despatch Document ID</cbc:ID>
-    </cac:DespatchDocumentReference>
-    <cac:OriginatorDocumentReference>
-        <cbc:ID>Tender Reference ID</cbc:ID>
-    </cac:OriginatorDocumentReference>
-    <cac:ContractDocumentReference>
-        <cbc:ID>Contract Reference ID</cbc:ID>
-    </cac:ContractDocumentReference>
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
-        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
-    <cac:ProjectReference>
-        <cbc:ID>Project Reference ID</cbc:ID>
-    </cac:ProjectReference>
-
-<!--    this should be processed by channel-->
-<!--    <cac:AdditionalDocumentReference>-->
-<!--        <cbc:ID>CPT-CCN-W-211111-KL-000002</cbc:ID>-->
-<!--        <cbc:DocumentType>MY:CertEX</cbc:DocumentType>-->
-<!--    </cac:AdditionalDocumentReference>-->
+<!--    <cac:BillingReference>-->
+<!--        <cac:InvoiceDocumentReference>-->
+<!--            <cbc:ID>151891-1981</cbc:ID>-->
+<!--            <cbc:UUID>LHDNM Unique Identifier Number</cbc:UUID>-->
+<!--        </cac:InvoiceDocumentReference>-->
+<!--    </cac:BillingReference>-->
 
     <cac:AccountingSupplierParty>
         <cac:Party>
@@ -58,7 +26,8 @@
                 <cbc:ID schemeID="MY:TIN">C1234567890</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyIdentification>
-                <cbc:ID schemeID="ERP">ORG:00001</cbc:ID>
+<!--                TODO need be replaced-->
+                <cbc:ID schemeID="ERP">00001</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
                 <cbc:Name>Seller Name</cbc:Name>
@@ -70,7 +39,6 @@
                 <cbc:CountrySubentityCode>14</cbc:CountrySubentityCode>
                 <cac:Country>
                     <cbc:IdentificationCode>MY</cbc:IdentificationCode>
-                    <cbc:Name>Malaysia</cbc:Name>
                 </cac:Country>
             </cac:PostalAddress>
              <cac:PartyTaxScheme>

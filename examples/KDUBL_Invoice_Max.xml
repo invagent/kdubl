@@ -755,7 +755,8 @@
             </cac:AdditionalItemProperty>
             <cac:AdditionalItemProperty>
                 <cbc:Name>ProductNature</cbc:Name>
-                <cbc:Value>Finished Product / Kit / Component</cbc:Value> </cac:AdditionalItemProperty>
+                <cbc:Value>Finished Product / Kit / Component</cbc:Value>
+            </cac:AdditionalItemProperty>
         </cac:Item>
         <cac:Price>
             <cbc:PriceAmount currencyID="EUR">10</cbc:PriceAmount>
