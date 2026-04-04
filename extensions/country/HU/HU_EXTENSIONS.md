@@ -65,39 +65,75 @@ HU 发票类型名称通过与 SA 相同的文档级 InvoiceTag ADR 机制携带
 #### 4.1.5 `kdubl:PeriodicalSettlement` — 周期性结算标识
 
 ```xml
-<kdubl:PeriodicalSettlement>true</kdubl:PeriodicalSettlement>
+<kdubl:PiaozoneExtension>
+    ...
+    <kdubl:PeriodicalSettlement>true</kdubl:PeriodicalSettlement>
+    ...
+</kdubl:PiaozoneExtension>
 ```
 
 | 属性 | 说明 |
 |------|------|
 | **含义** | 标识发票属于周期性/汇总结算场景（买卖双方约定按时间段合并结算，如月结、季结） |
 | **可选值** | `true` / `false` |
-| **适用场景** | 汇总发票（AGGREGATE，gyűjtőszámla） |
-| **NAV 对应** | `invoiceData/periodicalSettlement` |
+| **必填** | 否，缺省不输出（NAV `minOccurs=0`） |
+| **适用场景** | 汇总发票（`SubInvoiceTypeCode=AGGREGATE`），通常与 `kdubl:PeriodicalSettlement=true` 配合使用 |
+| **校验规则** | KDUBL-EXT-014：出现时必须为有效布尔值（`true` 或 `false`） |
+| **NAV 对应** | `invoiceDetail/periodicalSettlement`（NAV XSD `invoiceData.xsd` 第 1071 行） |
 
 #### 4.1.6 `kdubl:SmallBusinessIndicator` — 小微企业税制标识
 
 ```xml
-<kdubl:SmallBusinessIndicator>true</kdubl:SmallBusinessIndicator>
+<kdubl:PiaozoneExtension>
+    ...
+    <kdubl:SmallBusinessIndicator>true</kdubl:SmallBusinessIndicator>
+    ...
+</kdubl:PiaozoneExtension>
 ```
 
 | 属性 | 说明 |
 |------|------|
-| **含义** | 标识开票方是否属于小微企业税制（KATA，kisadózó）纳税人 |
+| **含义** | 标识开票方是否属于小微企业税制（KATA，kisadózó）纳税人。KATA 纳税人无需缴纳增值税，发票中税率通常为 0 |
 | **可选值** | `true` / `false` |
-| **NAV 对应** | `invoiceData/smallBusinessIndicator` |
+| **必填** | 否，缺省不输出（NAV `minOccurs=0`） |
+| **适用场景** | 供应商为 KATA 小额纳税人时填写 `true` |
+| **校验规则** | KDUBL-EXT-015：出现时必须为有效布尔值（`true` 或 `false`） |
+| **NAV 对应** | `invoiceDetail/smallBusinessIndicator`（NAV XSD `invoiceData.xsd` 第 1077 行） |
 
 #### 4.1.7 `kdubl:CashAccountingIndicator` — 现金收付制增值税标识
 
 ```xml
-<kdubl:CashAccountingIndicator>true</kdubl:CashAccountingIndicator>
+<kdubl:PiaozoneExtension>
+    ...
+    <kdubl:CashAccountingIndicator>true</kdubl:CashAccountingIndicator>
+    ...
+</kdubl:PiaozoneExtension>
 ```
 
 | 属性 | 说明 |
 |------|------|
-| **含义** | 标识发票适用现金收付制增值税（实际收款时才产生纳税义务，匈牙利增值税法第 169 条 h 款） |
+| **含义** | 标识发票适用现金收付制增值税（pénzforgalmi elszámolás）。该制度下 VAT 纳税义务在实际收款时触发，而非开票时 |
+| **法律依据** | 匈牙利增值税法（Áfa tv.）第 169 条 h 款，即 NAV XSD 注释中的 `ÁFA tv. 169. § h)` |
 | **可选值** | `true` / `false` |
-| **NAV 对应** | `invoiceData/cashAccountingIndicator` |
+| **必填** | 否，缺省不输出（NAV `minOccurs=0`） |
+| **适用场景** | 供应商已向税务机关申请适用现金收付制，且该发票须按此制度处理 |
+| **校验规则** | KDUBL-EXT-016：出现时必须为有效布尔值（`true` 或 `false`） |
+| **NAV 对应** | `invoiceDetail/cashAccountingIndicator`（NAV XSD `invoiceData.xsd` 第 1119 行） |
+
+**NAV `invoiceDetail` 中三者的元素顺序：**
+
+```
+invoiceDeliveryDate
+periodicalSettlement      ← 4.1.5（可选）
+smallBusinessIndicator    ← 4.1.6（可选）
+currencyCode
+exchangeRate
+selfBillingIndicator
+paymentMethod
+paymentDate
+cashAccountingIndicator   ← 4.1.7（可选）
+invoiceAppearance
+```
 
 ---
 
