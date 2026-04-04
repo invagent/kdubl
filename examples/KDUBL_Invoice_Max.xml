@@ -566,33 +566,6 @@
     <cac:TaxTotal>
         <!--        总税额=sum(所有商品行税额)-表头折扣税额+表头收费的税额-->
         <cbc:TaxAmount currencyID="USD">24.36</cbc:TaxAmount> <!-- BT-110 -->
-        <cac:TaxSubtotal>
-            <!--            税码是S的所有不含税金额的和-->
-            <cbc:TaxableAmount currencyID="USD">116</cbc:TaxableAmount> <!-- BT-116 -->
-            <!--            税码是S的所有税额的和-->
-            <cbc:TaxAmount currencyID="USD">24.36</cbc:TaxAmount> <!-- BT-117 -->
-            <cac:TaxCategory>
-                <cbc:ID>S</cbc:ID> <!-- BT-118 -->
-                <cbc:Percent>21</cbc:Percent> <!-- BT-119 -->
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID> <!-- BT-118, qualifier -->
-                </cac:TaxScheme>
-            </cac:TaxCategory>
-        </cac:TaxSubtotal>
-        <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="USD">116</cbc:TaxableAmount> <!-- BT-116 -->
-            <cbc:TaxAmount currencyID="USD">0</cbc:TaxAmount> <!-- BT-117 -->
-            <cac:TaxCategory>
-                <cbc:ID>K</cbc:ID> <!-- BT-118 -->
-                <cbc:Percent>0</cbc:Percent> <!-- BT-119 -->
-                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT
-                    ID: DE123456789.
-                </cbc:TaxExemptionReason>
-                <cac:TaxScheme>
-                    <cbc:ID>VAT</cbc:ID> <!-- BT-118, qualifier -->
-                </cac:TaxScheme>
-            </cac:TaxCategory>
-        </cac:TaxSubtotal>
     </cac:TaxTotal>
 
     <!--    税额统计-->
@@ -654,20 +627,7 @@
           <cbc:InvoicedQuantity unitCode="H87">20</cbc:InvoicedQuantity>
         <!--        不含税金额（包含折扣和收费）-->
         <cbc:LineExtensionAmount currencyID="EUR">100</cbc:LineExtensionAmount>
-        <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="EUR">21.00</cbc:TaxAmount>
-            <cac:TaxSubtotal>
-                <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="EUR">21.00</cbc:TaxAmount>
-                <cac:TaxCategory>
-                    <cbc:ID>S</cbc:ID>
-                    <cbc:Percent>21</cbc:Percent>
-                    <cac:TaxScheme>
-                        <cbc:ID>VAT</cbc:ID>
-                    </cac:TaxScheme>
-                </cac:TaxCategory>
-            </cac:TaxSubtotal>
-        </cac:TaxTotal>
+
         <cac:Item>
             <!--            商品名称-->
             <cbc:Name>Item Module 01</cbc:Name>
@@ -675,7 +635,7 @@
                 <cbc:IdentificationCode>CN</cbc:IdentificationCode>
             </cac:OriginCountry>
             <cac:CommodityClassification>
-                <cbc:ItemClassificationCode>12345678</cbc:ItemClassificationCode>
+                <cbc:ItemClassificationCode listID="VN" listVersionID="L4">12345678</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID>
@@ -714,22 +674,7 @@
             <cbc:Amount currencyID="EUR">5</cbc:Amount>
             <cbc:BaseAmount currencyID="EUR">100</cbc:BaseAmount>
         </cac:AllowanceCharge>
-        <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
-            <cac:TaxSubtotal>
-                <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
-                <cac:TaxCategory>
-                    <cbc:ID>K</cbc:ID>
-                    <cbc:Percent>0.00</cbc:Percent>
-                    <cbc:TaxExemptionReasonCode>Intra-Community supply to Germany, VAT reverse charge applies. </cbc:TaxExemptionReasonCode>
-                    <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. </cbc:TaxExemptionReason>
-                    <cac:TaxScheme>
-                        <cbc:ID>VAT</cbc:ID>
-                    </cac:TaxScheme>
-                </cac:TaxCategory>
-            </cac:TaxSubtotal>
-        </cac:TaxTotal>
+
         <cac:Item>
             <cbc:Description>TWMND-72HD590</cbc:Description>
             <cbc:Name>Item01</cbc:Name>
@@ -737,14 +682,12 @@
                 <cbc:IdentificationCode>CN</cbc:IdentificationCode>
             </cac:OriginCountry>
             <cac:CommodityClassification>
-                <cbc:ItemClassificationCode listID="Custom_L4">四节分类例子</cbc:ItemClassificationCode>
+                <cbc:ItemClassificationCode listID="VN" listVersionID="L4">四节分类例子</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
-                <cbc:ID>K</cbc:ID>
+                <cbc:ID>E</cbc:ID>
                 <cbc:Percent>0</cbc:Percent>
-                <cbc:TaxExemptionReason>Intra-Community supply to Germany, VAT reverse charge applies. Customer's VAT
-                    ID: DE123456789.
-                </cbc:TaxExemptionReason>
+                <cbc:TaxExemptionReason>Tax Exemption Reason</cbc:TaxExemptionReason>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>

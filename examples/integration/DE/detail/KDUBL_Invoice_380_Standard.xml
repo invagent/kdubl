@@ -82,6 +82,7 @@
 
     <!-- 买方信息-->
     <cac:AccountingCustomerParty>
+        <cbc:SupplierAssignedAccountID schemeID="ERP">xxx</cbc:SupplierAssignedAccountID>
         <cac:Party>
             <!--企业ID（税号）信息-->
             <cac:PartyIdentification>
@@ -261,6 +262,9 @@
         <cac:Item>
             <cbc:Description>TWMND-72HD590</cbc:Description>
             <cbc:Name>Item01</cbc:Name>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="VN" listVersionID="L4">四节分类例子</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>K</cbc:ID>
                 <cbc:Percent>0</cbc:Percent>

@@ -243,10 +243,17 @@
         <cac:Item>
             <!--            商品名称-->
             <cbc:Name>Item Module 01</cbc:Name>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="VN" listVersionID="L4">四节分类例子</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID>
                 <cbc:Percent>21</cbc:Percent>
             </cac:ClassifiedTaxCategory>
+            <cac:AdditionalItemProperty>
+                <cbc:Name>ProductNature</cbc:Name>
+                <cbc:Value>Finished Product / Kit / Component</cbc:Value>
+            </cac:AdditionalItemProperty>
         </cac:Item>
         <cac:Price>
             <!--            单价-->
@@ -276,7 +283,7 @@
             <cbc:Description>TWMND-72HD590</cbc:Description>
             <cbc:Name>Item01</cbc:Name>
             <cac:CommodityClassification>
-                <cbc:ItemClassificationCode listID="Product_LV4">四节分类例子</cbc:ItemClassificationCode>
+                <cbc:ItemClassificationCode listID="VN" listVersionID="L4">四节分类例子</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>E</cbc:ID>
@@ -285,7 +292,7 @@
                 <cbc:TaxExemptionReason>Tax Exemption Reason</cbc:TaxExemptionReason>
             </cac:ClassifiedTaxCategory>
             <cac:AdditionalItemProperty>
-                <cbc:Name>ProductType</cbc:Name>
+                <cbc:Name>ProductNature</cbc:Name>
                 <cbc:Value>Finished Product / Kit / Component</cbc:Value>
             </cac:AdditionalItemProperty>
         </cac:Item>
