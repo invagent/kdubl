@@ -631,6 +631,9 @@
         <cac:Item>
             <!--            商品名称-->
             <cbc:Name>Item Module 01</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>物料编码</cbc:ID>
+            </cac:SellersItemIdentification>
             <cac:OriginCountry>
                 <cbc:IdentificationCode>CN</cbc:IdentificationCode>
             </cac:OriginCountry>
@@ -678,6 +681,9 @@
         <cac:Item>
             <cbc:Description>TWMND-72HD590</cbc:Description>
             <cbc:Name>Item01</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>物料编码</cbc:ID>
+            </cac:SellersItemIdentification>
             <cac:OriginCountry>
                 <cbc:IdentificationCode>CN</cbc:IdentificationCode>
             </cac:OriginCountry>
