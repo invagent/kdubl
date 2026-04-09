@@ -240,9 +240,18 @@
         <cbc:InvoicedQuantity unitCode="H87">20</cbc:InvoicedQuantity>
         <!--        不含税金额（包含折扣和收费）；系统计算补全，可不用传值-->
         <cbc:LineExtensionAmount>100</cbc:LineExtensionAmount>
+        <cac:OrderLineReference>
+            <cbc:LineID>1</cbc:LineID>
+                <cac:OrderReference>
+                    <cbc:ID>PO-123456</cbc:ID>
+                </cac:OrderReference>
+        </cac:OrderLineReference>
         <cac:Item>
             <!--            商品名称-->
             <cbc:Name>Item Module 01</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>物料编码</cbc:ID>
+            </cac:SellersItemIdentification>
             <cac:CommodityClassification>
                 <cbc:ItemClassificationCode listID="VN" listVersionID="L4">四节分类例子</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
@@ -267,6 +276,12 @@
         <cbc:InvoicedQuantity unitCode="H87">10</cbc:InvoicedQuantity>
         <!--        不含税金额（包含折扣和收费）；系统计算补全 不用传值-->
         <cbc:LineExtensionAmount>100</cbc:LineExtensionAmount>
+        <cac:OrderLineReference>
+            <cbc:LineID>2</cbc:LineID>
+            <cac:OrderReference>
+                <cbc:ID>PO-123456</cbc:ID>
+            </cac:OrderReference>
+        </cac:OrderLineReference>
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReason>Line discount</cbc:AllowanceChargeReason>
