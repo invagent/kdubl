@@ -167,6 +167,21 @@
                 </cac:Country>
             </cac:Address>
         </cac:DeliveryLocation>
+
+        <cac:Despatch>
+            <cac:DespatchAddress>
+                <cbc:StreetName>test StreetName</cbc:StreetName>
+                <cbc:CityName>test CityName</cbc:CityName>
+                <cbc:PostalZone>11234</cbc:PostalZone>
+                <cbc:CountrySubentity>state 01</cbc:CountrySubentity>
+                <cac:AddressLine>
+                    <cbc:Line>Despatch address line</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:DespatchAddress>
+        </cac:Despatch>
     </cac:Delivery>
 
     <!-- 银行账户信息 -->
