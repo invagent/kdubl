@@ -212,8 +212,10 @@
         <cbc:MultiplierFactorNumeric>10</cbc:MultiplierFactorNumeric>
         <cbc:Amount>20</cbc:Amount>
         <cac:TaxCategory>
-            <cbc:ID>S</cbc:ID>
-            <cbc:Percent>21</cbc:Percent>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <!--                <cbc:TaxExemptionReasonCode>XXX</cbc:TaxExemptionReasonCode>-->
+            <cbc:TaxExemptionReason>Tax Exemption Reason</cbc:TaxExemptionReason>
         </cac:TaxCategory>
     </cac:AllowanceCharge>
 
@@ -223,8 +225,10 @@
         <cbc:AllowanceChargeReason>Discount</cbc:AllowanceChargeReason>
         <cbc:Amount>20</cbc:Amount>
         <cac:TaxCategory>
-            <cbc:ID>S</cbc:ID>
-            <cbc:Percent>21</cbc:Percent>
+            <cbc:ID>E</cbc:ID>
+            <cbc:Percent>0</cbc:Percent>
+            <!--                <cbc:TaxExemptionReasonCode>XXX</cbc:TaxExemptionReasonCode>-->
+            <cbc:TaxExemptionReason>Tax Exemption Reason</cbc:TaxExemptionReason>
         </cac:TaxCategory>
     </cac:AllowanceCharge>
 
