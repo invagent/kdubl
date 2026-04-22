@@ -62,7 +62,7 @@ xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
 
 ### 1.2 已定义的 InvoiceTag 字段
 
-#### SA / HU — `SubInvoiceTypeCode` 发票类型代码
+#### SA / HU / TH — `SubInvoiceTypeCode` 发票类型代码
 
 ```xml
 <cac:AdditionalDocumentReference>
@@ -71,12 +71,17 @@ xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
 </cac:AdditionalDocumentReference>
 ```
 
-| 属性 | 说明                                                 |
-|------|----------------------------------------------------|
-| **含义** | 发票的业务类型                                            |
-| **适用国家** | SA（沙特）、HU（匈牙利）等                                    |
+| 属性 | 说明 |
+|------|------|
+| **含义** | **当前发票**的业务子类型码 |
+| **适用国家** | SA（沙特）、HU（匈牙利）、TH（泰国）等 |
 | **SA 常见值** | `0100000`=标准 B2B 发票、`0200000`=简化发票、`1100000`=预付款发票 |
-| **HU 常见值** | `NORMAL`=普通发票、`SIMPLIFIED`=简化发票、`AGGREGATE`=汇总发票   |
+| **HU 常见值** | `NORMAL`=普通发票、`SIMPLIFIED`=简化发票、`AGGREGATE`=汇总发票 |
+| **TH 常见值** | `388`=增值税发票、`T02`=发票/税务发票、`T03`=收据/税务发票、`80`=借项、`81`=贷项 |
+
+> **泰国特别说明**：泰国 80/81 调整发票在此处填写**当前调整发票**的类型（如 `80`）。
+> 被引用原始发票的类型则单独存放在 `kdubl:PiaozoneExtension/kdubl:InvoiceDocumentReference/kdubl:SubInvoiceTypeCode`，
+> 见 [TH_EXTENSIONS.md § 5.3](country/TH/TH_EXTENSIONS.md)。
 
 #### 通用 — `InvoiceContext` 业务场景
 
@@ -90,7 +95,18 @@ xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
 | 属性 | 说明 |
 |------|------|
 | **含义** | 发票业务场景，供通道服务路由和规则匹配使用 |
-| **常见值** | `B2B`、`B2C`、`B2G` |
+
+**已知值说明：**
+
+| 值 | 含义 | 适用场景 |
+|----|------|----------|
+| `B2B` | 企业对企业 | 标准商业发票 |
+| `B2C` | 企业对消费者 | 零售/消费发票 |
+| `B2G` | 企业对政府 | 政府采购发票，部分国家有额外验证规则 |
+| `Standard` | 标准业务场景 | 无特殊场景要求时的默认值 |
+| `NA` | 不适用（豁免） | 该发票无需经过正常通道校验流程，如平台内部单据 |
+| `Adjustment` | 调整发票 | VN 等国家的调整类发票 |
+| `Replacement` | 替换发票 | VN 等国家的替换类发票 |
 
 #### 通用 — `SelfBilled` 反向开票标识
 

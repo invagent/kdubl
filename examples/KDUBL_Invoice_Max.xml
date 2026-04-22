@@ -503,8 +503,9 @@
     </cac:Delivery>
 
     <!-- 银行账户信息 -->
+    <!-- PaymentMeansCode (HU PUF): 30,42,58 | 10 | 48,49,54 | 60,70-78 | 1,97 -->
     <cac:PaymentMeans>
-        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- Bank Transfer -->
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode> <!-- TRANSFER: Credit transfer -->
         <cac:PayeeFinancialAccount>
             <cbc:ID>DE29300700100978759900</cbc:ID>
             <cbc:Name>TONGWEI SOLAR (GERMANY) GmbH</cbc:Name>
