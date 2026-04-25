@@ -320,6 +320,9 @@
                 <cbc:ID>物料编码</cbc:ID>
             </cac:SellersItemIdentification>
             <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="VN" listVersionID="L2">二节分类例子</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+            <cac:CommodityClassification>
                 <cbc:ItemClassificationCode listID="VN" listVersionID="L4">四节分类例子</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
