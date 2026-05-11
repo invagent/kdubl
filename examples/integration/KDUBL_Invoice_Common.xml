@@ -24,18 +24,18 @@
     <!--    发票货币代码-->
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
     <!--    发票计税货币代码 跨境贸易使用-->
-    <cbc:TaxCurrencyCode>NLG</cbc:TaxCurrencyCode>
+    <cbc:TaxCurrencyCode>USD</cbc:TaxCurrencyCode>
     <!-- 购买方联系人 -->
-    <cbc:BuyerReference>test@buyer.com</cbc:BuyerReference>
+<!--    <cbc:BuyerReference>test@buyer.com</cbc:BuyerReference>-->
     <!--  结算/交付周期；预付款必填 -->
     <cac:InvoicePeriod>
         <cbc:StartDate>2025-10-10</cbc:StartDate>
         <cbc:EndDate>2025-10-16</cbc:EndDate>
     </cac:InvoicePeriod>
     <!-- 关联客户方的采购订单号 -->
-    <cac:OrderReference>
-        <cbc:ID>order id 123</cbc:ID>
-    </cac:OrderReference>
+<!--    <cac:OrderReference>-->
+<!--        <cbc:ID>order id 123</cbc:ID>-->
+<!--    </cac:OrderReference>-->
 
     <!-- Reference to original invoice, it is mandatory to be used when InvoiceTypeCode is 381/383 -->
 <!--    <cac:BillingReference>-->
@@ -52,21 +52,18 @@
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>
-                <cbc:ID schemeID="ERP">ORGID001</cbc:ID>
+                <cbc:ID schemeID="ERP">BU-00008</cbc:ID>
             </cac:PartyIdentification>
-            <!--企业ID（税号）信息-->
-            <cac:PartyIdentification>
-                <cbc:ID schemeID="DE:VAT">NL827333365B01</cbc:ID>
-            </cac:PartyIdentification>
+ 
             <!-- 销方地址信息 -->
             <cac:PostalAddress>
-                <cbc:StreetName>Mainstreet 112</cbc:StreetName>
-                <cbc:CityName>Singapore</cbc:CityName>
-                <cbc:PostalZone>1000</cbc:PostalZone>
-                <cbc:CountrySubentity>Singapore</cbc:CountrySubentity>
-                <cac:AddressLine>
-                    <cbc:Line>Sales department</cbc:Line>
-                </cac:AddressLine>
+<!--                <cbc:StreetName>Mainstreet 112</cbc:StreetName>-->
+<!--                <cbc:CityName>Singapore</cbc:CityName>-->
+<!--                <cbc:PostalZone>1000</cbc:PostalZone>-->
+<!--                <cbc:CountrySubentity>Singapore</cbc:CountrySubentity>-->
+<!--                <cac:AddressLine>-->
+<!--                    <cbc:Line>Sales department</cbc:Line>-->
+<!--                </cac:AddressLine>-->
                 <cac:Country>
                     <cbc:IdentificationCode>DE</cbc:IdentificationCode>
                 </cac:Country>
@@ -89,8 +86,9 @@
         <cac:Party>
             <!--企业ID（税号）信息-->
             <cac:PartyIdentification>
-                <cbc:ID schemeID="GB:VAT">GB559403414101</cbc:ID>
+                <cbc:ID schemeID="TAXID">GB559403414101</cbc:ID>
             </cac:PartyIdentification>
+
             <cac:PostalAddress>
                 <cbc:StreetName>Customer Street Name</cbc:StreetName>
                 <cbc:CityName>Customer City Name</cbc:CityName>
@@ -103,6 +101,7 @@
                     <cbc:IdentificationCode>GB</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
+           
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Kingdee Test Buyer EU</cbc:RegistrationName>
             </cac:PartyLegalEntity>
@@ -123,7 +122,7 @@
         <cac:Party>
             <!--企业ID（税号）信息-->
             <cac:PartyIdentification>
-                <cbc:ID schemeID="DE:VAT">DE559403414101</cbc:ID>
+                <cbc:ID schemeID="GB:VAT">DE559403414101</cbc:ID>
             </cac:PartyIdentification>
             <cac:PostalAddress>
                 <cbc:StreetName>Buyer Customer Street Name</cbc:StreetName>
@@ -265,6 +264,9 @@
                     <cbc:ID>PO-123456</cbc:ID>
                 </cac:OrderReference>
         </cac:OrderLineReference>
+        <cac:TaxTotal>
+            <cbc:TaxAmount>21</cbc:TaxAmount>
+        </cac:TaxTotal>
         <cac:Item>
             <!--            商品名称-->
             <cbc:Name>Item Module 01</cbc:Name>
@@ -313,6 +315,9 @@
             <cbc:AllowanceChargeReason>Line charge</cbc:AllowanceChargeReason>
             <cbc:Amount>5</cbc:Amount>
         </cac:AllowanceCharge>
+        <cac:TaxTotal>
+            <cbc:TaxAmount>0</cbc:TaxAmount>
+        </cac:TaxTotal>
         <cac:Item>
             <cbc:Description>TWMND-72HD590</cbc:Description>
             <cbc:Name>Item01</cbc:Name>
