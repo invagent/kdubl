@@ -1016,4 +1016,93 @@
         </xs:simpleContent>
     </xs:complexType>
 
+    <!-- ============================================================
+         ESTaxSubtotalExtensionsType / ESTaxSubtotalExtensionType
+         西班牙 SII 税务小计扩展（发票级）。
+         每个 TaxSubtotalExtension 通过 index 属性（0-based）
+         与 UBL body 中对应顺序的 TaxSubtotal 关联，
+         补充 SII ClaveRegimenEspecialOTrascendencia（税务制度码）。
+         ============================================================ -->
+    <xs:complexType name="ESTaxSubtotalExtensionsType">
+        <xs:annotation>
+            <xs:documentation>
+                西班牙 SII 税务小计扩展集合容器（ES）。
+                包含一个或多个 TaxSubtotalExtension，
+                每个通过 index 属性与 UBL TaxSubtotal 顺序对应（0-based）。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TaxSubtotalExtension"
+                        type="kdubl:ESTaxSubtotalExtensionType"
+                        minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ESTaxSubtotalExtensionType">
+        <xs:annotation>
+            <xs:documentation>
+                单个税务小计扩展（ES SII）。
+                通过 index 属性（0-based）与 UBL body 中对应顺序的
+                cac:TaxSubtotal 关联，补充该税率档的税务制度码。
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <!-- 税务制度码（ClaveRegimenEspecialOTrascendencia）-->
+            <xs:element name="TaxRegimeCode" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        税务制度码（西班牙 SII 必填）。
+                        对应 SII ClaveRegimenEspecialOTrascendencia。
+                        常用值：
+                          01 = 普通税制（Régimen general）
+                          02 = 出口业务
+                          03 = 休达/梅利利亚特殊税（IPSI）
+                          04 = 加那利群岛特殊税（IGIC）
+                          07 = 现金记账制（Criterio de Caja）
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!-- 等价附加税税率（ES SII，零售商特殊税制，可选）-->
+            <xs:element name="TipoRecargoEquivalencia" type="xs:decimal"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        等价附加税税率（西班牙 SII，零售商特殊税制）。
+                        百分比形式，如 5.2、1.4、0.5。
+                        与 CuotaRecargoEquivalencia 配对使用。
+                        对应 SII DetalleIVA/TipoRecargoEquivalencia。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 等价附加税税额（ES SII，零售商特殊税制，可选）-->
+            <xs:element name="CuotaRecargoEquivalencia" type="xs:decimal"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        等价附加税税额（西班牙 SII，零售商特殊税制）。
+                        与 TipoRecargoEquivalencia 配对使用。
+                        对应 SII DetalleIVA/CuotaRecargoEquivalencia。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+        <!-- index 属性：可选，0-based，与 UBL TaxSubtotal 顺序对应。
+             XSLT 按位置顺序匹配，调用者无需填写此属性。 -->
+        <xs:attribute name="index" type="xs:nonNegativeInteger" use="optional">
+            <xs:annotation>
+                <xs:documentation>
+                    TaxSubtotal 顺序索引（0-based），可选。
+                    XSLT 按 TaxSubtotalExtension 出现顺序与 UBL TaxSubtotal 匹配，
+                    调用者无需填写此属性。
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
 </xs:schema>
