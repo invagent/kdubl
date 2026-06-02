@@ -3,12 +3,12 @@
     ============================================================
     KDUBL PiaozoneExtension Schema
     命名空间  : urn:piaozone:ExtensionComponent:1.0
-    版本      : 1.1
+    版本      : 1.2
     说明      : 定义 KDUBL 发票中 ext:UBLExtension/ext:ExtensionContent
                 下的自定义扩展结构（kdubl 命名空间）。
                 本扩展遵循 UBL 2.1 扩展规范，所有字段按
                 UBL 文档流顺序排列：
-                   1. InvoiceDocumentReference       — 发票文档引用（SA、TH）
+                   1. InvoiceDocumentReference       — 发票文档引用（SA、TH、ES）
                    2. SupplierAddressInfo             — 卖方地址扩展（TH）
                    3. CustomerAddressInfo             — 买方地址扩展（TH）
                    4. PrepaidPaymentExtension         — 预付款税务扩展（SA）
@@ -17,23 +17,34 @@
                    7. PeriodicalSettlement            — 周期性结算标识（HU）
                    8. SmallBusinessIndicator          — 小微企业税制标识（HU）
                    9. CashAccountingIndicator         — 现金收付制增值税标识（HU）
-                  10. ProductFeeSummary               — 产品环境税汇总（HU）
-                  11. ModificationIndex               — 改票序号（HU）
-                  12. BatchIndex                      — 批量提交发票位置序号（HU）
-                  13. ModifyWithoutMaster             — 原始发票是否已上报（HU）
-                  14. TaxTotalExtensions              — 税额合计扩展（HU）
-                  15. TaxCurrencyLegalMonetaryTotal   — 计税货币发票合计（HU）
-                  16. LineExtensions                  — 行项目扩展（通用）
+                  10. CompletenessIndicator          — 完整性标识（HU）
+                  11. ProductFeeSummary               — 产品环境税汇总（HU）
+                  12. ModificationIndex               — 改票序号（HU）
+                  13. BatchIndex                      — 批量提交发票位置序号（HU）
+                  14. ModifyWithoutMaster             — 原始发票是否已上报（HU）
+                  15. TaxTotalExtensions              — 税额合计扩展（HU）
+                  16. TaxCurrencyLegalMonetaryTotal   — 计税货币发票合计（HU）
+                  17. LineExtensions                  — 行项目扩展（通用）
+                  18. OperationType                   — 业务类型（ES，跨境发票必填）
+                  19. TaxSubtotalExtensions           — 税务小计扩展（ES，含 TaxRegimeCode、TipoRecargoEquivalencia、CuotaRecargoEquivalencia）
+                  20. EmitidaPorTercerosODestinatario — 第三方或受票方代开标志（ES，可选，默认 N）
+                  21. VariosDestinatarios             — 多买方标志（ES，可选，默认 N）
+
+                InvoiceDocumentReference 新增 ES 纠正票字段（v1.2）：
+                  - CorrectionMethod                 — 纠正方法（S=替代法，I=差额法）
+                  - OriginalInvoiceSeries            — 原始发票系列号
+                  - OriginalTaxableAmount            — 原始发票税基（替代法必填）
+                  - OriginalTaxAmount                — 原始发票税额（替代法必填）
     ============================================================
 -->
 <xs:schema
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
-    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
-    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-    targetNamespace="urn:piaozone:ExtensionComponent:1.0"
-    elementFormDefault="qualified"
-    attributeFormDefault="unqualified">
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
+        xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+        xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+        targetNamespace="urn:piaozone:ExtensionComponent:1.0"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
 
     <!-- 引入 UBL 公共命名空间，用于 PrepaidPaymentExtension 及 TaxCurrencyLegalMonetaryTotal 内部的标准结构 -->
     <xs:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"/>
@@ -139,7 +150,20 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <!-- 10. 产品环境税汇总（HU，termékdíj，对应 NAV RTIR productFeeSummary）-->
+            <!-- 10. 完整性标识（HU）：true = 上报完整电子发票数据；false（默认）= 仅上报税务申报数据 -->
+            <xs:element name="CompletenessIndicator" type="xs:boolean"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        完整性标识（匈牙利）。标识上报给 NAV 的 InvoiceData XML 是否包含完整的电子发票数据。
+                        false（默认）= 部分数据模式，仅包含税务申报所需字段；
+                        true = 完整电子发票模式（数据上报即发票本身，不含更多数据）。
+                        对应 NAV RTIR invoiceData/completenessIndicator。
+                        注意：electronicInvoiceHash 不在 InvoiceData 上报结构中，仅出现在 NAV 查询响应里。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <!-- 11. 产品环境税汇总（HU，termékdíj，对应 NAV RTIR productFeeSummary）-->
             <xs:element name="ProductFeeSummary"
                         type="kdubl:ProductFeeSummaryType"
                         minOccurs="0" maxOccurs="1"/>
@@ -194,6 +218,76 @@
             <xs:element name="LineExtensions"
                         type="kdubl:LineExtensionsType"
                         minOccurs="0" maxOccurs="1"/>
+
+            <!-- 17. 业务类型（ES SII，跨境发票必填）：PRODUCT / SERVICE / PRODUCT_SERVICE -->
+            <xs:element name="OperationType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        业务类型（西班牙 SII，跨境发票必填）。
+                        决定 DesgloseTipoOperacion 下输出 Entrega（货物）、
+                        PrestacionServicios（服务）还是两者都输出。
+                        国内客户（ES）无需填写。
+                        可选值：PRODUCT / SERVICE / PRODUCT_SERVICE。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="PRODUCT"/>
+                        <xs:enumeration value="SERVICE"/>
+                        <xs:enumeration value="PRODUCT_SERVICE"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <!-- 18. 税务小计扩展集合（ES SII，发票级，按 index 与 TaxSubtotal 顺序对应）-->
+            <xs:element name="TaxSubtotalExtensions"
+                        type="kdubl:ESTaxSubtotalExtensionsType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        税务小计扩展集合（西班牙 SII）。
+                        每个 TaxSubtotalExtension 通过 index 属性（0-based）
+                        与 UBL body 中对应顺序的 TaxSubtotal 关联，
+                        补充 SII 所需的税务制度码（ClaveRegimenEspecialOTrascendencia）。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 19. 第三方或受票方代开标志（ES SII，可选，不填默认 N）-->
+            <xs:element name="EmitidaPorTercerosODestinatario" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        第三方或受票方代开标志（西班牙 SII）。
+                        S = 第三方代开或受票方自开（autofactura）；
+                        N = 供应商自行开具（默认）。
+                        对应 SII FacturaExpedida/EmitidaPorTercerosODestinatario。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="S"/>
+                        <xs:enumeration value="N"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <!-- 20. 多买方标志（ES SII，可选，不填默认 N）-->
+            <xs:element name="VariosDestinatarios" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        多买方标志（西班牙 SII）。
+                        S = 发票有多个买方（受票方）；
+                        N = 单一买方（默认）。
+                        对应 SII FacturaExpedida/VariosDestinatarios。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="S"/>
+                        <xs:enumeration value="N"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -280,6 +374,61 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
+
+            <!-- ── ES 纠正票扩展字段 ── -->
+
+            <!-- 纠正方法（ES SII，纠正票 R1~R5 必填）：S=替代法，I=差额法 -->
+            <xs:element name="CorrectionMethod" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        纠正方法（西班牙 SII，纠正票 R1~R5 必填）。
+                        S = 替代法（método sustitutivo）：整单作废后重开，需携带原始发票税基和税额。
+                        I = 差额法（método por diferencias）：仅填差额，不需要原始金额。
+                        对应 SII TipoRectificativa。
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="S"/>
+                        <xs:enumeration value="I"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <!-- 原始发票系列号（ES SII，被纠正原始发票的系列号）-->
+            <xs:element name="OriginalInvoiceSeries" type="xs:string"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        被纠正原始发票的系列号（西班牙 SII）。
+                        对应原始发票的 InvoiceCode（ADR[DocumentType='InvoiceCode']/ID）。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 原始发票税基（ES SII，替代法 S 必填）-->
+            <xs:element name="OriginalTaxableAmount" type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        被纠正原始发票的税基金额（西班牙 SII，替代法 S 必填）。
+                        必须携带 currencyID 属性。
+                        对应 SII ImporteRectificacion/BaseRectificada。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+
+            <!-- 原始发票税额（ES SII，替代法 S 必填）-->
+            <xs:element name="OriginalTaxAmount" type="kdubl:AmountType"
+                        minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>
+                        被纠正原始发票的税额（西班牙 SII，替代法 S 必填）。
+                        必须携带 currencyID 属性。
+                        对应 SII ImporteRectificacion/CuotaRectificada。
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
         </xs:sequence>
     </xs:complexType>
 
@@ -347,14 +496,14 @@
                 存放预付款关联发票的增值税汇总信息。
                 内部结构复用 UBL 标准的 cac:TaxTotal（至少一个）。
                 cac:TaxTotal 结构：
-                  cbc:TaxAmount       — 总税额（@currencyID 必填）
-                  cac:TaxSubtotal     — 按税种细分（可重复）
-                    cbc:TaxableAmount — 应税基础金额（KSA-31）
-                    cbc:TaxAmount     — 分类税额（KSA-32）
-                    cac:TaxCategory   — 税种分类
-                      cbc:ID          — 税种码（KSA-33，如 S=标准）
-                      cbc:Percent     — 税率（KSA-34）
-                      cac:TaxScheme/cbc:ID — 固定值 VAT
+                cbc:TaxAmount       — 总税额（@currencyID 必填）
+                cac:TaxSubtotal     — 按税种细分（可重复）
+                cbc:TaxableAmount — 应税基础金额（KSA-31）
+                cbc:TaxAmount     — 分类税额（KSA-32）
+                cac:TaxCategory   — 税种分类
+                cbc:ID          — 税种码（KSA-33，如 S=标准）
+                cbc:Percent     — 税率（KSA-34）
+                cac:TaxScheme/cbc:ID — 固定值 VAT
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
@@ -621,17 +770,17 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <!-- 税务索引：从 1 开始，对应行 TaxTotal/TaxSubtotal 排列顺序，在同一 TaxExtensions 内唯一（KDUBL-EXT-003）-->
-            <xs:element name="TaxIndex" minOccurs="1" maxOccurs="1">
+            <!-- 税务索引：位置申明字段，可缺失或为空。必填性、唯一性、>=1 由各国特定校验规则（如 SA XSLT）负责校验 -->
+            <xs:element name="TaxIndex" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>
-                        税务索引（从 1 开始的正整数）。
-                        与 InvoiceLine/TaxTotal/TaxSubtotal 的顺序位置对应，
-                        在同一 TaxExtensions 内必须唯一。
+                        税务索引（位置申明）。
+                        与 InvoiceLine/TaxTotal/TaxSubtotal 的顺序位置对应。
+                        该字段允许为空；必填性、唯一性及值 >= 1 的校验由各国特定规则负责。
                     </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
-                    <xs:restriction base="xs:positiveInteger"/>
+                    <xs:restriction base="xs:string"/>
                 </xs:simpleType>
             </xs:element>
 
@@ -1053,18 +1202,45 @@
                     <xs:documentation>
                         税务制度码（西班牙 SII 必填）。
                         对应 SII ClaveRegimenEspecialOTrascendencia。
-                        常用值：
-                          01 = 普通税制（Régimen general）
-                          02 = 出口业务
-                          03 = 休达/梅利利亚特殊税（IPSI）
-                          04 = 加那利群岛特殊税（IGIC）
-                          07 = 现金记账制（Criterio de Caja）
+                        枚举值来源：AEAT SuministroInformacion.xsd IdOperacionesTrascendenciaTributariaType。
+                        01 = 普通税制（Régimen general）
+                        02 = 出口业务（Exportación）
+                        03 = 休达/梅利利亚特殊税（IPSI）
+                        04 = 加那利群岛特殊税（IGIC）
+                        05 = 旅行社特殊方案
+                        06 = 二手货物/艺术品/古董特殊方案
+                        07 = 现金记账制（Criterio de Caja）
+                        08 = 与 IPSI/IGIC 相关的业务
+                        09 = 发票替代简化发票
+                        10 = 代收代缴
+                        11 = 租赁业务（Arrendamiento de local de negocio）
+                        12 = 非营业性实体
+                        13 = 发票对应多个年度
+                        14 = 首次交付新建房产
+                        15 = 财政代表
+                        16 = 农业/林业/渔业特殊方案
+                        17 = OSS/IOSS（跨境电商）
                     </xs:documentation>
                 </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:minLength value="1"/>
-                        <xs:maxLength value="2"/>
+                        <xs:enumeration value="01"/>
+                        <xs:enumeration value="02"/>
+                        <xs:enumeration value="03"/>
+                        <xs:enumeration value="04"/>
+                        <xs:enumeration value="05"/>
+                        <xs:enumeration value="06"/>
+                        <xs:enumeration value="07"/>
+                        <xs:enumeration value="08"/>
+                        <xs:enumeration value="09"/>
+                        <xs:enumeration value="10"/>
+                        <xs:enumeration value="11"/>
+                        <xs:enumeration value="12"/>
+                        <xs:enumeration value="13"/>
+                        <xs:enumeration value="14"/>
+                        <xs:enumeration value="15"/>
+                        <xs:enumeration value="16"/>
+                        <xs:enumeration value="17"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
