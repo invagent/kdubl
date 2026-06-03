@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    KDUBL 示例：西班牙 VeriFactu 不征税发票（境外服务）
+
+    演示要点：
+    - 不属于 VAT 征税范围的业务（O = Out of Scope，Non-subject）
+    - TaxCategory=O，TaxExemptionReasonCode=N2（依据 LIVA 第7条，地点规则）
+    - TaxRegimeCode=01（普通税制，即使不征税也需要填写）
+    - 买方为境外企业，无西班牙 NIF，使用 GB: 前缀标识
+    - 税额为 0，但需要有效的税基（服务价值）
+
+    不征税码说明（西班牙 VeriFactu）：
+    - N1: 不征税 - 依据第7条（经营转让等）
+    - N2: 不征税 - 依据地点规则（境外交付/服务地点不在西班牙）
+
+    最佳实践：
+    - 不征税业务（O）建议单独开发票，不与征税业务混开
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- ===== KDUBL 扩展：西班牙特有字段 ===== -->
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
+            <ext:ExtensionContent>
+                <kdubl:PiaozoneExtension>
+                    <kdubl:TaxSubtotalExtensions>
+                        <!--
+                            TaxSubtotal[0]: 不征税，普通税制
+                            即使是 O 类别（不征税），VeriFactu 仍强制要求 TaxRegimeCode
+                        -->
+                        <kdubl:TaxSubtotalExtension index="0">
+                            <kdubl:TaxRegimeCode>01</kdubl:TaxRegimeCode>
+                        </kdubl:TaxSubtotalExtension>
+                    </kdubl:TaxSubtotalExtensions>
+                </kdubl:PiaozoneExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+
+    <!-- ===== 发票头 ===== -->
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <cbc:ID>20260512003</cbc:ID>
+    <cbc:IssueDate>2026-05-12</cbc:IssueDate>
+    <cbc:IssueTime>11:00:00+01:00</cbc:IssueTime>
+    <cbc:DueDate>2025-03-03</cbc:DueDate>
+    <cbc:InvoiceTypeCode name="F1">380</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <!-- ===== 发票系列号（VeriFactu 强制）===== -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">INV</cbc:ID>
+        <cbc:DocumentType>InvoiceCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- ===== 卖方信息（西班牙企业）===== -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Consultora Internacional S.L.</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Calle Servicios 77</cbc:StreetName>
+                <cbc:CityName>Madrid</cbc:CityName>
+                <cbc:PostalZone>28002</cbc:PostalZone>
+                <cbc:CountrySubentity>Madrid</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>N0039889A</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Consultora Internacional S.L.</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!--
+        买方信息：境外公司（英国）
+        无西班牙 NIF，使用本国税号，schemeID 使用国家前缀
+    -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Foreign Company Ltd.</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>123 Business Street</cbc:StreetName>
+                <cbc:CityName>London</cbc:CityName>
+                <cbc:PostalZone>SW1A 1AA</cbc:PostalZone>
+                <cbc:CountrySubentity>England</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>GB</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <!-- 境外买方使用本国税号，不强制要求 NIF -->
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>GB123456789</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Foreign Company Ltd.</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- ===== 付款信息 ===== -->
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>ES4521000813610987654321</cbc:ID>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- ===== 税务合计（不征税，税额为 0）===== -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+        <!--
+            TaxSubtotal[0]: 不征税
+            对应 TaxSubtotalExtensions/TaxSubtotalExtension index="0" TaxRegimeCode=01
+        -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">5000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <!--
+                    O = Out of scope / Not subject（不征税）
+                    区别于 E（Exempt，免税）：
+                    - E: 原则上应征税，但依法豁免（如出口）
+                    - O: 根本不在 VAT 征税范围内（如服务发生地不在西班牙）
+                -->
+                <cbc:ID>O</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <!-- N2 = 依据地点规则不征税（LIVA 第7条，服务实际发生地在境外）-->
+                <cbc:TaxExemptionReasonCode>N2</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>No sujeta por reglas de localización - Artículo 7 LIVA</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- ===== 法定金额合计 ===== -->
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="EUR">5000.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="EUR">5000.00</cbc:TaxExclusiveAmount>
+        <!-- 不征税：含税价 = 不含税价 -->
+        <cbc:TaxInclusiveAmount currencyID="EUR">5000.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">5000.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- ===== 发票行 ===== -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <!-- HUR = 小时（服务类） -->
+        <cbc:InvoicedQuantity unitCode="HUR">200</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">5000.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Servicios de consultoría prestados en el Reino Unido</cbc:Description>
+            <cbc:Name>Consultoría técnica internacional</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>O</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">25.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
