@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Source Invoice 5 - Normal direction, FIXED TAX RATE: Tourism Tax 10 MYR/room/night
+  PRD 3.4 机制B: Fixed Rate tax — TaxCategory.Percent is absent/zero,
+    tax is computed as Quantity × PerUnitAmount (not as a percentage of base amount)
+  Receipt: RCP-2026-005
+  Hotel: 3 room-nights @ 10 MYR tourism tax each = 30 MYR tax
+  Room charge (pre-tax): 450.00 MYR
+  Valid for merge with Invoice_6_fixed_tax (same supplier TIN, same tax bucket)
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ID>RCP-2026-005</cbc:ID>
+    <cbc:IssueDate>2026-05-03</cbc:IssueDate>
+    <cbc:IssueTime>12:00:00</cbc:IssueTime>
+    <cbc:InvoiceTypeCode listVersionID="1.0">01</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>MYR</cbc:DocumentCurrencyCode>
+
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:IndustryClassificationCode name="HOTELS AND SIMILAR ACCOMMODATION">55100</cbc:IndustryClassificationCode>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">C5555555555</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">200001045678</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SST">W16-1812-32100045</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Hotel Grand KL Sdn Bhd</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>50, Jalan Sultan Ismail</cbc:StreetName>
+                <cbc:CityName>Kuala Lumpur</cbc:CityName>
+                <cbc:PostalZone>50250</cbc:PostalZone>
+                <cbc:CountrySubentityCode>14</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>MYS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>W16-1812-32100045</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Hotel Grand KL Sdn Bhd</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>+60321112222</cbc:Telephone>
+                <cbc:ElectronicMail>finance@hotelgrandkl.com.my</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">C9876543210</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">200101023456</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cbc:StreetName>Level 5, Tower A, Menara ABC</cbc:StreetName>
+                <cbc:CityName>Petaling Jaya</cbc:CityName>
+                <cbc:PostalZone>47810</cbc:PostalZone>
+                <cbc:CountrySubentityCode>10</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>MYS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Tech Corp Malaysia Sdn Bhd</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>+60387654321</cbc:Telephone>
+                <cbc:ElectronicMail>accounts@techcorp.com.my</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!--
+      PRD 3.4 机制B: Fixed Rate tax (Tourism Tax)
+      TaxableAmount = cumulative room-nights (3 nights, as quantity base)
+      TaxAmount = 3 nights × 10.00 MYR = 30.00
+      cbc:Percent is omitted (fixed rate, not percentage-based)
+    -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="MYR">30.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <!-- TaxableAmount here represents the quantity base (3 room-nights) -->
+            <cbc:TaxableAmount currencyID="MYR">3</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="MYR">30.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>03</cbc:ID>
+                <!-- No cbc:Percent for fixed rate — PRD 3.4 机制B -->
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="MYR">450.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="MYR">450.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="MYR">480.00</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="MYR">0.00</cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="MYR">0.00</cbc:ChargeTotalAmount>
+        <cbc:PrepaidAmount currencyID="MYR">0.00</cbc:PrepaidAmount>
+        <cbc:PayableRoundingAmount currencyID="MYR">0.00</cbc:PayableRoundingAmount>
+        <cbc:PayableAmount currencyID="MYR">480.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <!-- 3 room-nights -->
+        <cbc:InvoicedQuantity unitCode="NIght">3</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="MYR">450.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="MYR">30.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="MYR">3</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="MYR">30.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>03</cbc:ID>
+                    <cac:TaxScheme>
+                        <cbc:ID>SST</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>Hotel Room Accommodation - Standard Room (3 nights)</cbc:Description>
+            <cbc:Name>Hotel Room</cbc:Name>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="CLASS">004</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>03</cbc:ID>
+                <!-- No Percent — fixed rate of 10 MYR per room per night -->
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="MYR">150.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>

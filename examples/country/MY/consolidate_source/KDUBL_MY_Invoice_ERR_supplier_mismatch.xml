@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ERROR CASE: ERR_TIN_INCONSISTENCY
+  PRD 2.1: All invoices in a merge batch must have the same supplierTIN (正向开票).
+  This invoice has supplierTIN = C9999999999, while the batch uses C1234567890.
+  Expected validation result: throw ERR_TIN_INCONSISTENCY, reject from merge.
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ID>RCP-2026-ERR-002</cbc:ID>
+    <cbc:IssueDate>2026-05-15</cbc:IssueDate>
+    <cbc:IssueTime>11:00:00</cbc:IssueTime>
+    <cbc:InvoiceTypeCode listVersionID="1.0">01</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>MYR</cbc:DocumentCurrencyCode>
+
+    <!-- MISMATCHED SUPPLIER: TIN C9999999999 differs from batch supplier C1234567890 -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:IndustryClassificationCode name="RESTAURANTS AND MOBILE FOOD SERVICE ACTIVITIES">56101</cbc:IndustryClassificationCode>
+            <cac:PartyIdentification>
+                <!-- Different TIN — will trigger ERR_TIN_INCONSISTENCY -->
+                <cbc:ID schemeID="TIN">C9999999999</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">201801099999</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SST">B16-9999-99999999</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Restoran Lain Sdn Bhd</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>No. 88, Jalan Ampang</cbc:StreetName>
+                <cbc:CityName>Kuala Lumpur</cbc:CityName>
+                <cbc:PostalZone>50450</cbc:PostalZone>
+                <cbc:CountrySubentityCode>14</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>MYS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>B16-9999-99999999</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Restoran Lain Sdn Bhd</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>+60399998888</cbc:Telephone>
+                <cbc:ElectronicMail>billing@restoranlain.com.my</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">C9876543210</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">200101023456</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cbc:StreetName>Level 5, Tower A, Menara ABC</cbc:StreetName>
+                <cbc:CityName>Petaling Jaya</cbc:CityName>
+                <cbc:PostalZone>47810</cbc:PostalZone>
+                <cbc:CountrySubentityCode>10</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>MYS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Tech Corp Malaysia Sdn Bhd</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>+60387654321</cbc:Telephone>
+                <cbc:ElectronicMail>accounts@techcorp.com.my</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="MYR">25.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="MYR">250.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="MYR">25.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>01</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="MYR">250.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="MYR">250.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="MYR">275.00</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="MYR">0.00</cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="MYR">0.00</cbc:ChargeTotalAmount>
+        <cbc:PrepaidAmount currencyID="MYR">0.00</cbc:PrepaidAmount>
+        <cbc:PayableRoundingAmount currencyID="MYR">0.00</cbc:PayableRoundingAmount>
+        <cbc:PayableAmount currencyID="MYR">275.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="MYR">250.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="MYR">25.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="MYR">250.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="MYR">25.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>01</cbc:ID>
+                    <cbc:Percent>10</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>SST</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>Restaurant Meal Services</cbc:Description>
+            <cbc:Name>Meal Service</cbc:Name>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="CLASS">004</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>01</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="MYR">250.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>

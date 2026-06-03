@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  CONSOLIDATED TARGET - Self-billed / Reverse Direction (反向开票合并)
+  PRD 3.2 sellBilled=true → Supplier = General Public, Customer = Hotel Grand KL
+  PRD 3.1: AdditionalDocumentReference SelfBilled tag injected
+  Sources: RCP-SB-2026-001 (500.00) + RCP-SB-2026-002 (400.00), both SST 02 @ 6%
+  Merge totals:
+    lineExtensionAmount = 500+400 = 900.00
+    taxAmount = 30+24 = 54.00 (= 900.00 × 6%)
+    taxInclusiveAmount = 954.00
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ID>REPORT_CON_2026060003</cbc:ID>
+    <cbc:IssueDate>2026-06-07</cbc:IssueDate>
+    <cbc:IssueTime>10:17:00+08:00</cbc:IssueTime>
+    <cbc:InvoiceTypeCode listVersionID="1.0">01</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>MYR</cbc:DocumentCurrencyCode>
+
+    <!-- PRD 3.1: SelfBilled extension required when sellBilled=true -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeID="InvoiceTag">true</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- PRD 3.2 反向开票: Supplier = fixed General Public virtual entity -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:IndustryClassificationCode name="OTHER">00000</cbc:IndustryClassificationCode>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">EI00000000010</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">NA</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>General Public</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:PostalZone>NA</cbc:PostalZone>
+                <cac:AddressLine>
+                    <cbc:Line>NA</cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>MYS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>NA</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>General Public</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- PRD 3.2 反向开票: Customer = copied from source (company issuing self-billed) -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cbc:IndustryClassificationCode name="HOTELS AND SIMILAR ACCOMMODATION">55100</cbc:IndustryClassificationCode>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">C5555555555</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">200001045678</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SST">W16-1812-32100045</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Hotel Grand KL Sdn Bhd</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>50, Jalan Sultan Ismail</cbc:StreetName>
+                <cbc:CityName>Kuala Lumpur</cbc:CityName>
+                <cbc:PostalZone>50250</cbc:PostalZone>
+                <cbc:CountrySubentityCode>14</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>MYS</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>W16-1812-32100045</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Hotel Grand KL Sdn Bhd</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>+60321112222</cbc:Telephone>
+                <cbc:ElectronicMail>finance@hotelgrandkl.com.my</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- PRD 3.4 机制A: 900.00 × 6% = 54.00 -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="MYR">54.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="MYR">900.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="MYR">54.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>02</cbc:ID>
+                <cbc:Percent>6</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="MYR">900.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="MYR">900.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="MYR">954.00</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="MYR">0.00</cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="MYR">0.00</cbc:ChargeTotalAmount>
+        <cbc:PrepaidAmount currencyID="MYR">0.00</cbc:PrepaidAmount>
+        <cbc:PayableRoundingAmount currencyID="MYR">0.00</cbc:PayableRoundingAmount>
+        <cbc:PayableAmount currencyID="MYR">954.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Single tax bucket → one compressed invoiceLine -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="MYR">900.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="MYR">54.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="MYR">900.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="MYR">54.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>02</cbc:ID>
+                    <cbc:Percent>6</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>SST</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>Summary of Receipt #RCP-SB-2026-001 to RCP-SB-2026-002 (SST 02 6%)</cbc:Description>
+            <cbc:Name>Consolidated Receipts</cbc:Name>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="CLASS">004</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>02</cbc:ID>
+                <cbc:Percent>6</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="MYR">900.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>
