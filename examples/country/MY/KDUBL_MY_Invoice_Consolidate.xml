@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ID>123123</cbc:ID>
+    <cbc:IssueDate>2024-02-01</cbc:IssueDate>
+    <cbc:IssueTime>21:32:52</cbc:IssueTime>
+    <cbc:DueDate>2024-03-01</cbc:DueDate>
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>MYR</cbc:DocumentCurrencyCode>
+<!--    <cac:BillingReference>-->
+<!--        <cac:InvoiceDocumentReference>-->
+<!--            <cbc:ID>151891-1981</cbc:ID>-->
+<!--            <cbc:UUID>LHDNM Unique Identifier Number</cbc:UUID>-->
+<!--        </cac:InvoiceDocumentReference>-->
+<!--    </cac:BillingReference>-->
+
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cbc:IndustryClassificationCode name="OTHER INFORMATION TECHNOLOGY SERVICE ACTIVITIES N.E.C.">62099</cbc:IndustryClassificationCode>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="MY:BRN">BRN1234567890</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>Seller Name</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Street name</cbc:StreetName>
+                <cbc:CityName>Kuala Lumpur</cbc:CityName>
+                <cbc:PostalZone>50480</cbc:PostalZone>
+                <cbc:CountrySubentityCode>14</cbc:CountrySubentityCode>
+                <cac:Country>
+                    <cbc:IdentificationCode>MY</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+             <cac:PartyTaxScheme>
+                <cbc:CompanyID>TIN1234567890</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Supplier Registration Name</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>123123123</cbc:Telephone>
+                <cbc:ElectronicMail>test@test.my</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TIN">EI00000000010</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="BRN">NA</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="SST">NA</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="TTX">NA</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cbc:CityName> </cbc:CityName>
+                <cbc:PostalZone> </cbc:PostalZone>
+                <cbc:CountrySubentityCode> </cbc:CountrySubentityCode>
+                <cac:AddressLine>
+                    <cbc:Line>NA</cbc:Line>
+                </cac:AddressLine>
+                <cac:AddressLine>
+                    <cbc:Line> </cbc:Line>
+                </cac:AddressLine>
+                <cac:AddressLine>
+                    <cbc:Line> </cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode listAgencyID="6" listID="ISO3166-1"> </cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Consolidated Buyers</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Telephone>NA</cbc:Telephone>
+                <cbc:ElectronicMail>NA</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="MYR">41.20</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="MYR">300.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="MYR">0.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>E</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReason>Tax exemption reason description</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="MYR">262.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="MYR">26.20</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>01</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="MYR">300.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="MYR">15.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>02</cbc:ID>
+                <cbc:Percent>5</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="MYR">562.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="MYR">562.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="MYR">603.20</cbc:TaxInclusiveAmount>
+        <cbc:AllowanceTotalAmount currencyID="MYR">0.00</cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="MYR">0.00</cbc:ChargeTotalAmount>
+        <cbc:PrepaidAmount currencyID="MYR">5.00</cbc:PrepaidAmount>
+        <cbc:PayableRoundingAmount currencyID="MYR">0.20</cbc:PayableRoundingAmount>
+        <cbc:PayableAmount currencyID="MYR">603.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="MYR">262.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="MYR">26.20</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="MYR">262.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="MYR">26.20</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>01</cbc:ID>
+                    <cbc:Percent>10</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>SST</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <!-- IBT-154 Item Description -->
+            <cbc:Description>Receipt 001 - 100</cbc:Description>
+            <!-- IBT-153 Item Name-->
+            <cbc:Name>Item name</cbc:Name>
+            <!-- IBT-158 - Classification -->
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="CLASS">004</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>01</cbc:ID>
+                <cbc:Percent>10</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="MYR">262.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="EA">1</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="MYR">300.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="MYR">0.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="MYR">300.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="MYR">0.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>E</cbc:ID>
+                    <cbc:Percent>0</cbc:Percent>
+                    <cbc:TaxExemptionReason>Tax exemption reason description</cbc:TaxExemptionReason>
+                    <cac:TaxScheme>
+                        <cbc:ID>SST</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="MYR">300.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="MYR">15.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>02</cbc:ID>
+                    <cbc:Percent>5</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>SST</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>Item description</cbc:Description>
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="CLASS">004</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>02</cbc:ID>
+                <cbc:Percent>5</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>E</cbc:ID>
+                <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReason>Tax exemption reason description</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>SST</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="MYR">300.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+</Invoice>
