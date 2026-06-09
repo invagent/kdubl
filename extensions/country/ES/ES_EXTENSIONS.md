@@ -19,6 +19,7 @@
 | 9 | `OriginalInvoiceSeries` | `kdubl:InvoiceDocumentReference` | CM — 纠正票时填 | `NumSerieFacturaEmisor`（原始票） |
 | 10 | `OriginalTaxableAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/BaseRectificada` |
 | 11 | `OriginalTaxAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/CuotaRectificada` |
+| 12 | `TaxReportIndicator` | `cac:AdditionalDocumentReference` | O — 需要向税局额外报送时填 | — |
 
 > **M** = 必填；**CM** = 条件必填；**O** = 可选
 
@@ -276,7 +277,37 @@ kdubl:PiaozoneExtension
 
 ---
 
-### 9. 完整示例
+### 9. 税局报送类型 — TaxReportIndicator
+
+**什么时候传：** 使用 NA 通道开票（不经过税局清关）后，需要额外向税局报备时填写。缺省或填 `NA` 表示不需要报送。
+
+**传什么：**
+
+| 值 | 说明 |
+|----|------|
+| `NA` | 不报送（缺省值，可省略此节点） |
+| `SII` | 向西班牙 AEAT 进行 SII 报备（通过 B2Brouter SFTP 提交） |
+
+**位置：** 标准 UBL `cac:AdditionalDocumentReference`，非 PiaozoneExtension 扩展块。
+
+```xml
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">SII</cbc:ID>
+    <cbc:DocumentType>TaxReportIndicator</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+```
+
+**处理流程：**
+- 开票成功后，系统自动在 `output_tax_report_record` 表创建报送记录（状态 `PENDING`）
+- 由 MQ + 定时任务驱动实际报送
+- 报送结果可通过 `GET /gjfp/v1/tax-report/result/{requestId}` 查询
+- 报送文件可通过 `GET /gjfp/v1/documents/{documentId}/file?filetype=TaxReport` 下载
+
+> 填 `NA` 与不填该节点效果相同，系统不触发任何报送流程。
+
+---
+
+### 10. 完整示例
 
 #### 场景一：普通境内发票（最简）
 
@@ -374,7 +405,35 @@ kdubl:PiaozoneExtension
 </ext:UBLExtensions>
 ```
 
-#### 场景五：零售商等价附加税
+#### 场景五：需要 SII 报送的普通境内发票
+
+```xml
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">INV</cbc:ID>
+    <cbc:DocumentType>InvoiceCode</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">SII</cbc:ID>
+    <cbc:DocumentType>TaxReportIndicator</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+
+<ext:UBLExtensions>
+    <ext:UBLExtension>
+        <ext:ExtensionContent>
+            <kdubl:PiaozoneExtension>
+                <kdubl:TaxSubtotalExtensions>
+                    <kdubl:TaxSubtotalExtension>
+                        <kdubl:TaxRegimeCode>01</kdubl:TaxRegimeCode>
+                    </kdubl:TaxSubtotalExtension>
+                </kdubl:TaxSubtotalExtensions>
+            </kdubl:PiaozoneExtension>
+        </ext:ExtensionContent>
+    </ext:UBLExtension>
+</ext:UBLExtensions>
+```
+
+#### 场景六：零售商等价附加税
 
 ```xml
 <ext:UBLExtensions>
