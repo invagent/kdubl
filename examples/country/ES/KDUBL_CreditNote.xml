@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    KDUBL 示例：西班牙 VeriFactu 信用票据 - 替代法 (R1)
+
+    演示要点：
+    - 信用票据类型 R1（Rectificativa，整单作废后重开）
+    - 纠正方法 S（método sustitutivo，替代法）
+    - BillingReference 引用原始发票
+    - InvoiceDocumentReference/CorrectionMethod = S（替代法）
+    - InvoiceDocumentReference/OriginalInvoiceSeries 原始发票系列号
+    - InvoiceDocumentReference/OriginalTaxableAmount / OriginalTaxAmount（替代法必填，原始发票金额）
+
+    注意：
+    - 替代法(S)需携带原始发票的税基和税额
+    - 差额法(I)只填差额，不需要 OriginalTaxableAmount/OriginalTaxAmount
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- ===== KDUBL 扩展：西班牙特有字段 ===== -->
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionAgencyName>Piaozone</ext:ExtensionAgencyName>
+            <ext:ExtensionContent>
+                <kdubl:PiaozoneExtension>
+                    <!-- 纠正票扩展：纠正方法和原始发票信息 -->
+                    <kdubl:InvoiceDocumentReference>
+                        <kdubl:CorrectionMethod>S</kdubl:CorrectionMethod>
+                        <kdubl:OriginalInvoiceSeries>2025-A</kdubl:OriginalInvoiceSeries>
+                        <kdubl:OriginalTaxableAmount currencyID="EUR">1000.00</kdubl:OriginalTaxableAmount>
+                        <kdubl:OriginalTaxAmount currencyID="EUR">210.00</kdubl:OriginalTaxAmount>
+                    </kdubl:InvoiceDocumentReference>
+                    <kdubl:TaxSubtotalExtensions>
+                        <!-- TaxSubtotal[0]: IVA 21% 普通税制 -->
+                        <kdubl:TaxSubtotalExtension>
+                            <kdubl:TaxRegimeCode>01</kdubl:TaxRegimeCode>
+                        </kdubl:TaxSubtotalExtension>
+                    </kdubl:TaxSubtotalExtensions>
+                </kdubl:PiaozoneExtension>
+            </ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+
+    <!-- ===== 发票头 ===== -->
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <cbc:ID>20260609381003</cbc:ID>
+    <cbc:IssueDate>2026-06-09</cbc:IssueDate>
+    <cbc:IssueTime>00:00:00+01:00</cbc:IssueTime>
+    <!--
+        name="R1" = 西班牙纠正发票 R1（基于 RD 1619/2012 第80条1、2款错误）
+        其他纠正类型：R2(第80.3条), R3(第80.4条), R4(其他), R5(简化纠正票)
+    -->
+    <cbc:InvoiceTypeCode name="R1">381</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+    <cbc:BuyerReference>BUYER_REF_123</cbc:BuyerReference>
+
+
+
+    <!-- ===== 原始发票引用 ===== -->
+    <cac:BillingReference>
+        <cac:InvoiceDocumentReference>
+            <cbc:ID>20250115-001</cbc:ID>
+            <cbc:IssueDate>2025-01-10</cbc:IssueDate>
+        </cac:InvoiceDocumentReference>
+    </cac:BillingReference>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">SII</cbc:ID>
+        <cbc:DocumentType>TaxReportIndicator</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- ===== 信用票据系列号（VeriFactu 强制）===== -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">CN</cbc:ID>
+        <cbc:DocumentType>InvoiceCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- ===== 卖方信息 ===== -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Comercio Minorista S.L.</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Calle Tienda 25</cbc:StreetName>
+                <cbc:CityName>Sevilla</cbc:CityName>
+                <cbc:PostalZone>41001</cbc:PostalZone>
+                <cbc:CountrySubentity>Sevilla</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>ESN0039889A</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Comercio Minorista S.L.</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="ES:NIF">N0039889A</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- ===== 买方信息 ===== -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Cliente Final S.L.</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Avenida Comercial 100</cbc:StreetName>
+                <cbc:CityName>Sevilla</cbc:CityName>
+                <cbc:PostalZone>41002</cbc:PostalZone>
+                <cbc:CountrySubentity>Sevilla</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>ES</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>ESB63276174</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Cliente Final S.L.</cbc:RegistrationName>
+                <cbc:CompanyID schemeID="ES:NIF">B63276174</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- ===== 税务合计（替代法下填写新的正确金额）===== -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">210.00</cbc:TaxAmount>
+        <!-- TaxSubtotal[0]: 对应 TaxSubtotalExtensions/TaxSubtotalExtension TaxRegimeCode=01 -->
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">1000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">210.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>21.0</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- ===== 法定金额合计 ===== -->
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="EUR">1000.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="EUR">1000.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="EUR">1210.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">1210.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- ===== 发票行 ===== -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">1000.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Productos textiles</cbc:Description>
+            <cbc:Name>Ropa variada</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>21.0</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">100.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

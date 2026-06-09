@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<siiR:RespuestaLRFacturasEmitidas xmlns:sii="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/SuministroInformacion.xsd" xmlns:siiR="https://www2.agenciatributaria.gob.es/static_files/common/internet/dep/aplicaciones/es/aeat/ssii/fact/ws/RespuestaSuministro.xsd">
+    <siiR:CSV>UNP438MVWSTQC6QK</siiR:CSV>
+    <siiR:DatosPresentacion>
+        <sii:NIFPresentador>B63276174</sii:NIFPresentador>
+        <sii:TimestampPresentacion>09-06-2026 09:16:17</sii:TimestampPresentacion>
+    </siiR:DatosPresentacion>
+    <siiR:Cabecera>
+        <sii:IDVersionSii>1.1</sii:IDVersionSii>
+        <sii:Titular>
+            <sii:NombreRazon>Comercio Minorista S.L.</sii:NombreRazon>
+            <sii:NIF>N0039889A</sii:NIF>
+        </sii:Titular>
+        <sii:TipoComunicacion>A0</sii:TipoComunicacion>
+    </siiR:Cabecera>
+    <siiR:EstadoEnvio>Correcto</siiR:EstadoEnvio>
+    <siiR:RespuestaLinea>
+        <siiR:IDFactura>
+            <sii:IDEmisorFactura>
+                <sii:NIF>N0039889A</sii:NIF>
+            </sii:IDEmisorFactura>
+            <sii:NumSerieFacturaEmisor>CN/20260609381003</sii:NumSerieFacturaEmisor>
+            <sii:FechaExpedicionFacturaEmisor>09-06-2026</sii:FechaExpedicionFacturaEmisor>
+        </siiR:IDFactura>
+        <siiR:EstadoRegistro>Correcto</siiR:EstadoRegistro>
+    </siiR:RespuestaLinea>
+</siiR:RespuestaLRFacturasEmitidas>
