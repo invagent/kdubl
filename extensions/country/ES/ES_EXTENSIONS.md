@@ -218,6 +218,17 @@
 | `S` | 替代法（Sustitutiva）：整单作废，全额重开 | **必填** |
 | `I` | 差额法（Incremental）：只记录差异部分 | 不需要 |
 
+**差额法（I）金额填写规则：**
+
+| InvoiceTypeCode | 语义 | KDUBL 金额填法 | SII 输出 |
+|----------------|------|---------------|---------|
+| `381`（贷记单） | 红冲 | 正数（UBL 标准） | 自动取反为负数 |
+| `383`（借记单） | 增额 | 正数 | 直接输出正数 |
+
+- **381 + I**：KDUBL 按 UBL 标准填正数，XSLT 转换时自动对 `BaseImponible`、`CuotaRepercutida`、`ImporteTotal` 取反，SII 收到负数表示冲减。
+- **383 + I**：KDUBL 填正数，XSLT 直接透传，SII 收到正数表示追加。
+- 增额场景必须使用 `383`，不能用 `381` 传负数。
+
 #### 7.4 原始发票系列号 — OriginalInvoiceSeries
 
 **位置：** `kdubl:PiaozoneExtension/kdubl:InvoiceDocumentReference/kdubl:OriginalInvoiceSeries`
@@ -384,7 +395,30 @@ kdubl:PiaozoneExtension
 
 #### 场景四：纠正票（差额法）
 
+差额法分两种子场景，由 `InvoiceTypeCode` 决定：
+
+**4a. 红冲（381 + I）**：冲减原发票金额，KDUBL 按 UBL 标准填正数，系统自动取反后上报 SII。
+
 ```xml
+<cbc:InvoiceTypeCode name="R4">381</cbc:InvoiceTypeCode>
+
+<cac:BillingReference>
+    <cac:InvoiceDocumentReference>
+        <cbc:ID>20260512001</cbc:ID>
+        <cbc:IssueDate>2026-05-12</cbc:IssueDate>
+    </cac:InvoiceDocumentReference>
+</cac:BillingReference>
+
+<!-- TaxSubtotal 金额填正数，如原发票税基 1000、税额 210 -->
+<cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">210.00</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">1000.00</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">210.00</cbc:TaxAmount>
+        ...
+    </cac:TaxSubtotal>
+</cac:TaxTotal>
+
 <ext:UBLExtensions>
     <ext:UBLExtension>
         <ext:ExtensionContent>
@@ -404,6 +438,51 @@ kdubl:PiaozoneExtension
     </ext:UBLExtension>
 </ext:UBLExtensions>
 ```
+
+> XSLT 自动将 `BaseImponible`、`CuotaRepercutida`、`ImporteTotal` 取反，SII 收到 `-1000`、`-210`、`-1210`。
+
+**4b. 增额（383 + I）**：追加原发票未开足的金额，KDUBL 填正数，直接上报 SII。
+
+```xml
+<cbc:InvoiceTypeCode name="R4">383</cbc:InvoiceTypeCode>
+
+<cac:BillingReference>
+    <cac:InvoiceDocumentReference>
+        <cbc:ID>20260512001</cbc:ID>
+        <cbc:IssueDate>2026-05-12</cbc:IssueDate>
+    </cac:InvoiceDocumentReference>
+</cac:BillingReference>
+
+<!-- TaxSubtotal 金额填追加的差额，如追加税基 200、税额 42 -->
+<cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">42.00</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+        <cbc:TaxableAmount currencyID="EUR">200.00</cbc:TaxableAmount>
+        <cbc:TaxAmount currencyID="EUR">42.00</cbc:TaxAmount>
+        ...
+    </cac:TaxSubtotal>
+</cac:TaxTotal>
+
+<ext:UBLExtensions>
+    <ext:UBLExtension>
+        <ext:ExtensionContent>
+            <kdubl:PiaozoneExtension>
+                <kdubl:InvoiceDocumentReference>
+                    <kdubl:CorrectionMethod>I</kdubl:CorrectionMethod>
+                    <kdubl:OriginalInvoiceSeries>INV</kdubl:OriginalInvoiceSeries>
+                </kdubl:InvoiceDocumentReference>
+                <kdubl:TaxSubtotalExtensions>
+                    <kdubl:TaxSubtotalExtension>
+                        <kdubl:TaxRegimeCode>01</kdubl:TaxRegimeCode>
+                    </kdubl:TaxSubtotalExtension>
+                </kdubl:TaxSubtotalExtensions>
+            </kdubl:PiaozoneExtension>
+        </ext:ExtensionContent>
+    </ext:UBLExtension>
+</ext:UBLExtensions>
+```
+
+> 383 不触发取反，SII 收到 `200`、`42`、`242`，表示追加。
 
 #### 场景五：需要 SII 报送的普通境内发票
 
