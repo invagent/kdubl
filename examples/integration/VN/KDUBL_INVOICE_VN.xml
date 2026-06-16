@@ -31,6 +31,12 @@
         <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
+    <!-- 业务开票申请单ID（单据ID）：保证同一业务单据只开出一张成功的票（幂等去重），可选 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">BILL-20260616-001</cbc:ID>
+        <cbc:DocumentType>BillId</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>

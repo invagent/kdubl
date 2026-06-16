@@ -44,6 +44,12 @@
 <!--        </cac:InvoiceDocumentReference>-->
 <!--    </cac:BillingReference>-->
 
+    <!-- 业务开票申请单ID（单据ID）：保证同一业务单据只开出一张成功的票（幂等去重），可选 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">BILL-20260616-001</cbc:ID>
+        <cbc:DocumentType>BillId</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
     <!-- 销方信息
     最少只需要传这个字段就可以<cbc:ID schemeID="ERP">ORGID001</cbc:ID>，系统可在主数据匹配到对应的数据；
     其他字段也可以传，不会被覆盖；-->

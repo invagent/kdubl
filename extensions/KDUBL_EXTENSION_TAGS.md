@@ -122,6 +122,32 @@ xmlns:kdubl="urn:piaozone:ExtensionComponent:1.0"
 | **含义** | 标识本发票是否为买方代开（Self-Billing） |
 | **值** | `true` / `false` |
 
+#### 通用 — `BillId` 业务开票申请单ID（幂等去重）
+
+```xml
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">BILL-20260616-001</cbc:ID>
+    <cbc:DocumentType>BillId</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+```
+
+| 属性 | 说明 |
+|------|------|
+| **含义** | 业务系统的开票申请单唯一标识（单据ID），用于保证同一业务单据**只开出一张成功的票**（幂等去重） |
+| **适用国家** | 通用（所有国家/通道） |
+| **值** | 业务系统的单据ID（字符串），由业务端生成并保证唯一 |
+| **是否必填** | 可选；缺省（不带该 ADR）时不触发去重约束，行为与现状一致（向后兼容） |
+
+**幂等不变式**：同一 `BillId`（按企业隔离）下，至多存在一个「非失败」文档（开票状态 ∈ 进行中 / 已成功）；失败文档可共存、可被重试覆盖。
+
+**工作机制**：
+- 平台解析该字段写入文档记录 `document_info.bill_id`；
+- 数据库通过生成列 + 唯一索引在并发下强制约束；
+- 命中已存在「非失败」文档时，该文档返回错误码 `BILL_ALREADY_PROCESSED`（逐文档校验错误，不影响同批次其它文档）；
+- 文档变为失败后自动释放占用，允许同一 `BillId` 重新开票；已成功则永久占用（成功即锁死）。
+
+> 多文档批量提交时，每个文档可携带各自独立的 `BillId`，互不影响。
+
 #### SA — `SenderEmail` 发送方邮箱
 
 ```xml
