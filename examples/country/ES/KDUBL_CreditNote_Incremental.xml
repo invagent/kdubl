@@ -52,10 +52,10 @@
     <cbc:IssueDate>2026-06-09</cbc:IssueDate>
     <cbc:IssueTime>00:00:00+01:00</cbc:IssueTime>
     <!--
-        name="R1" = 西班牙纠正发票 R1（基于 RD 1619/2012 第80条1、2款错误）
+        西班牙 TipoFactura（R1 纠正发票）通过下方 ADR SubInvoiceTypeCode 承载
         381 = UBL Credit Note document type code
     -->
-    <cbc:InvoiceTypeCode name="R1">381</cbc:InvoiceTypeCode>
+    <cbc:InvoiceTypeCode>381</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
     <cbc:BuyerReference>BUYER_REF_123</cbc:BuyerReference>
 
@@ -66,6 +66,12 @@
             <cbc:IssueDate>2025-01-10</cbc:IssueDate>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
+
+    <!-- 西班牙 TipoFactura：R1 纠正发票（基于 RD 1619/2012 第80条1、2款错误） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">R1</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
 
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">SII</cbc:ID>

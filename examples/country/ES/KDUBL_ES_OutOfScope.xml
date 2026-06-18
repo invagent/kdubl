@@ -51,13 +51,19 @@
     <cbc:IssueDate>2026-05-12</cbc:IssueDate>
     <cbc:IssueTime>11:00:00+01:00</cbc:IssueTime>
     <cbc:DueDate>2025-03-03</cbc:DueDate>
-    <cbc:InvoiceTypeCode name="F1">380</cbc:InvoiceTypeCode>
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
 
     <!-- ===== 发票系列号（VeriFactu 强制）===== -->
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">INV</cbc:ID>
         <cbc:DocumentType>InvoiceCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- 西班牙 TipoFactura：F1 标准发票（ADR SubInvoiceTypeCode） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">F1</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
     <!-- ===== 卖方信息（西班牙企业）===== -->
