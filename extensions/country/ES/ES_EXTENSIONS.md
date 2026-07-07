@@ -9,17 +9,18 @@
 | # | 字段 | 位置 | 必填性 | 对应 SII 字段 |
 |---|------|------|--------|--------------|
 | 1 | `InvoiceCode` | `cac:AdditionalDocumentReference` | CM — 有系列号时必填 | `NumSerieFacturaEmisor`（拼接前缀） |
-| 2 | `TaxRegimeCode` | `kdubl:TaxSubtotalExtension` | **M** — 每个 TaxSubtotal 必填 | `ClaveRegimenEspecialOTrascendencia` |
-| 3 | `TipoRecargoEquivalencia` | `kdubl:TaxSubtotalExtension` | O — 零售商等价附加税才填 | `DetalleIVA/TipoRecargoEquivalencia` |
-| 4 | `CuotaRecargoEquivalencia` | `kdubl:TaxSubtotalExtension` | O — 与 3 配对使用 | `DetalleIVA/CuotaRecargoEquivalencia` |
-| 5 | `OperationType` | `kdubl:PiaozoneExtension` | CM — 买方国家非 ES 时必填 | `TipoDesglose`（结构选择） |
-| 6 | `EmitidaPorTercerosODestinatario` | `kdubl:PiaozoneExtension` | O — 第三方代开才填 | `EmitidaPorTercerosODestinatario` |
-| 7 | `VariosDestinatarios` | `kdubl:PiaozoneExtension` | O — 多买方才填 | `VariosDestinatarios` |
-| 8 | `CorrectionMethod` | `kdubl:InvoiceDocumentReference` | CM — 纠正票（R1~R5）必填 | `TipoRectificativa` |
-| 9 | `OriginalInvoiceSeries` | `kdubl:InvoiceDocumentReference` | CM — 纠正票时填 | `NumSerieFacturaEmisor`（原始票） |
-| 10 | `OriginalTaxableAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/BaseRectificada` |
-| 11 | `OriginalTaxAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/CuotaRectificada` |
-| 12 | `TaxReportIndicator` | `cac:AdditionalDocumentReference` | O — 需要向税局额外报送时填 | — |
+| 2 | `SubInvoiceTypeCode` | `cac:AdditionalDocumentReference` | CM — 非默认 F1 时必填 | `TipoFactura` |
+| 3 | `TaxRegimeCode` | `kdubl:TaxSubtotalExtension` | **M** — 每个 TaxSubtotal 必填 | `ClaveRegimenEspecialOTrascendencia` |
+| 4 | `TipoRecargoEquivalencia` | `kdubl:TaxSubtotalExtension` | O — 零售商等价附加税才填 | `DetalleIVA/TipoRecargoEquivalencia` |
+| 5 | `CuotaRecargoEquivalencia` | `kdubl:TaxSubtotalExtension` | O — 与 4 配对使用 | `DetalleIVA/CuotaRecargoEquivalencia` |
+| 6 | `OperationType` | `kdubl:PiaozoneExtension` | CM — 买方国家非 ES 时必填 | `TipoDesglose`（结构选择） |
+| 7 | `EmitidaPorTercerosODestinatario` | `kdubl:PiaozoneExtension` | O — 第三方代开才填 | `EmitidaPorTercerosODestinatario` |
+| 8 | `VariosDestinatarios` | `kdubl:PiaozoneExtension` | O — 多买方才填 | `VariosDestinatarios` |
+| 9 | `CorrectionMethod` | `kdubl:InvoiceDocumentReference` | CM — 纠正票（R1~R5）必填 | `TipoRectificativa` |
+| 10 | `OriginalInvoiceSeries` | `kdubl:InvoiceDocumentReference` | CM — 纠正票时填 | `NumSerieFacturaEmisor`（原始票） |
+| 11 | `OriginalTaxableAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/BaseRectificada` |
+| 12 | `OriginalTaxAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/CuotaRectificada` |
+| 13 | `TaxReportIndicator` | `cac:AdditionalDocumentReference` | O — 需要向税局额外报送时填 | — |
 
 > **M** = 必填；**CM** = 条件必填；**O** = 可选
 
@@ -180,21 +181,31 @@
 
 ### 7. 纠正票专用扩展
 
-**什么时候传：** `cbc:InvoiceTypeCode` 的 `name` 属性为 R1~R5 时，以下字段必填。
+**什么时候传：** SubInvoiceTypeCode 为 R1~R5 时，以下字段必填。
 
 #### 7.1 纠正票类型码
 
+西班牙 SII 的 TipoFactura（F1-F4 / R1-R5）通过 ADR `SubInvoiceTypeCode` 槽位承载（与 KSA Phase2 SubInvoiceTypeCode 一致），`cbc:InvoiceTypeCode` 仅承载 UBL 标准值（380/381/383）。未提供时默认为 `F1`。
+
 ```xml
-<cbc:InvoiceTypeCode name="R1">384</cbc:InvoiceTypeCode>
+<cbc:InvoiceTypeCode>381</cbc:InvoiceTypeCode>
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">R1</cbc:ID>
+    <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
 ```
 
-| name 值 | SII TipoFactura | 含义 |
-|---------|----------------|------|
-| `R1` | R1 | 普通纠正票（Art.80.1/80.2，法律错误） |
-| `R2` | R2 | 纠正票（Art.80.3，破产） |
-| `R3` | R3 | 纠正票（Art.80.4，坏账） |
-| `R4` | R4 | 其他原因纠正票 |
-| `R5` | R5 | 简化发票纠正票 |
+| SubInvoiceTypeCode | UBL 码 | SII TipoFactura | 含义 |
+|--------------------|--------|----------------|------|
+| `F1` | 380 | F1 | 标准发票（默认） |
+| `F2` | 380 | F2 | 简化发票（匿名/小票） |
+| `F3` | 380 | F3 | 把 F2 升级成正式票 |
+| `F4` | 380 | F4 | 多张 F2 汇总入册 |
+| `R1` | 381/383 | R1 | 错了改（Art.80.1/80.2，最常用） |
+| `R2` | 381/383 | R2 | 客户破产（Art.80.3） |
+| `R3` | 381/383 | R3 | 收不回坏账（Art.80.4） |
+| `R4` | 381/383 | R4 | 其他原因（退货/折扣） |
+| `R5` | 381/383 | R5 | 改的是 F2 小票（简化纠正票） |
 
 #### 7.2 原始发票号 — BillingReference（标准 UBL，非扩展）
 
@@ -400,7 +411,11 @@ kdubl:PiaozoneExtension
 **4a. 红冲（381 + I）**：冲减原发票金额，KDUBL 按 UBL 标准填正数，系统自动取反后上报 SII。
 
 ```xml
-<cbc:InvoiceTypeCode name="R4">381</cbc:InvoiceTypeCode>
+<cbc:InvoiceTypeCode>381</cbc:InvoiceTypeCode>
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">R4</cbc:ID>
+    <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
 
 <cac:BillingReference>
     <cac:InvoiceDocumentReference>
@@ -444,7 +459,11 @@ kdubl:PiaozoneExtension
 **4b. 增额（383 + I）**：追加原发票未开足的金额，KDUBL 填正数，直接上报 SII。
 
 ```xml
-<cbc:InvoiceTypeCode name="R4">383</cbc:InvoiceTypeCode>
+<cbc:InvoiceTypeCode>383</cbc:InvoiceTypeCode>
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">R4</cbc:ID>
+    <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
 
 <cac:BillingReference>
     <cac:InvoiceDocumentReference>

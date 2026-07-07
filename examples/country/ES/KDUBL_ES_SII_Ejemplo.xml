@@ -33,12 +33,18 @@
     <cbc:IssueDate>2026-05-13</cbc:IssueDate>
     <cbc:IssueTime>16:37:00+08:00</cbc:IssueTime>
     <cbc:DueDate>2026-06-11</cbc:DueDate>
-    <!-- F1 = 标准发票 -->
-    <cbc:InvoiceTypeCode name="F1">380</cbc:InvoiceTypeCode>
+    <!-- F1 = 标准发票（ADR SubInvoiceTypeCode 承载） -->
+    <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
 
     <!-- ===== 发票系列号（SII 无系列号，InvoiceTag 留空或省略）===== -->
     <!-- SII NumSerieFacturaEmisor 直接用发票号，不拼系列号 -->
+
+    <!-- 西班牙 TipoFactura：F1 标准发票 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">F1</cbc:ID>
+        <cbc:DocumentType>SubInvoiceTypeCode</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
 
     <!-- ===== 卖方信息（SII Titular/IDEmisorFactura: N0039889A DELUAT）===== -->
     <cac:AccountingSupplierParty>
