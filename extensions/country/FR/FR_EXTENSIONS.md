@@ -265,7 +265,14 @@
 
 **什么时候传：** 可选。用于通道服务路由和规则匹配。**在法国上报（Flux 10.1）中额外承担 PUF `transactionType` 的映射来源**（见下）。
 
-**传什么：** `B2B` / `B2C` / `Standard` / `NA` 等（详见通用字段规格）。法国 B2B 发票通常填 `B2B`，B2C POS 汇总填 `B2C`。
+**传什么（法国适用枚举）：** 法国上报只使用 `B2B` 和 `B2C` 两个值，其余通用值（`B2G`/`Standard`/`NA`/`Adjustment`/`Replacement`）在法国场景不使用。
+
+| 值 | 法国场景 |
+|----|---------|
+| `B2B` | B2B 发票（境内开票、跨境 B2Bi 销项 / Bi2B 进项）→ PUF `transactionType=B2B`（缺省值） |
+| `B2C` | B2C 发票、B2C POS 交易汇总 → PUF `transactionType=B2C` |
+
+> 付款申报文档（`TaxReport`，Flux 10.2/10.4）不含 `InvoiceContext` 字段。
 
 **位置：** `cac:AdditionalDocumentReference`，`cbc:DocumentType='InvoiceContext'`。
 
