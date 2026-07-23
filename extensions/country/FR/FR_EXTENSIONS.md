@@ -263,7 +263,7 @@
 
 ### 9. 业务场景码 — InvoiceContext（通用扩展）
 
-**什么时候传：** 可选。用于通道服务路由和规则匹配。
+**什么时候传：** 可选。用于通道服务路由和规则匹配。**在法国上报（Flux 10.1）中额外承担 PUF `transactionType` 的映射来源**（见下）。
 
 **传什么：** `B2B` / `B2C` / `Standard` / `NA` 等（详见通用字段规格）。法国 B2B 发票通常填 `B2B`，B2C POS 汇总填 `B2C`。
 
@@ -275,6 +275,22 @@
     <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
 </cac:AdditionalDocumentReference>
 ```
+
+**法国上报映射（→ PUF `transactionType`）：** `kdubl-to-puf-billing-fr.xslt` 读取本字段，**当且仅当值为 `B2B` 或 `B2C`** 时映射为 PUF 的交易类型扩展；其他值（`Standard`/`NA` 等）被忽略，不产出该扩展。
+
+| KDUBL | PUF |
+|-------|-----|
+| `cac:AdditionalDocumentReference[cbc:DocumentType='InvoiceContext']/cbc:ID`（值 `B2B`/`B2C`） | `ext:UBLExtensions/ext:UBLExtension[ExtensionURI='urn:pagero:ExtensionComponent:1.0:PageroExtension:RestrictedInformation']/.../puf:RestrictedInformation[puf:Key='transactionType']/puf:Value` |
+
+```xml
+<!-- KDUBL InvoiceContext=B2C  →  PUF transactionType=B2C -->
+<puf:RestrictedInformation>
+  <puf:Key>transactionType</puf:Key>
+  <puf:Value>B2C</puf:Value>
+</puf:RestrictedInformation>
+```
+
+> PUF `transactionType` 的义务：B2B 上报 O（缺省 B2B），B2C 发票与交易汇总上报 M。详见 [[FR_REPORTING_FIELDS]] §1.1。
 
 ---
 
