@@ -263,16 +263,9 @@
 
 ### 9. 业务场景码 — InvoiceContext（通用扩展）
 
-**什么时候传：** 可选。用于通道服务路由和规则匹配。**在法国上报（Flux 10.1）中额外承担 PUF `transactionType` 的映射来源**（见下）。
+**什么时候传：** 可选。用于通道服务路由和规则匹配。
 
-**传什么（法国适用枚举）：** 法国上报只使用 `B2B` 和 `B2C` 两个值，其余通用值（`B2G`/`Standard`/`NA`/`Adjustment`/`Replacement`）在法国场景不使用。
-
-| 值 | 法国场景 |
-|----|---------|
-| `B2B` | B2B 发票（境内开票、跨境 B2Bi 销项 / Bi2B 进项）→ PUF `transactionType=B2B`（缺省值） |
-| `B2C` | B2C 发票、B2C POS 交易汇总 → PUF `transactionType=B2C` |
-
-> 付款申报文档（`TaxReport`，Flux 10.2/10.4）不含 `InvoiceContext` 字段。
+**传什么：** `B2B` / `B2C` / `Standard` / `NA` 等（详见通用字段规格）。
 
 **位置：** `cac:AdditionalDocumentReference`，`cbc:DocumentType='InvoiceContext'`。
 
@@ -283,19 +276,47 @@
 </cac:AdditionalDocumentReference>
 ```
 
-**法国上报映射（→ PUF `transactionType`）：** `kdubl-to-puf-billing-fr.xslt` 读取本字段，**当且仅当值为 `B2B` 或 `B2C`** 时映射为 PUF 的交易类型扩展；其他值（`Standard`/`NA` 等）被忽略，不产出该扩展。
+> **注意：** 本字段是**纯通道路由**字段，**不参与** PUF `transactionType` 的生成。法国上报的交易类型由专用扩展 `TaxReportTransactionType`（§9.1）承接，与路由语义分离。
+
+---
+
+### 9.1 上报交易类型 — TaxReportTransactionType（法国上报专用）
+
+**什么时候传：** 法国上报（Flux 10.1）**必填**（校验 `KDUBL-TR-009`）。付款申报文档（`TaxReport`，Flux 10.2/10.4）不含本字段。
+
+**传什么：** 只允许 `B2B` / `B2C` 两个值（校验 `KDUBL-TR-010`）：
+
+| 值 | 法国场景 | → PUF `transactionType` |
+|----|---------|-------------------------|
+| `B2B` | B2B 发票（境内开票、跨境 B2Bi 销项 / Bi2B 进项） | `B2B`（缺省值） |
+| `B2C` | B2C 发票、B2C POS 交易汇总 | `B2C` |
+
+**位置：** `cac:AdditionalDocumentReference`，`cbc:DocumentType='TaxReportTransactionType'`，与其他 `TaxReport*` 字段同属一族。
+
+```xml
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">B2C</cbc:ID>
+    <cbc:DocumentType>TaxReportTransactionType</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+```
+
+**KDUBL → PUF 映射：** `kdubl-to-puf-billing-fr.xslt` 读取本字段，值为 `B2B`/`B2C` 时映射为 PUF 交易类型扩展。
 
 | KDUBL | PUF |
 |-------|-----|
-| `cac:AdditionalDocumentReference[cbc:DocumentType='InvoiceContext']/cbc:ID`（值 `B2B`/`B2C`） | `ext:UBLExtensions/ext:UBLExtension[ExtensionURI='urn:pagero:ExtensionComponent:1.0:PageroExtension:RestrictedInformation']/.../puf:RestrictedInformation[puf:Key='transactionType']/puf:Value` |
+| `cac:AdditionalDocumentReference[cbc:DocumentType='TaxReportTransactionType']/cbc:ID` | `ext:UBLExtensions/ext:UBLExtension[ExtensionURI='urn:pagero:ExtensionComponent:1.0:PageroExtension:RestrictedInformation']/.../puf:RestrictedInformation[puf:Key='transactionType']/puf:Value` |
 
 ```xml
-<!-- KDUBL InvoiceContext=B2C  →  PUF transactionType=B2C -->
+<!-- KDUBL TaxReportTransactionType=B2C  →  PUF transactionType=B2C -->
 <puf:RestrictedInformation>
   <puf:Key>transactionType</puf:Key>
   <puf:Value>B2C</puf:Value>
 </puf:RestrictedInformation>
 ```
+
+**设计背景：** 此前该语义借用 `InvoiceContext`（§9）承接，但 `InvoiceContext` 本职是通道路由（值集含 `B2G`/`Standard`/`NA`/`Adjustment`/`Replacement`，VN/DE_NL 等国家另有用途），与 Flux 10.1 上报的交易分类语义不同。为避免语义混用，独立为本专用扩展槽。
+
+**与 `TaxReportEntryType` 的关系：** 两者相互独立、互不推导 —— `TaxReportEntryType` 区分 `INVOICE`/`RECEIPTTRANSACTION`（报送形态），本字段区分 `B2B`/`B2C`（交易对手性质）。校验层做一致性交叉校验：`RECEIPTTRANSACTION` 时本字段必须为 `B2C`（`KDUBL-TR-011`）。
 
 > PUF `transactionType` 的义务：B2B 上报 O（缺省 B2B），B2C 发票与交易汇总上报 M。详见 [[FR_REPORTING_FIELDS]] §1.1。
 

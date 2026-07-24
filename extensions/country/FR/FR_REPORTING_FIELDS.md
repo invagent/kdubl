@@ -104,7 +104,9 @@
 | TT-18 | 报告周期结束日 | CM / CM / CM | 同上 | `reportPeriodEnd` |
 | N/A | 分类标识（销/进项） | **M / M / M** | 见下（写入 `cbc:ProfileID`，非 BT-23） | `cbc:ProfileID` |
 | TT-29 | 归档类型（Entry type） | O / O / **M** | INVOICE / RECEIPTTRANSACTION;缺省 INVOICE。**交易汇总(TX)必填 RECEIPTTRANSACTION** | `entryType` |
-| N/A | 交易类型（Transaction type） | O / **M** / **M** | B2B / B2C;缺省 B2B | `transactionType` |
+| N/A | 交易类型（Transaction type） | O / **M** / **M** | B2B / B2C;缺省 B2B。KDUBL 来源见下 | `transactionType` |
+
+> **KDUBL 承载：** PUF `transactionType` 由 KDUBL 专用扩展 `TaxReportTransactionType` 转换而来（`cac:AdditionalDocumentReference[cbc:DocumentType='TaxReportTransactionType']/cbc:ID`，值 B2B/B2C），**不再复用** `InvoiceContext` 路由字段。KDUBL 侧此字段显式必填（`KDUBL-TR-009/010`），且 `RECEIPTTRANSACTION` 时必须为 B2C（`KDUBL-TR-011`）。详见 [[FR_EXTENSIONS]] §9.1。
 
 **分类标识（ProfileID，销项/进项）** —— 写入 `Invoice/cbc:ProfileID`，是 Pagero 特有分类（非 EN 16931 BT-23）:
 
