@@ -6,7 +6,7 @@
 > - `kdubl:` 扩展标签：命名空间 `urn:piaozone:ExtensionComponent:1.0`，放在 `ext:UBLExtensions/kdubl:PiaozoneExtension` 内
 > - 文档级 InvoiceTag 字段：使用标准 UBL `cac:AdditionalDocumentReference`，放在文档 body 中
 >
-> **当前覆盖国家**：Saudi Arabia (SA) · Hungary (HU) · Thailand (TH) · Spain (ES)
+> **当前覆盖国家**：Saudi Arabia (SA) · Hungary (HU) · Thailand (TH) · Spain (ES) · France (FR)
 
 ---
 
@@ -204,6 +204,7 @@ XSLT 通过以下模板自动过滤所有 `schemeName="InvoiceTag"` 的 ADR，�
 | 匈牙利 (HU) | [country/HU/HU_EXTENSIONS.md](country/HU/HU_EXTENSIONS.md) | NAV 上报字段 |
 | 泰国 (TH) | [country/TH/TH_EXTENSIONS.md](country/TH/TH_EXTENSIONS.md) | 80/81 调整发票、原始发票引用 |
 | 西班牙 (ES) | [country/ES/ES_EXTENSIONS.md](country/ES/ES_EXTENSIONS.md) | SII 上报字段（销项 `TaxRegimeCode`/纠正票扩展，进项 `CuotaDeducible` 可抵扣税额） |
+| 法国 (FR) | [country/FR/FR_EXTENSIONS.md](country/FR/FR_EXTENSIONS.md) · [FR_REPORTING_FIELDS.md](country/FR/FR_REPORTING_FIELDS.md) · [FR_STANDARD_FIELDS.md](country/FR/FR_STANDARD_FIELDS.md) | PUF/Pagero 电子上报（e-reporting/TDR）：发票申报（Flux 10.1/10.3，`Invoice` 上的 `TaxReportEntryType`/`TaxReportPeriodStart/End`/`TaxReportTransmissionType`/`TaxReportReferencedId` 及行级 `TaxReportLineCategory`）与付款申报（Flux 10.2/10.4，独立 `TaxReport` 文档） |
 
 > **西班牙进项可抵扣税额 `CuotaDeducible`**：进项发票（`book_type=Recibida`）部分抵扣场景下，
 > 在 `kdubl:PiaozoneExtension` 内以发票级字段承载实际可抵扣税额；全额抵扣可省略。

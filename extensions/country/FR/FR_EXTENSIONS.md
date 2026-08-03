@@ -9,7 +9,7 @@
 
 > 与 ES 不同，法国的所有发票级扩展都放在标准 UBL `cac:AdditionalDocumentReference` 中，**不使用 `kdubl:PiaozoneExtension` 扩展块**；行级类别码放在 `cac:Item/cac:AdditionalItemProperty` 中。所有 FR 特有校验仅在 `countryCode=FR` 场景加载（`rules/taxreporting/kdubl/fr/{INVOICE,RECEIPT_TRANSACTION,PAYMENT}/`）。
 
-> **重要：** 所有基于 `cac:AdditionalDocumentReference` 的扩展字段（`TaxReportEntryType`、`TaxReportPeriodStart/End`、`TaxReportTransmissionType`、`TaxReportAuthorityId`、`TaxReportIssuerRef`、`InvoiceContext`），其 `cbc:ID` 必须携带 `schemeName="InvoiceTag"` 属性，用于标识该 ADR 为 KDUBL 扩展标签而非标准 UBL 单据引用。历史 KDUBL 示例文件遗漏了此属性，应逐步补齐。下文示例均已按此规范书写。
+> **重要：** 所有基于 `cac:AdditionalDocumentReference` 的扩展字段（`TaxReportEntryType`、`TaxReportPeriodStart/End`、`TaxReportTransmissionType`、`InvoiceContext`），其 `cbc:ID` 必须携带 `schemeName="InvoiceTag"` 属性，用于标识该 ADR 为 KDUBL 扩展标签而非标准 UBL 单据引用。历史 KDUBL 示例文件遗漏了此属性，应逐步补齐。下文示例均已按此规范书写。
 
 ---
 
@@ -23,10 +23,10 @@
 | 2 | `TaxReportPeriodStart` | `cac:AdditionalDocumentReference` | **M** | `RestrictedInformation[Key='reportPeriodStart']` |
 | 3 | `TaxReportPeriodEnd` | `cac:AdditionalDocumentReference` | **M** | `RestrictedInformation[Key='reportPeriodEnd']` |
 | 4 | `TaxReportTransmissionType` | `cac:AdditionalDocumentReference` | CM — 更正时必填 | `RestrictedInformation[Key='transmissionType']` |
-| 5 | `TaxReportAuthorityId` | `cac:AdditionalDocumentReference` | CM — RECTIFICATION 时必填 | `RestrictedInformation[Key='taxReportId']` |
-| 6 | `TaxReportIssuerRef` | `cac:AdditionalDocumentReference` | O | `RestrictedInformation[Key='issuerAssignedReportId']` |
-| 7 | `TaxReportLineCategory` | `cac:Item/cac:AdditionalItemProperty` | CM — RECEIPTTRANSACTION 每行必填 | `LineExtension/RestrictedInformation[Key='CategoryCode']` |
-| 8 | `InvoiceContext` | `cac:AdditionalDocumentReference` | O | 通道路由用 |
+| 5 | `TaxReportLineCategory` | `cac:Item/cac:AdditionalItemProperty` | CM — RECEIPTTRANSACTION 每行必填 | `LineExtension/RestrictedInformation[Key='CategoryCode']` |
+| 6 | `InvoiceContext` | `cac:AdditionalDocumentReference` | O | 通道路由用 |
+
+> **报告 ID 说明（业务端无需填写）：** `issuerAssignedReportId`（发票人报告 ID）是平台元数据，KDUBL 不承载，由系统在 KDUBL→PUF 转换后用平台句柄 `taxReportDocumentId` 自动注入 PUF `RestrictedInformation[Key='issuerAssignedReportId']`；`taxReportId`（税局/通道报告 ID）由 Pagero 生成，提交报文不携带，提交成功后回读。更正时被替换报告的引用用 `TaxReportReferencedId`（发票申报，见 §5 更正示例）/ `TaxReport/cac:DocumentReference`（付款申报，见 §11）承载。
 
 #### 0.2 付款申报（Flux 10.2 / 10.4，`TaxReport` 文档）
 
@@ -188,49 +188,11 @@
 </cac:AdditionalDocumentReference>
 ```
 
-> 与 `InvoiceTypeCode`（380/381/383）区别：`InvoiceTypeCode` 描述发票文档类型，本字段描述本次向税局的报送行为类型。`RECTIFICATION` 时 `TaxReportAuthorityId` 必填（见第 6 节）。对应 PUF `puf:RestrictedInformation[puf:Key='transmissionType']`。
+> 与 `InvoiceTypeCode`（380/381/383）区别：`InvoiceTypeCode` 描述发票文档类型，本字段描述本次向税局的报送行为类型。对应 PUF `puf:RestrictedInformation[puf:Key='transmissionType']`。
 
 ---
 
-### 6. 税局报告 ID — TaxReportAuthorityId
-
-**什么时候传：** `TransmissionType=RECTIFICATION` 时**必填**（校验 `KDUBL-TR-007`）；首次报送为空。
-
-**传什么：** 被替换报告在税局（DGFIP）/ Pagero 侧的报告 ID（对应 Pagero `thirdPartyReportId`），用于识别本次提交替换哪份历史记录。
-
-**位置：** `cac:AdditionalDocumentReference`，`cbc:DocumentType='TaxReportAuthorityId'`。
-
-```xml
-<cac:AdditionalDocumentReference>
-    <cbc:ID schemeName="InvoiceTag">000000000000047</cbc:ID>
-    <cbc:DocumentType>TaxReportAuthorityId</cbc:DocumentType>
-</cac:AdditionalDocumentReference>
-```
-
-> 对应 PUF `puf:RestrictedInformation[puf:Key='taxReportId']`。
-
----
-
-### 7. 发票人报告 ID — TaxReportIssuerRef
-
-**什么时候传：** 可选。建议填写，便于幂等处理和追踪；不填时 Pagero 侧仍可按 senderReference 查询。
-
-**传什么：** 发票人（上报方）自定义的报告 ID，唯一标识一份报送批次。建议格式 `{ouno}-{sourceDocumentId}-{attemptSeq}`。
-
-**位置：** `cac:AdditionalDocumentReference`，`cbc:DocumentType='TaxReportIssuerRef'`。
-
-```xml
-<cac:AdditionalDocumentReference>
-    <cbc:ID schemeName="InvoiceTag">RPT-FR-2026-001</cbc:ID>
-    <cbc:DocumentType>TaxReportIssuerRef</cbc:DocumentType>
-</cac:AdditionalDocumentReference>
-```
-
-> 对应 PUF `puf:RestrictedInformation[puf:Key='issuerAssignedReportId']`。
-
----
-
-### 8. 行级交易类别码 — TaxReportLineCategory
+### 6. 行级交易类别码 — TaxReportLineCategory
 
 **什么时候传：** `TaxReportEntryType=RECEIPTTRANSACTION`（B2C POS 聚合）时，**每个发票行必填**（校验 `KDUBL-TR-008`）；`INVOICE`（B2B 个单）时通常为空。
 
@@ -352,11 +314,6 @@
         <cbc:ID schemeName="InvoiceTag">INVOICE</cbc:ID>
         <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
-    <!-- 发票人报告 ID -->
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">RPT-FR-2026-001</cbc:ID>
-        <cbc:DocumentType>TaxReportIssuerRef</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
     <!-- 报送传输类型：首次 -->
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">ORIGINAL</cbc:ID>
@@ -463,10 +420,6 @@
         <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">RPT-FR-POS-20260101-001</cbc:ID>
-        <cbc:DocumentType>TaxReportIssuerRef</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
-    <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">ORIGINAL</cbc:ID>
         <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
@@ -534,7 +487,7 @@
 
 #### 场景三：发票申报更正（整期替换，RECTIFICATION）
 
-`TransmissionType=RECTIFICATION` + `TaxReportAuthorityId`（被替换报告的税局 ID）+ 周期必须与被替换报告完全一致。
+`TransmissionType=RECTIFICATION` + `TaxReportReferencedId`（被替换报告的平台句柄 `taxReportDocumentId`，系统提交前查库翻译成通道侧聚合报告 ID）+ 周期必须与被替换报告完全一致。
 
 ```xml
 <Invoice ...>
@@ -548,19 +501,15 @@
         <cbc:ID schemeName="InvoiceTag">INVOICE</cbc:ID>
         <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
-    <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">RPT-FR-PURCHASE-2026-RECT-001</cbc:ID>
-        <cbc:DocumentType>TaxReportIssuerRef</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
     <!-- 整期替换 -->
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">RECTIFICATION</cbc:ID>
         <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
-    <!-- 被替换报告的税局报告 ID（RECTIFICATION 必填） -->
+    <!-- 被替换报告的平台句柄（系统翻译成通道聚合报告 ID） -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">000000000000047</cbc:ID>
-        <cbc:DocumentType>TaxReportAuthorityId</cbc:DocumentType>
+        <cbc:ID schemeName="InvoiceTag">a1b2c3d4e5f6...（被替换记录的 taxReportDocumentId）</cbc:ID>
+        <cbc:DocumentType>TaxReportReferencedId</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
     <!-- 周期必须与被替换报告完全一致 -->
     <cac:AdditionalDocumentReference>
@@ -749,5 +698,5 @@
 | `KDUBL-TR-002` | TaxReportEntryType 只允许 INVOICE / RECEIPTTRANSACTION |
 | `KDUBL-TR-003` / `004` | TaxReportPeriodStart / End 必填 |
 | `KDUBL-TR-005` / `006` | TaxReportPeriodStart / End 必须为 YYYY-MM-DD |
-| `KDUBL-TR-007` | TransmissionType=RECTIFICATION 时 TaxReportAuthorityId 必填 |
+| `KDUBL-TR-007` | TransmissionType=RECTIFICATION（整期替换）时 TaxReportReferencedId 必填 |
 | `KDUBL-TR-008` | EntryType=RECEIPTTRANSACTION 时每行 TaxReportLineCategory 必填 |

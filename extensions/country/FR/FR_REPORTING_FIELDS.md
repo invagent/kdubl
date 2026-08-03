@@ -98,8 +98,8 @@
 
 | TT | 字段 | B2B / B2C / TX | 填入条件 / 填值 | PUF Key |
 |----|------|----------------|----------------|---------|
-| TT-1 | 发票人报告 ID | O / O / O | 发票人自定义报告 ID（勿与 Pagero 聚合报告 ID 混淆） | `issuerAssignedReportId` |
 | TT-4 | 报送传输类型 | CM / CM / CM | **仅 `RECTIFICATION`（更正）时必填** | `transmissionType` |
+| N/A | 被替换报告 ID | CM / CM / CM | **更正（`REPLACE_PERIOD`/`EDIT`）时必填**；填被替换记录的平台句柄，系统翻译成通道侧聚合/单据 ID | `referencedReportId` |
 | TT-17 | 报告周期开始日 | CM / CM / CM | Flux 10 传输级必填;单张 PUF 强烈建议，跨多日期时必填（否则 Pagero 聚合时推断） | `reportPeriodStart` |
 | TT-18 | 报告周期结束日 | CM / CM / CM | 同上 | `reportPeriodEnd` |
 | N/A | 分类标识（销/进项） | **M / M / M** | 见下（写入 `cbc:ProfileID`，非 BT-23） | `cbc:ProfileID` |
@@ -107,6 +107,10 @@
 | N/A | 交易类型（Transaction type） | O / **M** / **M** | B2B / B2C;缺省 B2B。KDUBL 来源见下 | `transactionType` |
 
 > **KDUBL 承载：** PUF `transactionType` 由 KDUBL 专用扩展 `TaxReportTransactionType` 转换而来（`cac:AdditionalDocumentReference[cbc:DocumentType='TaxReportTransactionType']/cbc:ID`，值 B2B/B2C），**不再复用** `InvoiceContext` 路由字段。KDUBL 侧此字段显式必填（`KDUBL-TR-009/010`），且 `RECEIPTTRANSACTION` 时必须为 B2C（`KDUBL-TR-011`）。详见 [[FR_EXTENSIONS]] §9.1。
+
+> **`issuerAssignedReportId`（发票人报告 ID）业务端无需填写：** 它是平台元数据，KDUBL 不承载，由系统在 KDUBL→PUF 转换后用平台句柄 `taxReportDocumentId` 自动注入 PUF `RestrictedInformation[Key='issuerAssignedReportId']`。`taxReportId`（税局/通道报告 ID）由 Pagero 生成、提交不携带、提交成功后回读。
+
+> **更正被替换报告 ID（`referencedReportId`）的 KDUBL 承载：** 通过专用扩展 `TaxReportReferencedId`（`cac:AdditionalDocumentReference[cbc:DocumentType='TaxReportReferencedId']/cbc:ID`）填写，值为**被替换记录的平台句柄 `taxReportDocumentId`**（业务方 send 时拿到的句柄，非通道内部 ID）。系统提交前查库翻译成通道侧 ID（`REPLACE_PERIOD`→被替换记录的聚合报告 ID `thirdPartyAggregatedId`；`EDIT`→被替换单据 ID `thirdPartyReportId`）再改写进 PUF。`REPLACE_PERIOD` 时必填（校验 `KDUBL-TR-007`）。详见 [[FR_EXTENSIONS]] §5 更正示例。
 
 **分类标识（ProfileID，销项/进项）** —— 写入 `Invoice/cbc:ProfileID`，是 Pagero 特有分类（非 EN 16931 BT-23）:
 
