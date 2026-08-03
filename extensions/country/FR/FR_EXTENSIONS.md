@@ -35,7 +35,7 @@
 | 9 | `ClassificationIdentifier` | `TaxReport/ClassificationIdentifier` | **M** — 法国固定 INCOME | 申报方向 |
 | 10 | `Type` | `TaxReport/Type` | O — 默认 ADD | 报送传输类型 |
 | 11 | `ReportPeriod` | `TaxReport/ReportPeriod` | **M** | 申报周期 |
-| 12 | `DocumentReference` | `TaxReport/cac:DocumentReference/cbc:ID` | CM — REPLACE_PERIOD 时必填 | 被替换报告聚合 ID |
+| 12 | `DocumentReference` | `TaxReport/cac:DocumentReference/cbc:ID` | CM — REPLACE_PERIOD 时必填 | 填被替换记录的平台句柄 taxReportDocumentId，系统翻译成通道聚合 ID |
 
 #### 0.3 Party 标识符
 
@@ -555,7 +555,7 @@
 | `Type` | `Type` | O | 传输类型，默认 `ADD`；可选 `EDIT` / `REPLACE_PERIOD` |
 | `ReportPeriod` | `ReportPeriod/cbc:StartDate` + `cbc:EndDate` | M | 申报周期 |
 | `IssuerParty` | `cac:IssuerParty` | M | 申报方（SIREN，schemeID=0002） |
-| `DocumentReference` | `cac:DocumentReference/cbc:ID` | CM | REPLACE_PERIOD 时填被替换报告的 Pagero 聚合 ID |
+| `DocumentReference` | `cac:DocumentReference/cbc:ID` | CM | REPLACE_PERIOD 时填被替换记录的平台句柄 taxReportDocumentId，系统翻译成通道聚合 ID |
 
 #### 11.2 Payment 子文档字段（1..n）
 
@@ -635,7 +635,7 @@
 
 #### 11.4 付款申报更正（REPLACE_PERIOD）
 
-`Type=REPLACE_PERIOD` + `cac:DocumentReference/cbc:ID`（被替换报告的 Pagero 聚合 ID）+ 周期必须与被替换报告完全一致。整期替换会用本次提交的全部 `Payment` 记录覆盖原报告期。
+`Type=REPLACE_PERIOD` + `cac:DocumentReference/cbc:ID`（被替换记录的平台句柄 `taxReportDocumentId`，系统提交前查库翻译成通道侧聚合报告 ID）+ 周期必须与被替换报告完全一致。整期替换会用本次提交的全部 `Payment` 记录覆盖原报告期。
 
 ```xml
 <TaxReport ...>
@@ -657,9 +657,9 @@
             <cbc:CompanyID schemeID="0002">104332184</cbc:CompanyID>
         </cac:PartyLegalEntity>
     </cac:IssuerParty>
-    <!-- 被替换报告的 Pagero 聚合 ID（REPLACE_PERIOD 必填） -->
+    <!-- 被替换记录的平台句柄 taxReportDocumentId（系统翻译成通道聚合 ID，REPLACE_PERIOD 必填） -->
     <cac:DocumentReference>
-        <cbc:ID>51234882</cbc:ID>
+        <cbc:ID>a1b2c3d4e5f64a2f8c316d0e5b2a7c14</cbc:ID>
     </cac:DocumentReference>
 
     <!-- 更正后的完整付款记录（覆盖原报告期全部数据） -->

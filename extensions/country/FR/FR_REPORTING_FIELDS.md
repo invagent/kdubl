@@ -290,6 +290,7 @@
 | TT-3 | 报告开具日期 | CM / CM | PUF 必填 | `TaxReport/cbc:IssueDate` |
 | N/A | 分类标识 | CM / CM | 法国付款上报固定 **INCOME**（INCOME/EXPENSE） | `TaxReport/ClassificationIdentifier` |
 | TT-4 | 报送传输类型 | CM / CM | **仅 `RECTIFICATION` 时必填** | `TaxReport/Type` |
+| N/A | 被替换报告 ID | CM / CM | **`REPLACE_PERIOD` 时必填**；填被替换记录的平台句柄 `taxReportDocumentId`，系统翻译成通道聚合 ID | `TaxReport/cac:DocumentReference/cbc:ID` |
 | TT-89 | 报告周期开始日 | CM / CM | 强烈建议;跨多日期时必填 | `TaxReport/ReportPeriod/cbc:StartDate` |
 | TT-90 | 报告周期结束日 | CM / CM | 同上 | `TaxReport/ReportPeriod/cbc:EndDate` |
 | TT-13 | 发票人/卖方标识 | **M / M** | SIREN(0002)（也接受 SIRET 0009，ISO 6523） | `TaxReport/cac:IssuerParty/cac:PartyLegalEntity/cbc:CompanyID[@schemeID='0002']` |
