@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL 2.1 示例文件 — 法国 DROM 交易上报 UC44（Flux 10.1）
+  对应 PUF 示例：PUF_France_UC44_DROM_GuadeloupeToGuyane_InvoiceReport.xml
+
+  卖方：瓜德罗普（Guadeloupe，GP，Group 1 DROM）→ 买方：法属圭亚那（Guyane，GF，Group 2）
+  上报类型：INVOICE（B2B 国际上报，#BAR#B2BINT）
+  AccountType：RECEIVABLE（销项）
+  VAT 类别：G（出口豁免，VATEX-EU-G）
+
+  领土分类（BR-FR-MAP-14）：
+  - Group 1（VAT 区域内）：法国本土、瓜德罗普(GP)、马提尼克(MQ)、留尼汪(RE)
+  - Group 2（VAT 区域外/出口）：法属圭亚那(GF)、马约特(YT)
+  - GP（瓜德罗普）在 Flux 10.1 中映射为 FR；GF（法属圭亚那）保持 GF
+-->
+<Invoice
+    xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+    xmlns:kdubl="urn:piaozone.com:ubl-2.1-customizations:v1.0">
+
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ID>GP-INV-2026-0804001</cbc:ID>
+    <cbc:IssueDate>2026-08-04</cbc:IssueDate>
+    <cbc:DueDate>2026-04-09</cbc:DueDate>
+    <!-- BT-3 发票类型码：380；@name=BT-23 业务流程分类码(货物用 B1,Pagero 据此推导 classification type) -->
+    <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
+    <!-- #BAR#B2BINT：国际 B2B 上报标识（瓜德罗普 Group 1 → 法属圭亚那 Group 2） -->
+    <cbc:Note>#AAB#Pas d'escompte accordé</cbc:Note>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+    <cbc:BuyerReference>GF-BUYER-REF-2026-044</cbc:BuyerReference>
+
+    <!-- 业务场景码：B2B 国际（通道路由用） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransactionType：上报交易类型（B2B）→ PUF transactionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>TaxReportTransactionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportEntryType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">INVOICE</cbc:ID>
+        <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransmissionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">ORIGINAL</cbc:ID>
+        <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodStart -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-01</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodEnd -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-10</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- BG-4 销售方（瓜德罗普卖方，Kingdee Test Supplier FR） -->
+    <!-- 注：瓜德罗普(GP)是 Group 1 DROM，使用 SIREN/SIRET 与法国本土相同 -->
+    <!-- BR-FR-MAP-14：GP 在 Flux 10.1 中映射为 FR，KDUBL 中保留 GP 原始国家码 -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Supplier FR</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Zone Industrielle de Jarry</cbc:StreetName>
+                <cbc:CityName>Baie-Mahault</cbc:CityName>
+                <!-- 邮编 971xx = 瓜德罗普 -->
+                <cbc:PostalZone>97122</cbc:PostalZone>
+                <!-- 保留 GP 原始国家码；转换到 PUF 时按 BR-FR-MAP-14 映射为 FR -->
+                <cac:Country>
+                    <cbc:IdentificationCode>GP</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="FR:VAT">FR68104332184</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
+                <!-- FR:SIRET type=LEGAL -->
+                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- BG-7 购买方（法属圭亚那买方，Group 2） -->
+    <!-- GF 在 Flux 10.1 中保持 GF（Group 2 出口区域） -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Amazonie Frais</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>12 Avenue du Général de Gaulle</cbc:StreetName>
+                <cbc:CityName>Cayenne</cbc:CityName>
+                <!-- 邮编 973xx = 法属圭亚那（GF），用于反向映射识别 -->
+                <cbc:PostalZone>97300</cbc:PostalZone>
+                <!-- GF 在 Flux 10.1 保持 GF（Group 2） -->
+                <cac:Country>
+                    <cbc:IdentificationCode>GF</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="FR:VAT">FR12888999000</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Amazonie Frais SARL</cbc:RegistrationName>
+                <!-- FR:SIRET type=LEGAL -->
+                <cbc:CompanyID schemeID="FR:SIRET">88899900000023</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-03-08</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>12 Avenue du Général de Gaulle</cbc:StreetName>
+                <cbc:CityName>Cayenne</cbc:CityName>
+                <cbc:PostalZone>97300</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>GF</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- VAT 类别 G：出口豁免，VATEX-EU-G（向 Group 2 区域供货） -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">12000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <!-- G=出口 -->
+                <cbc:ID>G</cbc:ID>
+                <cbc:Percent>0.00</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>VATEX-EU-G</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>Exonération de TVA - Livraison vers territoire hors champ TVA (Guyane française)</cbc:TaxExemptionReason>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="EUR">12000.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="EUR">12000.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="EUR">12000.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">12000.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="KGM">500</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">7500.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Filet de thon rouge frais de Guadeloupe, qualité export, conditionné sous vide</cbc:Description>
+            <cbc:Name>Thon rouge frais Guadeloupe</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>G</cbc:ID>
+                <cbc:Percent>0.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">15.00</cbc:PriceAmount>
+            <cbc:BaseQuantity unitCode="KGM">1</cbc:BaseQuantity>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="KGM">300</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">4500.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Crevettes royales fraîches de Guadeloupe, calibre 20/30, conditionné sous glace</cbc:Description>
+            <cbc:Name>Crevettes royales Guadeloupe</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>G</cbc:ID>
+                <cbc:Percent>0.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">15.00</cbc:PriceAmount>
+            <cbc:BaseQuantity unitCode="KGM">1</cbc:BaseQuantity>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

@@ -42,8 +42,10 @@
 | # | 标识 | 位置 | schemeID | 说明 |
 |---|------|------|----------|------|
 | 13 | VAT / TVA | `PartyTaxScheme/cbc:CompanyID` | 无（TaxScheme/ID=VAT） | `FR` + 2 位校验码 + 9 位 SIREN，Peppol EAS=9957 |
-| 14 | SIRET | `PartyIdentification` 或 `PartyLegalEntity/cbc:CompanyID` | `FR:SIRET` | 14 位（9 位 SIREN + 5 位 NIC），ICD/EAS=0009 |
+| 14 | SIRET | `PartyIdentification` 或 `PartyLegalEntity/cbc:CompanyID` | `FR:SIRET` | 14 位（9 位 SIREN + 5 位 NIC）；上报链路转 PUF `0002` 取前 9 位，开票链路转 `0009` 保留 14 位（见 §2.2） |
 | 15 | SIREN | `TaxReport` 的 `IssuerParty/PartyLegalEntity/cbc:CompanyID` | `0002` | 9 位（付款申报文档使用） |
+
+> **法国海外属地主体不需要在 KDUBL 侧做任何特殊处理**：标识 scheme 由转换层按地址国家码判定（法国本土 + 5 个海外省 → SIREN `0002`，欧盟其他成员国 → `0223`）。业务侧照常填 `FR:SIRET` + 真实国家码即可。判定规则见 [[FR_REPORTING_FIELDS]] §0.3.1。
 
 > **M** = 必填；**CM** = 条件必填；**O** = 可选
 
@@ -95,7 +97,16 @@
 
 **位置：** `cac:PartyLegalEntity/cbc:CompanyID`（法人标识），或 `cac:PartyIdentification/cbc:ID`。
 
-**传什么：** 14 位纯数字（9 位 SIREN + 5 位 NIC，标识具体经营场所），`schemeID="FR:SIRET"`。ISO 6523 ICD=0009，Peppol EAS=0009，转 PUF 时映射为 `type=LEGAL`、`schemeID=0009`。
+**传什么：** 14 位纯数字（9 位 SIREN + 5 位 NIC，标识具体经营场所），`schemeID="FR:SIRET"`。
+
+**转 PUF 时按链路分流：**
+
+| 链路 | PUF 输出 | 说明 |
+|------|---------|------|
+| 上报（e-reporting，Flux 10.1） | `schemeID="0002"`，值取**前 9 位 SIREN** | 上报侧不接受 SIRET(0009)，见 [[FR_REPORTING_FIELDS]] §0.3 |
+| 开票（e-invoicing / B2G） | `schemeID="0009"`，值为 14 位 SIRET | B2G Chorus Pro 以 SIRET 为主标识 |
+
+> 同一个 KDUBL `FR:SIRET` 字段在两条链路输出不同 scheme 与不同值，由各自的 XSLT 负责。业务侧统一填 14 位 SIRET 即可，不需要按链路预处理。
 
 ```xml
 <cac:PartyLegalEntity>
@@ -104,9 +115,18 @@
 </cac:PartyLegalEntity>
 ```
 
-#### 2.3 SIREN（仅付款申报文档）
+上报链路的输出（`104332184` = SIRET 前 9 位）：
 
-付款申报 `TaxReport` 文档的申报方（`IssuerParty`）使用 9 位 SIREN，`schemeID="0002"`。SIREN 是 SIRET 的前 9 位。
+```xml
+<cac:PartyLegalEntity>
+    <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
+    <cbc:CompanyID schemeID="0002">104332184</cbc:CompanyID>
+</cac:PartyLegalEntity>
+```
+
+#### 2.3 SIREN（付款申报文档）
+
+付款申报 `TaxReport` 文档的申报方（`IssuerParty`）直接使用 9 位 SIREN，`schemeID="0002"`（KDUBL 侧即填最终值，无 SIRET→SIREN 派生）。
 
 ```xml
 <cac:IssuerParty>
@@ -116,6 +136,8 @@
     </cac:PartyLegalEntity>
 </cac:IssuerParty>
 ```
+
+> 发票侧用 `FR:SIRET`（14 位）、付款侧用 `0002`（9 位），两侧 KDUBL 契约不一致，属已知历史差异。填写时按文档类型区分。
 
 ---
 

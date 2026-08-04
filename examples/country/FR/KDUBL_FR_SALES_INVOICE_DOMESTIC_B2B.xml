@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL 2.1 示例文件 — 法国境内 B2B 销项发票上报（Flux 10.1）
+
+  法国卖方（Kingdee Test Supplier FR）→ 法国买方（Kingdee Test Buyer FR）
+  上报类型：INVOICE（个单报送，Flux 10.1）
+  AccountType：RECEIVABLE（销项）
+  税率场景：法国境内标准税率 TVA 20%（税类 S）
+-->
+<Invoice
+    xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+    xmlns:kdubl="urn:piaozone.com:ubl-2.1-customizations:v1.0">
+
+    <!-- BT-24 KDUBL 定制化标识 -->
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <!-- BT-23 业务流程标识 -->
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <!-- BT-1 发票号 -->
+    <cbc:ID>INV-FR-DOM-20260804-001</cbc:ID>
+    <!-- BT-2 开票日期 -->
+    <cbc:IssueDate>2026-08-04</cbc:IssueDate>
+    <!-- BT-9 付款期限 -->
+    <cbc:DueDate>2026-01-31</cbc:DueDate>
+    <!-- BT-3 发票类型码：380=商业发票；@name=BT-23 业务流程分类码(货物用 B1,Pagero 据此推导 classification type) -->
+    <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
+    <!-- BT-22 发票备注 -->
+    <cbc:Note>Les réglements reçus avant la date d'échéance ne donneront pas lieu à escompte.</cbc:Note>
+    <!-- BT-5 发票货币 -->
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <!-- ============================================================ -->
+    <!-- 税务上报扩展字段（KDUBL-EXT-TaxReport*）                      -->
+    <!-- 通过 AdditionalDocumentReference 存储，与 InvoiceContext 同模式 -->
+    <!-- ============================================================ -->
+
+    <!-- KDUBL-EXT-InvoiceContext：业务场景码（通道路由用） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransactionType：上报交易类型（B2B）→ PUF transactionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>TaxReportTransactionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportEntryType：报送类型（INVOICE=个单报送） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">INVOICE</cbc:ID>
+        <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransmissionType：报送类型（ORIGINAL=首次提交） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">ORIGINAL</cbc:ID>
+        <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodStart：税务申报周期开始日期 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-01</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodEnd：税务申报周期结束日期 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-10</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- BG-14 开票期间（发票服务/交货期） -->
+    <cac:InvoicePeriod>
+        <!-- BT-73 开票期间开始日期 -->
+        <cbc:StartDate>2025-12-01</cbc:StartDate>
+        <!-- BT-74 开票期间结束日期 -->
+        <cbc:EndDate>2026-01-31</cbc:EndDate>
+        <!-- BT-8 税点日期代码：3=开票日期 -->
+        <cbc:DescriptionCode>3</cbc:DescriptionCode>
+    </cac:InvoicePeriod>
+
+    <!-- BG-4 销售方信息 -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <!-- BT-28 销售方交易名称 -->
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Supplier FR</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <!-- BT-40 销售方国家码 -->
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <!-- BT-31 销售方 VAT 税号 -->
+                <cbc:CompanyID schemeID="FR:VAT">FR68104332184</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <!-- BT-27 销售方名称 -->
+                <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
+                <!-- FR:SIRET type=LEGAL -->
+                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- BG-7 购买方信息 -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <!-- BT-45 购买方交易名称 -->
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Buyer FR</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <!-- BT-55 购买方国家码 -->
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <!-- BT-48 购买方 VAT 税号 -->
+                <cbc:CompanyID schemeID="FR:VAT">FR68104332184</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <!-- BT-44 购买方名称 -->
+                <cbc:RegistrationName>Kingdee Test Buyer FR</cbc:RegistrationName>
+                <!-- FR:SIRET type=LEGAL -->
+                <cbc:CompanyID schemeID="FR:SIRET">19600133310025</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <!-- BG-13 配送信息 -->
+    <cac:Delivery>
+        <!-- BT-72 实际配送日期 -->
+        <cbc:ActualDeliveryDate>2026-01-01</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <!-- BT-75 配送地址—街道名 -->
+                <cbc:StreetName>Street name</cbc:StreetName>
+                <!-- BT-77 配送地址—城市 -->
+                <cbc:CityName>City Name</cbc:CityName>
+                <!-- BT-78 配送地址—邮编 -->
+                <cbc:PostalZone>75001</cbc:PostalZone>
+                <cac:Country>
+                    <!-- BT-80 配送地址—国家码 -->
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <!-- BG-23 税额合计 -->
+    <cac:TaxTotal>
+        <!-- BT-110 发票税额总计 -->
+        <cbc:TaxAmount currencyID="EUR">20.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <!-- BT-116 应税额合计 -->
+            <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount>
+            <!-- BT-117 税额合计 -->
+            <cbc:TaxAmount currencyID="EUR">20.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <!-- BT-118 税类代码：S=标准税率 -->
+                <cbc:ID>S</cbc:ID>
+                <!-- BT-119 税率 -->
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <!-- BG-22 财务总计 -->
+    <cac:LegalMonetaryTotal>
+        <!-- BT-109 发票总额（不含税） -->
+        <cbc:TaxExclusiveAmount currencyID="EUR">100.00</cbc:TaxExclusiveAmount>
+        <!-- BT-112 发票总额（含税） -->
+        <cbc:TaxInclusiveAmount currencyID="EUR">120.00</cbc:TaxInclusiveAmount>
+        <!-- BT-115 应付金额 -->
+        <cbc:PayableAmount currencyID="EUR">120.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- BG-25 发票行 -->
+    <cac:InvoiceLine>
+        <!-- BT-126 行号 -->
+        <cbc:ID>1</cbc:ID>
+        <!-- BT-129 开票数量（BT-130 单位：NAR=件） -->
+        <cbc:InvoicedQuantity unitCode="NAR">1</cbc:InvoicedQuantity>
+        <!-- BT-131 行净额 -->
+        <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <!-- BT-153 商品名称 -->
+            <cbc:Name>Item name</cbc:Name>
+            <!-- BG-30 行税务信息 -->
+            <cac:ClassifiedTaxCategory>
+                <!-- BT-151 行税类代码 -->
+                <cbc:ID>S</cbc:ID>
+                <!-- BT-152 行税率 -->
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <!-- BG-29 价格信息 -->
+        <cac:Price>
+            <!-- BT-146 商品单价（不含税） -->
+            <cbc:PriceAmount currencyID="EUR">100.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

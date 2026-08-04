@@ -59,13 +59,42 @@
 
 > **注意:上报侧不接受 SIRET(0009)** 作为 party 标识（v1.16 起移除），销/进项方默认用 **SIREN(0002)**。
 
-| 方案码 | 说明 | 长度 |
-|--------|------|------|
-| 0002 | SIREN（法国法人号，默认） | 9 位数字 |
-| 0223 | UE_HORS_FRANCE（欧盟内 VAT 号） | ≤18 |
-| 0227 | HORS_UE（非欧盟标识） | ≤18 |
-| 0228 | RIDET（新喀里多尼亚） | 9–10 |
-| 0229 | TAHITI（法属波利尼西亚） | 9 |
+| 方案码 | 说明 | 长度 | 值构成 |
+|--------|------|------|--------|
+| 0002 | SIREN（法国法人号，默认） | 9 位数字 | SIRET 前 9 位 |
+| 0223 | UE_HORS_FRANCE（欧盟内 VAT 号） | ≤18 | VAT 号去 2 位国家字母前缀 |
+| 0227 | HORS_UE（非欧盟标识） | ≤18 | 2 位国家码 + 法人名称前 16 字符（名称取自 Chorus Pro 名录） |
+| 0228 | RIDET（新喀里多尼亚） | 9–10 | 当地 RIDET 号 |
+| 0229 | TAHITI（法属波利尼西亚） | 9 | 当地 TAHITI 号 |
+
+##### 0.3.1 scheme 由地址国家码判定（KDUBL → PUF）
+
+KDUBL 侧统一填各国语义码（`FR:SIRET`、`DE:VAT` 等），**PUF 的 `@schemeID` 由转换层按 party 地址国家码（BT-40 / BT-55）推导**，业务侧不需要预先判断。
+
+| 地址国家码 | PUF scheme | 值来源 |
+|-----------|-----------|--------|
+| `FR` 本土，及海外省 `GP` `MQ` `RE` `GF` `YT` | `0002` | `FR:SIRET` 前 9 位 |
+| 欧盟其余 26 个成员国 | `0223` | `PartyTaxScheme` VAT 号去国家前缀 |
+| `NC` | `0228` | 待确认 |
+| `PF` | `0229` | 待确认 |
+| `WF`、其他非欧盟国家 | `0227` | 待确认（名称来源与截断规则未定） |
+| `PM` `BL` `MF` | 待确认 | 当地企业实际持 SIREN，走 `0227` 还是 `0002` 无依据 |
+
+> **易错点：国家码分组与标识 scheme 是两条独立规则，不能用国家码推 scheme。**
+> `GF`（圭亚那）、`YT`（马约特）在法国 VAT territory 之外（CGI art. 294），在 flux 中**保留自身国家码**；但它们是法国海外省，企业在 INSEE 注册、持 9 位 SIREN，**标识仍是 `0002`**。
+> 曾因转换层用"国家码 ≠ FR 且有 VAT 号"判定欧盟非法国主体，把海外省主体错打成 `0223` 并用 VAT 号去前缀作标识值（`FR68104332184` → `68104332184`），提交被税局侧拒。同一缺陷也会把 `GB`/`CH`/`NO` 等有 VAT 号的非欧盟国家错打成 `0223`（应为 `0227`）。
+
+> 未确认的 scheme 在转换输出中写 `UNCONFIRMED-SCHEME-{国家码}`，提交时必被校验拒绝且原因可辨识 —— 优于静默剥离 `@schemeID` 产生看似正常的错误申报。
+
+##### 0.3.2 Flux 10.1 国家码分组（BR-FR-MAP-14）
+
+| 分组 | 属地 | flux 中的国家码 |
+|------|------|----------------|
+| Group 1（视同本土） | `GP` 瓜德罗普、`MQ` 马提尼克、`RE` 留尼汪 | 映射为 `FR` |
+| Group 2（视同出口） | `GF` 圭亚那、`YT` 马约特 | 保留 `GF` / `YT` |
+
+> 此分组仅影响国家码字段本身，**不影响标识 scheme**（两组都是 `0002`，见 §0.3.1）。
+> 该规则在 Pagero 最佳实践文档中未见明文，规则号 `BR-FR-MAP-14` 来自实现约定；映射由我方转换前完成还是 Pagero 接收后完成，以及是否同样适用于买方地址（BT-55），均待与 Pagero 确认。
 
 #### 0.4 交易类别码（TT-81，行级，B2C/交易上报，`puf:RestrictedInformation[Key='CategoryCode']`）
 
@@ -164,7 +193,7 @@
 |----|------|----------------|----------------|---------|
 | BT-27 | 名称 | O / O / O | 法定名称 | `cac:AccountingSupplierParty/cac:Party/cac:PartyLegalEntity/cbc:RegistrationName` |
 | BT-28 | 商号 | O / O / O | — | `.../cac:PartyName/cbc:Name` |
-| BT-30 | 卖方标识 | **M / M / M** | 销项/交易用 **SIREN(0002)**，见 §0.3 | `.../cac:PartyLegalEntity/cbc:CompanyID[@schemeID=...]` |
+| BT-30 | 卖方标识 | **M / M / M** | 法国主体（含 5 个海外省）用 **SIREN(0002)**，scheme 按地址国家码判定，见 §0.3.1 | `.../cac:PartyLegalEntity/cbc:CompanyID[@schemeID=...]` |
 | BT-31 | VAT 号 | CM / O / O | 卖方标识为 SIREN(0002)/欧盟 VAT(0223)，或 VAT 分解含免税(E)类别时必填 | `.../cac:PartyTaxScheme[.../cbc:ID='VAT']/cbc:CompanyID` |
 | BT-40 | 卖方国家码 | **M / M / M** | 地址段(BG-5)必填 | `.../cac:PostalAddress/cac:Country/cbc:IdentificationCode` |
 
@@ -173,7 +202,7 @@
 | BT | 字段 | B2B / B2C / TX | 填入条件 / 填值 | PUF 路径 |
 |----|------|----------------|----------------|---------|
 | BT-44/45 | 买方名称 | O / O / **NA** | B2C 无真实名称时建议填 "B2C" | `cac:AccountingCustomerParty/.../cbc:Name` 或 `.../PartyLegalEntity/cbc:RegistrationName` |
-| BT-47 | 买方标识 | **M** / NA / NA | 进项用 **SIREN(0002)**;Flux 10 仅上报 B2B 国际发票，买方总是可识别 | `.../cac:PartyLegalEntity/cbc:CompanyID[@schemeID=...]` |
+| BT-47 | 买方标识 | **M** / NA / NA | 法国主体（含 5 个海外省）用 **SIREN(0002)**，scheme 按地址国家码判定，见 §0.3.1;Flux 10 仅上报 B2B 国际发票，买方总是可识别 | `.../cac:PartyLegalEntity/cbc:CompanyID[@schemeID=...]` |
 | BT-48 | 买方 VAT 号 | CM / NA / NA | 买方标识为 SIREN(0002)/欧盟 VAT(0223) 时必填 | `.../cac:PartyTaxScheme[.../cbc:ID='VAT']/cbc:CompanyID` |
 | BG-8 | 买方地址 | CM / O / **NA** | B2B 国际上报法律要求;B2C 不要求 | — |
 | BT-55 | 买方国家码 | CM / O / **NA** | 法律发票要件（CGI art. 242 nonies A） | `.../cac:PostalAddress/cac:Country/cbc:IdentificationCode` |

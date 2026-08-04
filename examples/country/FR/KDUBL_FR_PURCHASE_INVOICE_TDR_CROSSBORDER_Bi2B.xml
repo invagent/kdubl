@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL 2.1 示例文件 — 法国跨境 B2B 采购发票上报（Flux 10.1）
+  对应 PUF 示例：PUF_FR_PURCHASE_INVOICE_TDR_CROSSBORDER_Bi2B_DRAFT.xml
+
+  法国买方（Kingdee Test Buyer FR）← 德国卖方
+  上报类型：INVOICE（个单报送，Flux 10.1）
+  AccountType：PAYABLE（进项）
+-->
+<Invoice
+    xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+    xmlns:kdubl="urn:piaozone.com:ubl-2.1-customizations:v1.0">
+
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:payable:v1.0</cbc:ProfileID>
+    <cbc:ID>INV12345620260804001</cbc:ID>
+    <cbc:IssueDate>2026-08-04</cbc:IssueDate>
+    <cbc:DueDate>2026-01-31</cbc:DueDate>
+    <!-- BT-3 发票类型码：380=商业发票；@name=BT-23 业务流程分类码(进项用 B 系列 B1,Pagero 据此推导 classification type) -->
+    <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
+    <cbc:Note>Module électronique programmable pour applications technologiques avancées</cbc:Note>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <!-- 业务场景码：B2B 进项（通道路由用） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransactionType：上报交易类型（B2B）→ PUF transactionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>TaxReportTransactionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportEntryType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">INVOICE</cbc:ID>
+        <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransmissionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">ORIGINAL</cbc:ID>
+        <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodStart -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-01</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodEnd -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-10</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2025-12-01</cbc:StartDate>
+        <cbc:EndDate>2026-01-31</cbc:EndDate>
+        <cbc:DescriptionCode>3</cbc:DescriptionCode>
+    </cac:InvoicePeriod>
+
+    <!-- BG-4 销售方（德国卖方） -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="DE:VAT">DE100000001</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Seller Company Name</cbc:RegistrationName>
+                <!-- BT-30 销售方法定登记标识无需在此填写:欧盟非法国主体的标识由 XSLT 从
+                     PartyTaxScheme 的 VAT 号(DE100000001)派生为 0223(UE_HORS_FRANCE,去 DE 前缀) -->
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- BG-7 购买方（法国买方 Kingdee Test Buyer FR） -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="FR:VAT">FR68104332184</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Buyer FR</cbc:RegistrationName>
+                <!-- FR:SIRET type=LEGAL -->
+                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-01-01</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>ZAC du Cornillon Nord</cbc:StreetName>
+                <cbc:CityName>Saint-Denis</cbc:CityName>
+                <cbc:PostalZone>93216</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">400.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">2000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">400.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:TaxExclusiveAmount currencyID="EUR">2000.00</cbc:TaxExclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">2000.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="NAR">100</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">2000.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Livraison de modules</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">20.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
