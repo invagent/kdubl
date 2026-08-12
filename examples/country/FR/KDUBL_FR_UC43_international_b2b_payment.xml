@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL TaxReport 示例文件 — 法国国际 B2B 服务付款上报 UC43（Flux 10.2）
+  对应 PUF 示例：PUF_FR_UC43_international_b2b_payment.xml
+
+  法国咨询公司收到国际 B2B 服务发票的付款（现金基础 VAT）。
+  Payment 1：比利时客户全额付款（18000 EUR，20% VAT）
+  Payment 2：西班牙客户部分付款 50%（4800 EUR，20% VAT）
+-->
+<TaxReport xmlns="urn:piaozone.com:kdubl:taxreport:1.0"
+           xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+           xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+
+    <cbc:CustomizationID>urn:piaozone.com:kdubl:taxreport:1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:taxreport:v1.0</cbc:ProfileID>
+    <cbc:ID>PAY-2026-UC43-0804001</cbc:ID>
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
+    <ClassificationIdentifier>INCOME</ClassificationIdentifier>
+    <ReportPeriod>
+        <cbc:StartDate>2026-08-11</cbc:StartDate>
+        <cbc:EndDate>2026-08-20</cbc:EndDate>
+    </ReportPeriod>
+    <cac:IssuerParty>
+        <cac:PartyLegalEntity>
+            <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
+            <cbc:CompanyID schemeID="0002">104332184</cbc:CompanyID>
+        </cac:PartyLegalEntity>
+    </cac:IssuerParty>
+
+    <!-- Payment 1：比利时客户全额付款（Flux 10.2） -->
+    <Payment>
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <ReferencedDocument>
+            <PaymentDataType>INVOICE</PaymentDataType>
+            <cbc:ID>FR-INV-2026-INTL-001</cbc:ID>
+            <cbc:IssueDate>2026-03-01</cbc:IssueDate>
+        </ReferencedDocument>
+        <cbc:PaidDate>2026-03-25</cbc:PaidDate>
+        <PaymentTotal>
+            <!-- 含税金额 18000 EUR（15000 HT + 3000 VAT @20%） -->
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">18000.00</cbc:TaxInclusiveAmount>
+                <cbc:Percent>20</cbc:Percent>
+            </PaymentSubtotal>
+        </PaymentTotal>
+    </Payment>
+
+    <!-- Payment 2：西班牙客户部分付款 50%（Flux 10.2） -->
+    <Payment>
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <ReferencedDocument>
+            <PaymentDataType>INVOICE</PaymentDataType>
+            <cbc:ID>FR-INV-2026-INTL-002</cbc:ID>
+            <cbc:IssueDate>2026-02-15</cbc:IssueDate>
+        </ReferencedDocument>
+        <cbc:PaidDate>2026-03-15</cbc:PaidDate>
+        <PaymentTotal>
+            <!-- 部分付款 50%：4800 EUR（原 8000 HT + 1600 VAT = 9600 TTC 的 50%） -->
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">4800.00</cbc:TaxInclusiveAmount>
+                <cbc:Percent>20</cbc:Percent>
+            </PaymentSubtotal>
+        </PaymentTotal>
+    </Payment>
+
+</TaxReport>
