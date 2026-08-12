@@ -18,8 +18,8 @@
     <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
     <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
     <cbc:ID>FR-INV-2026-0804001</cbc:ID>
-    <cbc:IssueDate>2026-08-04</cbc:IssueDate>
-    <cbc:DueDate>2026-04-19</cbc:DueDate>
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
+    <cbc:DueDate>2026-09-10</cbc:DueDate>
     <!-- 380=商业发票；@name=BT-23 业务流程分类码(货物用 B1,Pagero 据此推导 classification type) -->
     <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
     <!-- #BAR#B2BINT：国际 B2B 上报标识（法国规则 BR-FR-20） -->
@@ -59,19 +59,25 @@
 
     <!-- KDUBL-EXT-TaxReportPeriodStart -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">2026-08-01</cbc:ID>
+        <cbc:ID schemeName="InvoiceTag">2026-08-11</cbc:ID>
         <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
     <!-- KDUBL-EXT-TaxReportPeriodEnd -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">2026-08-10</cbc:ID>
+        <cbc:ID schemeName="InvoiceTag">2026-08-20</cbc:ID>
         <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
     <!-- BG-4 销售方（Kingdee Test Supplier FR，含 SIRET） -->
     <cac:AccountingSupplierParty>
         <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">10433218410018</cbc:ID>
+            </cac:PartyIdentification>
             <cac:PartyName>
                 <cbc:Name>Kingdee Test Supplier FR</cbc:Name>
             </cac:PartyName>
@@ -91,8 +97,8 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
-                <!-- FR:SIRET type=LEGAL -->
-                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+                <!-- BT-30 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">104332184</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -124,7 +130,7 @@
     </cac:AccountingCustomerParty>
 
     <cac:Delivery>
-        <cbc:ActualDeliveryDate>2026-03-18</cbc:ActualDeliveryDate>
+        <cbc:ActualDeliveryDate>2026-08-11</cbc:ActualDeliveryDate>
         <cac:DeliveryLocation>
             <cac:Address>
                 <cbc:StreetName>Industriestraße 42</cbc:StreetName>

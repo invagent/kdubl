@@ -42,10 +42,13 @@
 | # | 标识 | 位置 | schemeID | 说明 |
 |---|------|------|----------|------|
 | 13 | VAT / TVA | `PartyTaxScheme/cbc:CompanyID` | 无（TaxScheme/ID=VAT） | `FR` + 2 位校验码 + 9 位 SIREN，Peppol EAS=9957 |
-| 14 | SIRET | `PartyIdentification` 或 `PartyLegalEntity/cbc:CompanyID` | `FR:SIRET` | 14 位（9 位 SIREN + 5 位 NIC）；上报链路转 PUF `0002` 取前 9 位，开票链路转 `0009` 保留 14 位（见 §2.2） |
-| 15 | SIREN | `TaxReport` 的 `IssuerParty/PartyLegalEntity/cbc:CompanyID` | `0002` | 9 位（付款申报文档使用） |
+| 14 | SIREN（法人标识） | `PartyLegalEntity/cbc:CompanyID` | `FR:SIREN` | 9 位；BT-30 / BT-47，上报转 PUF `0002` 原样输出（见 §2.2） |
+| 15 | SIRET（场所标识） | `PartyIdentification/cbc:ID` | `FR:SIRET` | 14 位（9 位 SIREN + 5 位 NIC）；开票链路转 `0009`，**上报链路整节丢弃**（见 §2.3） |
+| 16 | SIREN（付款申报） | `TaxReport` 的 `IssuerParty/PartyLegalEntity/cbc:CompanyID` | `0002` | 9 位（付款申报文档使用） |
 
-> **法国海外属地主体不需要在 KDUBL 侧做任何特殊处理**：标识 scheme 由转换层按地址国家码判定（法国本土 + 5 个海外省 → SIREN `0002`，欧盟其他成员国 → `0223`）。业务侧照常填 `FR:SIRET` + 真实国家码即可。判定规则见 [[FR_REPORTING_FIELDS]] §0.3.1。
+> **SIREN 与 SIRET 分属不同层级，槽位不可互换**：SIREN 标识法人实体，SIRET 标识经营场所（SIREN + 5 位 NIC），各有专属槽位。把 SIRET 填进 `PartyLegalEntity/cbc:CompanyID` 是语义错误 —— 上报转换**不会**替你截取前 9 位，而是输出 `UNCONFIRMED-SCHEME-FR-SIRET` 让通道拒绝（宁可显式失败，不可静默错报）。详见 §2.2 / §2.3。
+
+> **法国海外属地主体不需要在 KDUBL 侧做任何特殊处理**：标识 scheme 由转换层按地址国家码判定（法国本土 + 5 个海外省 → SIREN `0002`，欧盟其他成员国 → `0223`）。业务侧照常填 `FR:SIREN` + 真实国家码即可。判定规则见 [[FR_REPORTING_FIELDS]] §0.3.1。
 
 > **M** = 必填；**CM** = 条件必填；**O** = 可选
 
@@ -93,29 +96,22 @@
 </cac:PartyTaxScheme>
 ```
 
-#### 2.2 SIRET
+#### 2.2 SIREN（法人标识）
 
-**位置：** `cac:PartyLegalEntity/cbc:CompanyID`（法人标识），或 `cac:PartyIdentification/cbc:ID`。
+**位置：** `cac:PartyLegalEntity/cbc:CompanyID`，`schemeID="FR:SIREN"`。
 
-**传什么：** 14 位纯数字（9 位 SIREN + 5 位 NIC，标识具体经营场所），`schemeID="FR:SIRET"`。
+**传什么：** 9 位纯数字，标识法人实体本身（BT-30 卖方 / BT-47 买方，type=LEGAL）。
 
-**转 PUF 时按链路分流：**
-
-| 链路 | PUF 输出 | 说明 |
-|------|---------|------|
-| 上报（e-reporting，Flux 10.1） | `schemeID="0002"`，值取**前 9 位 SIREN** | 上报侧不接受 SIRET(0009)，见 [[FR_REPORTING_FIELDS]] §0.3 |
-| 开票（e-invoicing / B2G） | `schemeID="0009"`，值为 14 位 SIRET | B2G Chorus Pro 以 SIRET 为主标识 |
-
-> 同一个 KDUBL `FR:SIRET` 字段在两条链路输出不同 scheme 与不同值，由各自的 XSLT 负责。业务侧统一填 14 位 SIRET 即可，不需要按链路预处理。
+**转 PUF：** 上报链路输出 `schemeID="0002"`（ISO 6523 ICD），**值原样输出、不做任何截取或派生**。
 
 ```xml
 <cac:PartyLegalEntity>
     <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
-    <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+    <cbc:CompanyID schemeID="FR:SIREN">104332184</cbc:CompanyID>
 </cac:PartyLegalEntity>
 ```
 
-上报链路的输出（`104332184` = SIRET 前 9 位）：
+上报链路的输出：
 
 ```xml
 <cac:PartyLegalEntity>
@@ -124,9 +120,41 @@
 </cac:PartyLegalEntity>
 ```
 
-#### 2.3 SIREN（付款申报文档）
+> **一致性：** VAT 号内嵌的就是本 SIREN（`FR` + 校验码 + SIREN），两处必须指向同一个 9 位数字，否则税局的数据一致性校验会拒（如 G6.26）。校验码算法见 §2.1。
 
-付款申报 `TaxReport` 文档的申报方（`IssuerParty`）直接使用 9 位 SIREN，`schemeID="0002"`（KDUBL 侧即填最终值，无 SIRET→SIREN 派生）。
+#### 2.3 SIRET（场所标识）
+
+**位置：** `cac:PartyIdentification/cbc:ID`，`schemeID="FR:SIRET"`。
+
+**传什么：** 14 位纯数字 = 9 位 SIREN + 5 位 NIC，标识具体经营场所（type=OTHER）。前 9 位必须等于同一 party 的 SIREN。
+
+> UBL `PartyType` 的元素序列要求 `cac:PartyIdentification` 出现在 `cac:PartyName` **之前**，否则 KDUBL XSD 阶段就会挡下。
+
+**转 PUF 时按链路分流：**
+
+| 链路 | PUF 输出 | 说明 |
+|------|---------|------|
+| 上报（e-reporting，Flux 10.1） | **整节丢弃** | 上报侧合法 scheme 只有 0002/0223/0227/0228/0229；Best practice v1.18 已把 0009 从上报侧移除 |
+| 开票（e-invoicing / B2G） | `schemeID="0009"`，值为 14 位 SIRET | B2G Chorus Pro 以 SIRET 为主标识 |
+
+```xml
+<cac:Party>
+    <!-- 场所标识必须在 PartyName 之前 -->
+    <cac:PartyIdentification>
+        <cbc:ID schemeID="FR:SIRET">10433218410018</cbc:ID>
+    </cac:PartyIdentification>
+    <cac:PartyName>
+        <cbc:Name>Kingdee Test Supplier FR</cbc:Name>
+    </cac:PartyName>
+    ...
+</cac:Party>
+```
+
+> **不要把 SIRET 填进 `PartyLegalEntity/cbc:CompanyID`。** 那是法人标识槽位，SIRET 是场所标识，语义不同。早期实现曾在此处用 `substring(., 1, 9)` 截出 SIREN，该逻辑**已删除**：现在上报转换遇到 `FR:SIRET` 在法人槽位会输出 `UNCONFIRMED-SCHEME-FR-SIRET`，让 Pagero 明确拒绝，而不是静默当成 SIREN 报给税局。
+
+#### 2.4 SIREN（付款申报文档）
+
+付款申报 `TaxReport` 文档的申报方（`IssuerParty`）直接使用 9 位 SIREN，但 `schemeID` 填的是最终的 ISO 6523 码 `0002`（而非发票侧的语义码 `FR:SIREN`）。
 
 ```xml
 <cac:IssuerParty>
@@ -137,7 +165,7 @@
 </cac:IssuerParty>
 ```
 
-> 发票侧用 `FR:SIRET`（14 位）、付款侧用 `0002`（9 位），两侧 KDUBL 契约不一致，属已知历史差异。填写时按文档类型区分。
+> 两侧都是 9 位 SIREN，但 KDUBL 契约里的 `schemeID` 写法不同：发票侧填语义码 `FR:SIREN`（由转换层映射成 `0002`），付款侧直接填 `0002`。属已知历史差异，填写时按文档类型区分。
 
 ---
 
@@ -353,6 +381,10 @@
 
     <cac:AccountingSupplierParty>
         <cac:Party>
+            <!-- 场所标识 SIRET(14 位)，上报转换时整节丢弃；须在 PartyName 之前 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">10433218410018</cbc:ID>
+            </cac:PartyIdentification>
             <cac:PostalAddress>
                 <cac:Country><cbc:IdentificationCode>FR</cbc:IdentificationCode></cac:Country>
             </cac:PostalAddress>
@@ -362,7 +394,8 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
-                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+                <!-- 法人标识 SIREN(9 位)，上报映射 ICD 0002；与 VAT 号内嵌的 SIREN 一致 -->
+                <cbc:CompanyID schemeID="FR:SIREN">104332184</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -722,3 +755,22 @@
 | `KDUBL-TR-005` / `006` | TaxReportPeriodStart / End 必须为 YYYY-MM-DD |
 | `KDUBL-TR-007` | TransmissionType=RECTIFICATION（整期替换）时 TaxReportReferencedId 必填 |
 | `KDUBL-TR-008` | EntryType=RECEIPTTRANSACTION 时每行 TaxReportLineCategory 必填 |
+
+---
+
+### 13. 数据一致性自查（尚无平台规则，需业务侧保证）
+
+以下几项目前**没有** KDUBL 校验规则拦截，错了要等 Pagero 或税局驳回才发现。填数据时自查：
+
+| 检查项 | 规则 | 错了会怎样 |
+|--------|------|-----------|
+| VAT 校验码 | `FR` + 2 位校验码 + SIREN，校验码 = `(12 + 3 × (SIREN mod 97)) mod 97` | 税局数据一致性校验拒（G6.2x 族） |
+| VAT 与 SIREN 一致 | VAT 号内嵌的 9 位必须等于 `PartyLegalEntity` 的 SIREN | 同上；两个主体共用一个 VAT 号更是明显错误 |
+| SIRET 前缀 | SIRET 前 9 位必须等于同一 party 的 SIREN | 场所与法人对不上 |
+| SIREN 存在性 | 必须能在 INSEE 名录中查到（编造号码如 `888999000` 查不到） | `G6.26 ... doit être connu de la base INSEE` |
+| 付款到期日 | BT-9 `DueDate` 应晚于 BT-2 `IssueDate` | 业务上不成立；部分校验会拒 |
+| 开票日落在申报期内 | `IssueDate` 应在 `TaxReportPeriodStart` ~ `End` 之间 | 申报期语义矛盾 |
+
+> **申报方 SIREN（TT-13）不在报文里**：`/Report/ReportDocument/Issuer/Id` 由 Pagero 从账户档案生成，报文侧无对应字段。该处报 `G6.26` 要改 Pagero 账户配置，不是改 KDUBL。
+
+> **聚合报告的申报期窗口会关闭**：某申报期的聚合报告一旦进入 `Processing`／已发往税局，该期不再接受新成员单据，提交会得到 `Can not submit more Tax data reports...`。此时只能换申报期，或等聚合报告走完（卡在 `Processing` 数小时以上通常是 Pagero 侧 WSI 状态，需联系其支持）。

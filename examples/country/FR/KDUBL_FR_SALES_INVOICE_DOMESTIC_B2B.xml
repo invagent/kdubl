@@ -22,15 +22,25 @@
     <!-- BT-1 发票号 -->
     <cbc:ID>INV-FR-DOM-20260804-001</cbc:ID>
     <!-- BT-2 开票日期 -->
-    <cbc:IssueDate>2026-08-04</cbc:IssueDate>
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
     <!-- BT-9 付款期限 -->
-    <cbc:DueDate>2026-01-31</cbc:DueDate>
+    <cbc:DueDate>2026-09-10</cbc:DueDate>
     <!-- BT-3 发票类型码：380=商业发票；@name=BT-23 业务流程分类码(货物用 B1,Pagero 据此推导 classification type) -->
     <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
     <!-- BT-22 发票备注 -->
     <cbc:Note>Les réglements reçus avant la date d'échéance ne donneront pas lieu à escompte.</cbc:Note>
     <!-- BT-5 发票货币 -->
     <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <!-- BG-14 开票期间（发票服务/交货期） -->
+    <cac:InvoicePeriod>
+        <!-- BT-73 开票期间开始日期 -->
+        <cbc:StartDate>2026-08-11</cbc:StartDate>
+        <!-- BT-74 开票期间结束日期 -->
+        <cbc:EndDate>2026-08-20</cbc:EndDate>
+        <!-- BT-8 税点日期代码：3=开票日期 -->
+        <cbc:DescriptionCode>3</cbc:DescriptionCode>
+    </cac:InvoicePeriod>
 
     <!-- ============================================================ -->
     <!-- 税务上报扩展字段（KDUBL-EXT-TaxReport*）                      -->
@@ -63,29 +73,26 @@
 
     <!-- KDUBL-EXT-TaxReportPeriodStart：税务申报周期开始日期 -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">2026-08-01</cbc:ID>
+        <cbc:ID schemeName="InvoiceTag">2026-08-11</cbc:ID>
         <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
     <!-- KDUBL-EXT-TaxReportPeriodEnd：税务申报周期结束日期 -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">2026-08-10</cbc:ID>
+        <cbc:ID schemeName="InvoiceTag">2026-08-20</cbc:ID>
         <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
-    <!-- BG-14 开票期间（发票服务/交货期） -->
-    <cac:InvoicePeriod>
-        <!-- BT-73 开票期间开始日期 -->
-        <cbc:StartDate>2025-12-01</cbc:StartDate>
-        <!-- BT-74 开票期间结束日期 -->
-        <cbc:EndDate>2026-01-31</cbc:EndDate>
-        <!-- BT-8 税点日期代码：3=开票日期 -->
-        <cbc:DescriptionCode>3</cbc:DescriptionCode>
-    </cac:InvoicePeriod>
 
     <!-- BG-4 销售方信息 -->
     <cac:AccountingSupplierParty>
         <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">10433218410018</cbc:ID>
+            </cac:PartyIdentification>
             <!-- BT-28 销售方交易名称 -->
             <cac:PartyName>
                 <cbc:Name>Kingdee Test Supplier FR</cbc:Name>
@@ -106,8 +113,8 @@
             <cac:PartyLegalEntity>
                 <!-- BT-27 销售方名称 -->
                 <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
-                <!-- FR:SIRET type=LEGAL -->
-                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+                <!-- BT-30 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">104332184</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -115,6 +122,12 @@
     <!-- BG-7 购买方信息 -->
     <cac:AccountingCustomerParty>
         <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">19600133310025</cbc:ID>
+            </cac:PartyIdentification>
             <!-- BT-45 购买方交易名称 -->
             <cac:PartyName>
                 <cbc:Name>Kingdee Test Buyer FR</cbc:Name>
@@ -127,7 +140,7 @@
             </cac:PostalAddress>
             <cac:PartyTaxScheme>
                 <!-- BT-48 购买方 VAT 税号 -->
-                <cbc:CompanyID schemeID="FR:VAT">FR68104332184</cbc:CompanyID>
+                <cbc:CompanyID schemeID="FR:VAT">FR02196001333</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>
@@ -135,8 +148,8 @@
             <cac:PartyLegalEntity>
                 <!-- BT-44 购买方名称 -->
                 <cbc:RegistrationName>Kingdee Test Buyer FR</cbc:RegistrationName>
-                <!-- FR:SIRET type=LEGAL -->
-                <cbc:CompanyID schemeID="FR:SIRET">19600133310025</cbc:CompanyID>
+                <!-- BT-47 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">196001333</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
@@ -144,7 +157,7 @@
     <!-- BG-13 配送信息 -->
     <cac:Delivery>
         <!-- BT-72 实际配送日期 -->
-        <cbc:ActualDeliveryDate>2026-01-01</cbc:ActualDeliveryDate>
+        <cbc:ActualDeliveryDate>2026-08-11</cbc:ActualDeliveryDate>
         <cac:DeliveryLocation>
             <cac:Address>
                 <!-- BT-75 配送地址—街道名 -->

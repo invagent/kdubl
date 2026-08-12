@@ -23,8 +23,9 @@
     <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
     <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
     <cbc:ID>GP-INV-2026-0804001</cbc:ID>
-    <cbc:IssueDate>2026-08-04</cbc:IssueDate>
-    <cbc:DueDate>2026-04-09</cbc:DueDate>
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
+    <!-- 付款到期日必须晚于开票日（原值 2026-04-09 早于开票日 4 个月，业务上不成立） -->
+    <cbc:DueDate>2026-09-10</cbc:DueDate>
     <!-- BT-3 发票类型码：380；@name=BT-23 业务流程分类码(货物用 B1,Pagero 据此推导 classification type) -->
     <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
     <!-- #BAR#B2BINT：国际 B2B 上报标识（瓜德罗普 Group 1 → 法属圭亚那 Group 2） -->
@@ -58,13 +59,13 @@
 
     <!-- KDUBL-EXT-TaxReportPeriodStart -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">2026-08-01</cbc:ID>
+        <cbc:ID schemeName="InvoiceTag">2026-08-11</cbc:ID>
         <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
     <!-- KDUBL-EXT-TaxReportPeriodEnd -->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">2026-08-10</cbc:ID>
+        <cbc:ID schemeName="InvoiceTag">2026-08-20</cbc:ID>
         <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
@@ -73,6 +74,12 @@
     <!-- BR-FR-MAP-14：GP 在 Flux 10.1 中映射为 FR，KDUBL 中保留 GP 原始国家码 -->
     <cac:AccountingSupplierParty>
         <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">10433218410018</cbc:ID>
+            </cac:PartyIdentification>
             <cac:PartyName>
                 <cbc:Name>Kingdee Test Supplier FR</cbc:Name>
             </cac:PartyName>
@@ -94,8 +101,8 @@
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
-                <!-- FR:SIRET type=LEGAL -->
-                <cbc:CompanyID schemeID="FR:SIRET">10433218410018</cbc:CompanyID>
+                <!-- BT-30 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">104332184</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -104,8 +111,14 @@
     <!-- GF 在 Flux 10.1 中保持 GF（Group 2 出口区域） -->
     <cac:AccountingCustomerParty>
         <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">19600133310025</cbc:ID>
+            </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name>Amazonie Frais</cbc:Name>
+                <cbc:Name>Kingdee Test Buyer FR</cbc:Name>
             </cac:PartyName>
             <cac:PostalAddress>
                 <cbc:StreetName>12 Avenue du Général de Gaulle</cbc:StreetName>
@@ -118,21 +131,23 @@
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyTaxScheme>
-                <cbc:CompanyID schemeID="FR:VAT">FR12888999000</cbc:CompanyID>
+                <!-- 法国 VAT = FR + 2 位校验码 + SIREN，校验码 =(12 + 3*(SIREN mod 97)) mod 97。
+                     SIREN 196001333 对应校验码 02，与 PartyLegalEntity 的 SIREN 必须一致 -->
+                <cbc:CompanyID schemeID="FR:VAT">FR02196001333</cbc:CompanyID>
                 <cac:TaxScheme>
                     <cbc:ID>VAT</cbc:ID>
                 </cac:TaxScheme>
             </cac:PartyTaxScheme>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Amazonie Frais SARL</cbc:RegistrationName>
-                <!-- FR:SIRET type=LEGAL -->
-                <cbc:CompanyID schemeID="FR:SIRET">88899900000023</cbc:CompanyID>
+                <cbc:RegistrationName>Kingdee Test Buyer FR</cbc:RegistrationName>
+                <!-- BT-47 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">196001333</cbc:CompanyID>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
 
     <cac:Delivery>
-        <cbc:ActualDeliveryDate>2026-03-08</cbc:ActualDeliveryDate>
+        <cbc:ActualDeliveryDate>2026-08-11</cbc:ActualDeliveryDate>
         <cac:DeliveryLocation>
             <cac:Address>
                 <cbc:StreetName>12 Avenue du Général de Gaulle</cbc:StreetName>
