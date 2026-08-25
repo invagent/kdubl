@@ -263,6 +263,11 @@
     </cac:AdditionalDocumentReference>
 
     <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">BIS30</cbc:ID>
+        <cbc:DocumentType>Protocol</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">true</cbc:ID>
         <cbc:DocumentType>SelfBilled</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
@@ -635,9 +640,17 @@
         <!--        不含税金额（包含折扣和收费）-->
         <cbc:LineExtensionAmount currencyID="EUR">100</cbc:LineExtensionAmount>
 
+        <cac:PricingReference>
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount>100</cbc:PriceAmount>
+                <cbc:BaseQuantity unitCode="KG">1</cbc:BaseQuantity>
+            </cac:AlternativeConditionPrice>
+        </cac:PricingReference>
+
         <cac:Item>
             <!--            商品名称-->
             <cbc:Name>Item Module 01</cbc:Name>
+            <cbc:AdditionalInformation>xxxxxxx</cbc:AdditionalInformation>
             <cac:SellersItemIdentification>
                 <cbc:ID>物料编码</cbc:ID>
             </cac:SellersItemIdentification>
