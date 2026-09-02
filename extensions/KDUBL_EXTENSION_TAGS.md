@@ -193,6 +193,35 @@ XSLT 通过以下模板自动过滤所有 `schemeName="InvoiceTag"` 的 ADR，�
 | `kdubl:LineExtension` | 单行扩展，每条 `InvoiceLine` 对应一个 |
 | `kdubl:LineID` | 必填，值与对应 `InvoiceLine/cbc:ID` 一致，用于关联 |
 
+### 2.1 计税货币行级金额（双币种共用）
+
+发票货币 ≠ 计税货币时（`cbc:TaxCurrencyCode` 存在），以下字段承载折算后的计税货币金额。
+HU（NAV）、AE（FTA）、PT（AT）共用这组标签：
+
+| 标签 | 说明 | 使用国家 |
+|------|------|---------|
+| `kdubl:TaxCurrencyLineExtensionAmount` | 行不含税金额，含 `@currencyID` | HU、AE、PT |
+| `kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount` | 行含税金额，含 `@currencyID` | HU、AE、PT |
+| `kdubl:TaxCurrencyPriceAmount` | 行单价，含 `@currencyID`；对应 `cac:Price/cbc:PriceAmount` 的计税货币版本 | PT |
+
+推荐元素顺序（计税货币金额归为一组，单价置于组末）：
+
+```
+kdubl:LineID
+kdubl:TaxInclusiveLineExtensionAmount
+kdubl:LineExpressionIndicator
+[kdubl:AdvancePayment…]
+kdubl:TaxCurrencyTaxInclusiveLineExtensionAmount
+kdubl:TaxCurrencyLineExtensionAmount
+kdubl:TaxCurrencyPriceAmount
+```
+
+> `ext:ExtensionContent` 在 UBL 中为 `xs:any`，**XSD 不强制扩展内部顺序**，上述次序为约定，
+> 目的是让各国样例便于比对。
+>
+> 金额须由业务侧折算后提供，通道侧不按汇率换算、也不由行金额除数量得出单价——
+> 通道内的舍入口径无法保证与业务账一致。
+
 
 ## 三、国家扩展
 
@@ -205,6 +234,8 @@ XSLT 通过以下模板自动过滤所有 `schemeName="InvoiceTag"` 的 ADR，�
 | 泰国 (TH) | [country/TH/TH_EXTENSIONS.md](country/TH/TH_EXTENSIONS.md) | 80/81 调整发票、原始发票引用 |
 | 西班牙 (ES) | [country/ES/ES_EXTENSIONS.md](country/ES/ES_EXTENSIONS.md) | SII 上报字段（销项 `TaxRegimeCode`/纠正票扩展，进项 `CuotaDeducible` 可抵扣税额） |
 | 法国 (FR) | [country/FR/FR_EXTENSIONS.md](country/FR/FR_EXTENSIONS.md) · [FR_REPORTING_FIELDS.md](country/FR/FR_REPORTING_FIELDS.md) · [FR_STANDARD_FIELDS.md](country/FR/FR_STANDARD_FIELDS.md) | PUF/Pagero 电子上报（e-reporting/TDR）：发票申报（Flux 10.1/10.3，`Invoice` 上的 `TaxReportEntryType`/`TaxReportPeriodStart/End`/`TaxReportTransmissionType`/`TaxReportReferencedId` 及行级 `TaxReportLineCategory`）与付款申报（Flux 10.2/10.4，独立 `TaxReport` 文档） |
+| 阿联酋 (AE) | [country/AE/AE_EXTENSIONS.md](country/AE/AE_EXTENSIONS.md) | FTA CTC：交易类型旗标、FTZ 受益方/显名代理委托人 TRN、商品分类、税类别 `N` |
+| 葡萄牙 (PT) | [country/PT/PT_EXTENSIONS.md](country/PT/PT_EXTENSIONS.md) | AT 认证软件模式：外币双币种（AT 要求 EUR 申报，SDOC0398）——文档级走 ADR `TaxCurrency-*`、行级走 `kdubl:TaxCurrencyLineExtensionAmount`/`TaxCurrencyTaxInclusiveLineExtensionAmount` 与**新增** `kdubl:TaxCurrencyPriceAmount`；ATCUD/QR/签名由认证软件生成不入 KDUBL |
 
 > **西班牙进项可抵扣税额 `CuotaDeducible`**：进项发票（`book_type=Recibida`）部分抵扣场景下，
 > 在 `kdubl:PiaozoneExtension` 内以发票级字段承载实际可抵扣税额；全额抵扣可省略。

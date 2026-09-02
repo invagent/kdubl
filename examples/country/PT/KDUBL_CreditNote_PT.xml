@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+
+    <!-- Portugal (PT) KDUBL Credit Note - Kingdee Test Data -->
+    <!-- InvoiceTypeCode 381, references original invoice PT-INV-2026-001 -->
+    <!-- IVA standard rate: 23% -->
+    <!-- Currency: EUR -->
+
+    <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+
+    <cbc:ID>PT-CN-2026-001</cbc:ID>
+    <cbc:IssueDate>2026-09-01</cbc:IssueDate>
+    <cbc:IssueTime>09:00:00+00:00</cbc:IssueTime>
+    <!-- Type 381 = Credit Note -->
+    <cbc:InvoiceTypeCode>381</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <!-- BillingReference to original invoice -->
+    <cac:BillingReference>
+        <cac:InvoiceDocumentReference>
+            <cbc:ID>PT-INV-2026-002</cbc:ID>
+        </cac:InvoiceDocumentReference>
+    </cac:BillingReference>
+
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
+        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- Supplier: Kingdee Test Supplier PT -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Supplier PT</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Avenida da Liberdade 110</cbc:StreetName>
+                <cbc:CityName>Lisboa</cbc:CityName>
+                <cbc:PostalZone>1269-046</cbc:PostalZone>
+                <cbc:CountrySubentity>Lisboa</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>PT</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>512345678</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Supplier PT</cbc:RegistrationName>
+                <cbc:CompanyID>512345678</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Supplier Contact</cbc:Name>
+                <cbc:ElectronicMail>supplier@kingdee-pt.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- Buyer: Kingdee Test Buyer PT -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>Kingdee Test Buyer PT</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:StreetName>Rua de Santa Catarina 50</cbc:StreetName>
+                <cbc:CityName>Porto</cbc:CityName>
+                <cbc:PostalZone>4000-450</cbc:PostalZone>
+                <cbc:CountrySubentity>Porto</cbc:CountrySubentity>
+                <cac:Country>
+                    <cbc:IdentificationCode>PT</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID>980873797</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Buyer PT</cbc:RegistrationName>
+                <cbc:CompanyID>980873797</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+            <cac:Contact>
+                <cbc:Name>Buyer Contact</cbc:Name>
+                <cbc:ElectronicMail>buyer@kingdee-pt.com</cbc:ElectronicMail>
+            </cac:Contact>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>PT50000201231234567890154</cbc:ID>
+            <cac:FinancialInstitutionBranch>
+                <cbc:ID>CGDIPTPLXXX</cbc:ID>
+            </cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+
+    <!-- TaxTotal: 300 EUR * 23% = 69 EUR (credit amount) -->
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">69.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">300.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">69.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>23.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:LineExtensionAmount currencyID="EUR">300.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="EUR">300.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="EUR">369.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">369.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!-- Line 1: Article 1 credited, S 23%, qty=3, price=100 EUR, net=300 EUR -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="C62">3</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">300.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Description>Article Description 1</cbc:Description>
+            <cbc:Name>Article Name 1</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>ART-001</cbc:ID>
+            </cac:SellersItemIdentification>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>23.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">100.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>
