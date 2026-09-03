@@ -1,6 +1,7 @@
 ## 五、United Arab Emirates (AE) 专用扩展
 
-阿联酋电子发票的 KDUBL 扩展设计。测试文件位于 `AE/`（KDUBL 示例，待补）。
+阿联酋电子发票的 KDUBL 扩展设计。KDUBL 示例位于 `examples/country/AE/`，共 15 个业务场景，
+Pagero PUF 与 eezi 两条通道**共用同一套样例**（不按通道分叉）。
 
 阿联酋由联邦税务局（FTA）强制推行连续交易控制（CTC）模式，KDUBL 需在标准 UBL 基础上补充：商品分类、受限信息方、8 位交易类型旗标、税类别 `N` 等阿联酋特有字段。
 
@@ -358,5 +359,20 @@
 
 1. **受限信息方结构（§5.5）**：草案 `kdubl:RestrictedInformationParty` 结构待定稿；需确认是否复用一个容器支持多个 `kdubl:Key`。
 2. **贷记原因码槽位（§5.4）**：确认复用 `kdubl:DocumentIssuanceReasonCode` 是否满足，或需单独新增 `kdubl:BillingReferenceExtension`。
-3. **补充 KDUBL 示例文件**：`examples/country/AE/` 下尚缺各场景 KDUBL XML（标准/贷记/双币种/FTZ/代理/电商/出口等），待扩展定稿后补齐。
-4. **同步 `kdubl-invoice-fields.yml`**：待本扩展定稿后回填——新增扩展 `RestrictedInformationParty`；`cbc:InvoiceTypeCode/@name` 的 BTAE-02 值集（八位旗标）；枚举（税类别 `N`、Emirate 码、schemeID 集含 PEPPOL/TIN）。
+3. **同步 `kdubl-invoice-fields.yml`**：待本扩展定稿后回填——新增扩展 `RestrictedInformationParty`；`cbc:InvoiceTypeCode/@name` 的 BTAE-02 值集（八位旗标）；枚举（税类别 `N`、Emirate 码、schemeID 集含 PEPPOL/TIN）。
+4. **服务会计编码（SAC）取值**：服务行的 `cbc:ItemClassificationCode listID="SAC"` 目前样例填的是通用类目
+   （998311/998313/998319/998631）。若 FTA 有指定编码表，需按实际业务替换。
+
+### 5.12 通道对接要点（2026-09-03 实测）
+
+15 个样例已全部通过 eezi 校验（UAT）。对接中确认的几处与文档不完全一致：
+
+| 项 | 实际要求 |
+|---|---|
+| 税种码 | eezi AE 直接用 UNCL 5305 原码（`S`/`E`/`Z`/`AE`/`O`），不带国家前缀（与 PT 的 `PRT-*` 不同）|
+| 税类别 `N` | eezi 不认 `N`，须映射到 `O`（范围外）。若兜底到 `S` 会按标准税率重算总额而被拒 |
+| 逆向征收行 | KDUBL 写 `Percent=5.00` 但税额为 0；报文须用 `fixed` 模式 + 金额 0，不可把 Percent 当税率传 |
+| 服务行 SAC | eezi 实测比其文档更严：`itemType=S` 也强制要求 `serviceAccountingCode`，非仅 `B` |
+| 单据总额 | 取含税总额而非应付金额——视同销售 `PayableAmount=0` 但税仍需申报 |
+| `cbc:DueDate` | eezi AE 必填，样例已全部补齐 |
+| 计税货币总额 | 统一用 `kdubl:TaxCurrencyLegalMonetaryTotal`，不用 ADR `TaxCurrency-*` 键值写法 |

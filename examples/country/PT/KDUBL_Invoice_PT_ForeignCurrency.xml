@@ -17,6 +17,15 @@
         <ext:UBLExtension>
             <ext:ExtensionContent>
                 <kdubl:PiaozoneExtension>
+                    <!-- Tax currency (EUR) totals: AT requires legal documents to be reported in
+                         EUR (SDOC0398). Business side supplies the converted amounts; the channel
+                         must not compute them from the exchange rate.
+                         300.00 USD * 0.92 = 276.00 EUR net; 369.00 USD * 0.92 = 339.48 EUR gross. -->
+                    <kdubl:TaxCurrencyLegalMonetaryTotal>
+                        <cbc:TaxExclusiveAmount currencyID="EUR">276.00</cbc:TaxExclusiveAmount>
+                        <cbc:TaxInclusiveAmount currencyID="EUR">339.48</cbc:TaxInclusiveAmount>
+                        <cbc:PayableAmount currencyID="EUR">339.48</cbc:PayableAmount>
+                    </kdubl:TaxCurrencyLegalMonetaryTotal>
                     <kdubl:LineExtensions>
                         <kdubl:LineExtension>
                             <kdubl:LineID>1</kdubl:LineID>
@@ -54,18 +63,6 @@
     <cac:AdditionalDocumentReference>
         <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
         <cbc:DocumentType>SelfBilled</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
-
-    <!-- Tax currency (EUR) totals: AT requires legal documents to be reported in EUR (SDOC0398).
-         Business side supplies the converted amounts; the channel must not compute them from the rate.
-         300.00 USD * 0.92 = 276.00 EUR net; 369.00 USD * 0.92 = 339.48 EUR gross. -->
-    <cac:AdditionalDocumentReference>
-        <cbc:ID>276.00</cbc:ID>
-        <cbc:DocumentType>TaxCurrency-ExclusiveAmount</cbc:DocumentType>
-    </cac:AdditionalDocumentReference>
-    <cac:AdditionalDocumentReference>
-        <cbc:ID>339.48</cbc:ID>
-        <cbc:DocumentType>TaxCurrency-TaxInclusiveAmount</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
 
     <!-- Supplier: Kingdee Test Supplier PT -->
