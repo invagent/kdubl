@@ -21,6 +21,7 @@
 | 11 | `OriginalTaxableAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/BaseRectificada` |
 | 12 | `OriginalTaxAmount` | `kdubl:InvoiceDocumentReference` | CM — 替代法（S）必填 | `ImporteRectificacion/CuotaRectificada` |
 | 13 | `TaxReportIndicator` | `cac:AdditionalDocumentReference` | O — 需要向税局额外报送时填 | — |
+| 14 | `CuotaDeducible` | `kdubl:PiaozoneExtension` | O — 进项发票部分抵扣才填 | `FacturaRecibida/CuotaDeducible` |
 
 > **M** = 必填；**CM** = 条件必填；**O** = 可选
 
@@ -276,7 +277,63 @@
 
 ---
 
-### 8. PiaozoneExtension 元素顺序
+### 8. 进项发票可抵扣税额 — CuotaDeducible
+
+**什么时候传：** 仅进项发票（Recibida，即 `ProfileID=payable` / `book_type=Recibida`）有意义，且**只在部分抵扣场景**需要填写。销项发票忽略此字段。
+
+- **全额抵扣**：可不填。B2BRouter 服务端会从税明细（`tax_breakdowns`）按已承担进项税（`CuotaSoportada`）全额推算，行为与不带此字段一致（向后兼容）。
+- **部分抵扣**（兼营免税业务、自用车辆、按比例抵扣等，实际可抵扣额 < 已承担进项税）：**必须显式填写**，否则会按全额抵扣错误上报。
+
+**传什么：** 发票级的可抵扣税额（整票一个值，非按税率档拆分），必须带 `currencyID` 属性。格式：`(\+|-)?\d{1,12}(\.\d{0,2})?`
+
+**位置：** `kdubl:PiaozoneExtension` 直接子元素（发票级），排在 `TaxSubtotalExtensions` 之后。
+
+```xml
+<kdubl:CuotaDeducible currencyID="EUR">78.75</kdubl:CuotaDeducible>
+```
+
+> 对应 SII `FacturaRecibida/CuotaDeducible`（AEAT XSD 中该元素必填）。
+>
+> **与 `CuotaSoportada` 的区别**：`CuotaSoportada`（已承担进项税）来自税率行 `TaxSubtotal/TaxAmount`，是供应商向你收取的 VAT；`CuotaDeducible`（可抵扣税额）是其中你实际能抵扣的部分，是购买方的税务判定。UBL/KDUBL 无原生"可抵扣税额"语义，故通过本扩展承载。
+>
+> **符号规则**：与发票 `tax_amount` 一致。差额法（`CorrectionMethod=I`）贷项票（`381`）整单取反时，本字段同样由转换器（`KdublToSiiCtcConverter`）取反后填入 B2BRouter 的 `cuota_deducible_in_cents`（分单位，元值 ×100）。
+>
+> **暂未承载**：SII 的跨期抵扣字段（`ADeducirEnPeriodoPosterior` / `EjercicioDeduccion` / `PeriodoDeduccion`）当前未支持，如后续需要按同一扩展模式补充。
+
+**部分抵扣示例**（进项发票，承担进项税 105.00，仅 75% 可抵扣）：
+
+```xml
+<cbc:ProfileID>urn:piaozone.com:profile:payable:v1.0</cbc:ProfileID>
+<cac:AdditionalDocumentReference>
+    <cbc:ID schemeName="InvoiceTag">Recibida</cbc:ID>
+    <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
+</cac:AdditionalDocumentReference>
+
+<cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">105.00</cbc:TaxAmount>  <!-- CuotaSoportada 来源 -->
+    ...
+</cac:TaxTotal>
+
+<ext:UBLExtensions>
+    <ext:UBLExtension>
+        <ext:ExtensionContent>
+            <kdubl:PiaozoneExtension>
+                <kdubl:TaxSubtotalExtensions>
+                    <kdubl:TaxSubtotalExtension>
+                        <kdubl:TaxRegimeCode>01</kdubl:TaxRegimeCode>
+                    </kdubl:TaxSubtotalExtension>
+                </kdubl:TaxSubtotalExtensions>
+                <!-- 只有 78.75 可抵扣，必须显式给出 -->
+                <kdubl:CuotaDeducible currencyID="EUR">78.75</kdubl:CuotaDeducible>
+            </kdubl:PiaozoneExtension>
+        </ext:ExtensionContent>
+    </ext:UBLExtension>
+</ext:UBLExtensions>
+```
+
+---
+
+### 9. PiaozoneExtension 元素顺序
 
 XSD 定义的元素顺序如下，填写时必须按此顺序：
 
@@ -294,12 +351,13 @@ kdubl:PiaozoneExtension
 │       ├── kdubl:TipoRecargoEquivalencia  （可选）
 │       └── kdubl:CuotaRecargoEquivalencia （可选）
 ├── kdubl:EmitidaPorTercerosODestinatario  （可选）
-└── kdubl:VariosDestinatarios              （可选）
+├── kdubl:VariosDestinatarios              （可选）
+└── kdubl:CuotaDeducible                   （可选，仅进项发票部分抵扣时填）
 ```
 
 ---
 
-### 9. 税局报送类型 — TaxReportIndicator
+### 10. 税局报送类型 — TaxReportIndicator
 
 **什么时候传：** 使用 NA 通道开票（不经过税局清关）后，需要额外向税局报备时填写。缺省或填 `NA` 表示不需要报送。
 
@@ -329,7 +387,7 @@ kdubl:PiaozoneExtension
 
 ---
 
-### 10. 完整示例
+### 11. 完整示例
 
 #### 场景一：普通境内发票（最简）
 

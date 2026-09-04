@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL 2.1 示例文件 — 法国 B2C POS 聚合交易上报（Flux 10.1）
+  对应 PUF 示例：PUF_FR_SALES_INVOICE_TDR_POS_TRANSACTIONS_DRAFT.xml
+
+  法国卖方（Kingdee Test Supplier FR）→ B2C 消费者（匿名）
+  上报类型：RECEIPTTRANSACTION（B2C POS 日汇总，Flux 10.1）
+  AccountType：RECEIVABLE（销项）
+
+  每个 InvoiceLine 代表一个交易类别的当日汇总：
+  - Line 1：TLB1（商品交付，应税 20%）
+  - Line 2：TPS1（服务，应税 20%）
+-->
+<Invoice
+    xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+    xmlns:kdubl="urn:piaozone.com:ubl-2.1-customizations:v1.0">
+
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:bill:v1.0</cbc:ProfileID>
+    <cbc:ID>POS12345620260804001</cbc:ID>
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
+    <!-- BT-3 发票类型码：380；@name=BT-23 业务流程分类码(Pagero 据此推导 classification type) -->
+    <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <!-- 业务场景码：B2C（通道路由用） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2C</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransactionType：上报交易类型（B2C）→ PUF transactionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2C</cbc:ID>
+        <cbc:DocumentType>TaxReportTransactionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportEntryType：B2C POS 汇总报送 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">RECEIPTTRANSACTION</cbc:ID>
+        <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransmissionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">ORIGINAL</cbc:ID>
+        <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodStart -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-11</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodEnd -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-20</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- BG-4 销售方（Kingdee Test Supplier FR） -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">10433218410018</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="FR:VAT">FR68104332184</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
+                <!-- BT-30 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">104332184</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- BG-7 购买方（B2C 匿名消费者，无具体信息） -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>B2C</cbc:Name>
+            </cac:PartyName>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:LegalMonetaryTotal>
+        <!-- 两行合计：120 + 240 = 360 -->
+        <cbc:PayableAmount currencyID="EUR">360.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <!--
+      发票行 1：TLB1 — 商品交付（应税 20%）
+      当日商品销售汇总：含税 120 EUR（净额 100 EUR + 税 20 EUR）
+    -->
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:LineExtensionAmount currencyID="EUR">100.00</cbc:LineExtensionAmount>
+        <!-- 配送日期（B2C/POS 场景为交易日期） -->
+        <cac:Delivery>
+            <cbc:ActualDeliveryDate>2026-08-11</cbc:ActualDeliveryDate>
+        </cac:Delivery>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="EUR">20.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="EUR">100.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="EUR">20.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>20</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Name>B2C</cbc:Name>
+            <!-- KDUBL-EXT-TaxReportLineCategory：TLB1=商品交付（应税） -->
+            <cac:AdditionalItemProperty>
+                <cbc:Name>TaxReportLineCategory</cbc:Name>
+                <cbc:Value>TLB1</cbc:Value>
+            </cac:AdditionalItemProperty>
+        </cac:Item>
+    </cac:InvoiceLine>
+
+    <!--
+      发票行 2：TPS1 — 服务（应税 20%）
+      当日服务销售汇总：含税 240 EUR（净额 200 EUR + 税 40 EUR）
+    -->
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:LineExtensionAmount currencyID="EUR">200.00</cbc:LineExtensionAmount>
+        <cac:Delivery>
+            <cbc:ActualDeliveryDate>2026-08-11</cbc:ActualDeliveryDate>
+        </cac:Delivery>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="EUR">40.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="EUR">200.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="EUR">40.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:ID>S</cbc:ID>
+                    <cbc:Percent>20</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>VAT</cbc:ID>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Name>B2C</cbc:Name>
+            <!-- KDUBL-EXT-TaxReportLineCategory：TPS1=服务（应税） -->
+            <cac:AdditionalItemProperty>
+                <cbc:Name>TaxReportLineCategory</cbc:Name>
+                <cbc:Value>TPS1</cbc:Value>
+            </cac:AdditionalItemProperty>
+        </cac:Item>
+    </cac:InvoiceLine>
+
+</Invoice>

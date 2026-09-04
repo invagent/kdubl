@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL 2.1 示例文件 — 法国采购发票更正上报（RECTIFICATION，Flux 10.1）
+  对应 PUF 示例：PUF_FR_PURCHASE_INVOICE_TDR_CROSSBORDER_Bi2B_DRAFT - RECTIFICATION.xml
+
+  整期替换（REPLACE_PERIOD）场景：
+  - TransmissionType = REPLACE_PERIOD（PUF 侧转为 RECTIFICATION）
+  - TaxReportReferencedId：被替换记录的平台句柄 taxReportDocumentId（业务方 send 时拿到的句柄，
+    非税局 ID）。系统提交前查库翻译成通道侧聚合报告 ID → PUF referencedReportId
+  - TaxReportPeriodStart/End：必须与被替换报告的周期完全一致
+  - issuerAssignedReportId 由系统用平台句柄自动注入、taxReportId 由 Pagero 生成，均无需在此填写
+-->
+<Invoice
+    xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+    xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+    xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+    xmlns:kdubl="urn:piaozone.com:ubl-2.1-customizations:v1.0">
+
+    <cbc:CustomizationID>urn:piaozone.com:ubl-2.1-customizations:v1.0</cbc:CustomizationID>
+    <cbc:ProfileID>urn:piaozone.com:profile:payable:v1.0</cbc:ProfileID>
+    <cbc:ID>INV12345620260804002</cbc:ID>
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
+    <cbc:DueDate>2026-09-10</cbc:DueDate>
+    <!-- BT-3 发票类型码：380；@name=BT-23 业务流程分类码(进项用 B1,Pagero 据此推导 classification type) -->
+    <cbc:InvoiceTypeCode name="B1">380</cbc:InvoiceTypeCode>
+    <cbc:Note>Module électronique programmable pour applications technologiques avancées</cbc:Note>
+    <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+
+    <cac:InvoicePeriod>
+        <cbc:StartDate>2026-08-11</cbc:StartDate>
+        <cbc:EndDate>2026-08-20</cbc:EndDate>
+        <cbc:DescriptionCode>3</cbc:DescriptionCode>
+    </cac:InvoicePeriod>
+
+    <!-- 被更正的原始发票引用（BT-25） -->
+    <cac:BillingReference>
+        <cac:InvoiceDocumentReference>
+            <cbc:ID>INV-ORIGINAL-001</cbc:ID>
+        </cac:InvoiceDocumentReference>
+    </cac:BillingReference>
+
+    <!-- 业务场景码（通道路由用） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransactionType：上报交易类型（B2B）→ PUF transactionType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
+        <cbc:DocumentType>TaxReportTransactionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportEntryType -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">INVOICE</cbc:ID>
+        <cbc:DocumentType>TaxReportEntryType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportTransmissionType：整期替换（KDUBL 用 REPLACE_PERIOD，PUF 转 RECTIFICATION） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">REPLACE_PERIOD</cbc:ID>
+        <cbc:DocumentType>TaxReportTransmissionType</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportReferencedId：被替换记录的平台句柄 taxReportDocumentId
+         （系统提交前查库翻译成通道侧聚合报告 ID → PUF referencedReportId） -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">8b8cee3c432741f8adf603cc6ea94a62</cbc:ID>
+        <cbc:DocumentType>TaxReportReferencedId</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodStart：必须与被替换报告完全一致 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-11</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodStart</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <!-- KDUBL-EXT-TaxReportPeriodEnd：必须与被替换报告完全一致 -->
+    <cac:AdditionalDocumentReference>
+        <cbc:ID schemeName="InvoiceTag">2026-08-20</cbc:ID>
+        <cbc:DocumentType>TaxReportPeriodEnd</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+
+
+    <!-- BG-4 销售方（德国卖方） -->
+    <cac:AccountingSupplierParty>
+        <cac:Party>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <cbc:IdentificationCode>DE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="DE:VAT">DE100000001</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Seller Company Name</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+
+    <!-- BG-7 购买方（法国买方 Kingdee Test Buyer FR） -->
+    <cac:AccountingCustomerParty>
+        <cac:Party>
+            <!-- 场所标识：FR:SIRET(14 位 = SIREN + NIC) type=OTHER，ICD 0009。
+                 法人标识是下方 PartyLegalEntity/CompanyID 的 SIREN，两者不可互换。
+                 法国上报(Flux 10.1)不使用 SIRET，转换时本节点整体丢弃。 -->
+            <cac:PartyIdentification>
+                <cbc:ID schemeID="FR:SIRET">19600133310025</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PostalAddress>
+                <cac:Country>
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyTaxScheme>
+                <cbc:CompanyID schemeID="FR:VAT">FR02196001333</cbc:CompanyID>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:PartyTaxScheme>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>Kingdee Test Buyer FR</cbc:RegistrationName>
+                <!-- BT-30 法人注册标识：FR:SIREN(9 位) type=LEGAL，上报映射 ICD 0002 -->
+                <cbc:CompanyID schemeID="FR:SIREN">196001333</cbc:CompanyID>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+
+    <cac:Delivery>
+        <cbc:ActualDeliveryDate>2026-08-11</cbc:ActualDeliveryDate>
+        <cac:DeliveryLocation>
+            <cac:Address>
+                <cbc:StreetName>ZAC du Cornillon Nord</cbc:StreetName>
+                <cbc:CityName>Saint-Denis</cbc:CityName>
+                <cbc:PostalZone>93216</cbc:PostalZone>
+                <cac:Country>
+                    <cbc:IdentificationCode>FR</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:Address>
+        </cac:DeliveryLocation>
+    </cac:Delivery>
+
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="EUR">400.00</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">2000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">400.00</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+
+    <cac:LegalMonetaryTotal>
+        <cbc:TaxExclusiveAmount currencyID="EUR">2000.00</cbc:TaxExclusiveAmount>
+        <cbc:PayableAmount currencyID="EUR">2000.00</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+
+    <cac:InvoiceLine>
+        <cbc:ID>1</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="NAR">100</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="EUR">2000.00</cbc:LineExtensionAmount>
+        <cac:Item>
+            <cbc:Name>Livraison de modules</cbc:Name>
+            <cac:ClassifiedTaxCategory>
+                <cbc:ID>S</cbc:ID>
+                <cbc:Percent>20</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>VAT</cbc:ID>
+                </cac:TaxScheme>
+            </cac:ClassifiedTaxCategory>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="EUR">20.00</cbc:PriceAmount>
+        </cac:Price>
+    </cac:InvoiceLine>
+
+</Invoice>

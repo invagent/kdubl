@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  KDUBL TaxReport 示例文件 — 法国销项付款上报（Flux 10.2 + 10.4）
+  对应 PUF 示例：PUF_FR_payment_income_invoices_and_transactions.xml
+
+  包含三条付款记录：
+  - Payment 1：B2B 发票付款（INVOICE），混合税率 20% + 5.5%（Flux 10.2）
+  - Payment 2：B2B 发票付款（INVOICE），单税率 0%（Flux 10.2）
+  - Payment 3：B2C POS 汇总付款（RECEIPTTRANSACTION），多税率（Flux 10.4）
+-->
+<TaxReport xmlns="urn:piaozone.com:kdubl:taxreport:1.0"
+           xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+           xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+
+    <!-- TR-D-001 KDUBL 定制化标识 -->
+    <cbc:CustomizationID>urn:piaozone.com:kdubl:taxreport:1.0</cbc:CustomizationID>
+    <!-- TR-D-002 业务流程标识 -->
+    <cbc:ProfileID>urn:piaozone.com:profile:taxreport:v1.0</cbc:ProfileID>
+    <!-- TR-D-003 报告 ID -->
+    <cbc:ID>PAY-2026-001</cbc:ID>
+    <!-- TR-D-004 开单日期 -->
+    <cbc:IssueDate>2026-08-11</cbc:IssueDate>
+    <!-- TR-D-005 申报方向：销项 -->
+    <ClassificationIdentifier>INCOME</ClassificationIdentifier>
+    <!-- TR-D-007 申报周期 -->
+    <ReportPeriod>
+        <cbc:StartDate>2026-08-11</cbc:StartDate>
+        <cbc:EndDate>2026-08-20</cbc:EndDate>
+    </ReportPeriod>
+    <!-- TR-D-008 申报方（Kingdee Test Supplier FR） -->
+    <cac:IssuerParty>
+        <cac:PartyLegalEntity>
+            <cbc:RegistrationName>Kingdee Test Supplier FR</cbc:RegistrationName>
+            <!-- SIREN schemeID=0002 -->
+            <cbc:CompanyID schemeID="0002">104332184</cbc:CompanyID>
+        </cac:PartyLegalEntity>
+    </cac:IssuerParty>
+
+    <!-- TR-P-001 Payment 1：B2B 发票付款，混合税率（Flux 10.2） -->
+    <Payment>
+        <!-- TR-P-002 货币（法国固定 EUR） -->
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <!-- TR-P-003 被引用发票 -->
+        <ReferencedDocument>
+            <PaymentDataType>INVOICE</PaymentDataType>
+            <cbc:ID>FAC-2025-00842</cbc:ID>
+            <cbc:IssueDate>2025-12-15</cbc:IssueDate>
+        </ReferencedDocument>
+        <!-- TR-P-004 实际收款日期 -->
+        <cbc:PaidDate>2026-01-10</cbc:PaidDate>
+        <!-- TR-P-005 按税率分项金额 -->
+        <PaymentTotal>
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">1200.00</cbc:TaxInclusiveAmount>
+                <cbc:Percent>20</cbc:Percent>
+            </PaymentSubtotal>
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">316.50</cbc:TaxInclusiveAmount>
+                <cbc:Percent>5.5</cbc:Percent>
+            </PaymentSubtotal>
+        </PaymentTotal>
+    </Payment>
+
+    <!-- TR-P-001 Payment 2：B2B 发票付款，0% 豁免（Flux 10.2） -->
+    <Payment>
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <ReferencedDocument>
+            <PaymentDataType>INVOICE</PaymentDataType>
+            <cbc:ID>FAC-2025-00901</cbc:ID>
+            <cbc:IssueDate>2025-12-20</cbc:IssueDate>
+        </ReferencedDocument>
+        <cbc:PaidDate>2026-01-15</cbc:PaidDate>
+        <PaymentTotal>
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">5000.00</cbc:TaxInclusiveAmount>
+                <cbc:Percent>0</cbc:Percent>
+            </PaymentSubtotal>
+        </PaymentTotal>
+    </Payment>
+
+    <!-- TR-P-001 Payment 3：B2C POS 汇总付款，多税率（Flux 10.4） -->
+    <Payment>
+        <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+        <ReferencedDocument>
+            <!-- 无发票引用 -->
+            <PaymentDataType>RECEIPTTRANSACTION</PaymentDataType>
+        </ReferencedDocument>
+        <cbc:PaidDate>2026-01-08</cbc:PaidDate>
+        <PaymentTotal>
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">840.00</cbc:TaxInclusiveAmount>
+                <cbc:Percent>20</cbc:Percent>
+            </PaymentSubtotal>
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">275.00</cbc:TaxInclusiveAmount>
+                <cbc:Percent>10</cbc:Percent>
+            </PaymentSubtotal>
+            <PaymentSubtotal>
+                <cbc:TaxInclusiveAmount currencyID="EUR">158.25</cbc:TaxInclusiveAmount>
+                <cbc:Percent>5.5</cbc:Percent>
+            </PaymentSubtotal>
+        </PaymentTotal>
+    </Payment>
+
+</TaxReport>
