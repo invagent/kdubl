@@ -74,14 +74,6 @@
                     <cbc:IdentificationCode>DE</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-            <cac:PartyLegalEntity>
-                <cbc:RegistrationName>Kingdee Test Supplier EU</cbc:RegistrationName>
-            </cac:PartyLegalEntity>
-            <cac:Contact>
-                <cbc:Name>Contact Name</cbc:Name>
-                <cbc:Telephone>+36 01 002 03 04</cbc:Telephone>
-                <cbc:ElectronicMail>supplierxxxx@xxxx.com</cbc:ElectronicMail>
-            </cac:Contact>
         </cac:Party>
     </cac:AccountingSupplierParty>
 

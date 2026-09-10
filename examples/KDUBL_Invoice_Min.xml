@@ -53,7 +53,8 @@
 
     <!-- 总计 -->
     <cac:LegalMonetaryTotal>
-        <cbc:PayableAmount>221.00</cbc:PayableAmount>
+        <cbc:TaxExclusiveAmount>200.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount>221.00</cbc:TaxInclusiveAmount>
     </cac:LegalMonetaryTotal>
 
     <!-- 商品行项目1 -->
