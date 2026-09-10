@@ -89,9 +89,9 @@
     <cac:LegalMonetaryTotal>
         <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
         <cbc:TaxExclusiveAmount currencyID="AED">900.00</cbc:TaxExclusiveAmount>
-        <cbc:TaxInclusiveAmount currencyID="AED">945.00</cbc:TaxInclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="AED">1050.00</cbc:TaxInclusiveAmount>
         <cbc:AllowanceTotalAmount currencyID="AED">100.00</cbc:AllowanceTotalAmount>
-        <cbc:PayableAmount currencyID="AED">945.00</cbc:PayableAmount>
+        <cbc:PayableAmount currencyID="AED">1050.00</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>

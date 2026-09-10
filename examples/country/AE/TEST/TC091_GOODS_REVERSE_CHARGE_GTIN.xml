@@ -63,13 +63,13 @@
         </cac:PayeeFinancialAccount>
     </cac:PaymentMeans>
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="AED">0.00</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
         <cac:TaxSubtotal>
             <cbc:TaxableAmount currencyID="AED">1000.00</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="AED">0.00</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cbc:ID>AE</cbc:ID>
-                <cbc:Percent>0</cbc:Percent>
+                <cbc:Percent>5.00</cbc:Percent>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
@@ -77,14 +77,14 @@
     <cac:LegalMonetaryTotal>
         <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
         <cbc:TaxExclusiveAmount currencyID="AED">1000.00</cbc:TaxExclusiveAmount>
-        <cbc:TaxInclusiveAmount currencyID="AED">1000.00</cbc:TaxInclusiveAmount>
-        <cbc:PayableAmount currencyID="AED">1000.00</cbc:PayableAmount>
+        <cbc:TaxInclusiveAmount currencyID="AED">1050.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="AED">1050.00</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>
         <cbc:InvoicedQuantity unitCode="EA">10</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
-        <cac:TaxTotal><cbc:TaxAmount currencyID="AED">0.00</cbc:TaxAmount></cac:TaxTotal>
+        <cac:TaxTotal><cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount></cac:TaxTotal>
         <cac:Item>
             <cbc:Name>Electronic component</cbc:Name>
             <cac:StandardItemIdentification>
@@ -96,7 +96,7 @@
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>AE</cbc:ID>
-                <cbc:Percent>0</cbc:Percent>
+                <cbc:Percent>5.00</cbc:Percent>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
         </cac:Item>

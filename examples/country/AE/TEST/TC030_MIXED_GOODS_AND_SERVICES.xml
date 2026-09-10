@@ -109,6 +109,7 @@
             <cbc:Name>IT consulting service</cbc:Name>
             <cac:CommodityClassification>
                 <cbc:CommodityCode>S</cbc:CommodityCode>
+                <cbc:ItemClassificationCode listID="SAC">SV001</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID><cbc:Percent>5.00</cbc:Percent>

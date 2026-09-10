@@ -59,6 +59,7 @@
             <cac:TaxCategory>
                 <cbc:ID>E</cbc:ID>
                 <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>DL8.46.1</cbc:TaxExemptionReasonCode>
                 <cbc:TaxExemptionReason>金融服务免税</cbc:TaxExemptionReason>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:TaxCategory>
@@ -79,16 +80,15 @@
             <cbc:Name>Financial service</cbc:Name>
             <cac:CommodityClassification>
                 <cbc:CommodityCode>S</cbc:CommodityCode>
+                <cbc:ItemClassificationCode listID="SAC">SV001</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>E</cbc:ID>
                 <cbc:Percent>0</cbc:Percent>
+                <cbc:TaxExemptionReasonCode>DL8.46.1</cbc:TaxExemptionReasonCode>
+                <cbc:TaxExemptionReason>金融服务免税</cbc:TaxExemptionReason>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
-            <cac:AdditionalItemProperty>
-                <cbc:Name>ServiceAccountingCode</cbc:Name>
-                <cbc:Value>SV001</cbc:Value>
-            </cac:AdditionalItemProperty>
         </cac:Item>
         <cac:Price><cbc:PriceAmount currencyID="AED">100.00</cbc:PriceAmount></cac:Price>
     </cac:InvoiceLine>

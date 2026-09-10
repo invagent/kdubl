@@ -55,6 +55,13 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
+        <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>AE070331234567890123456</cbc:ID>
+            <cac:FinancialInstitutionBranch><cbc:ID>EBILAEAD</cbc:ID></cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
         <cac:TaxSubtotal>
@@ -82,6 +89,7 @@
             <cac:CommodityClassification>
                 <!-- BTAE-13: Item type = SERVICES -->
                 <cbc:CommodityCode>S</cbc:CommodityCode>
+                <cbc:ItemClassificationCode listID="SAC">SV001</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID><cbc:Percent>5.00</cbc:Percent>

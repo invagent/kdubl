@@ -108,16 +108,13 @@
             <cbc:Name>Consulting service</cbc:Name>
             <cac:CommodityClassification>
                 <cbc:CommodityCode>S</cbc:CommodityCode>
+                <cbc:ItemClassificationCode listID="SAC">SV001</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
                 <cbc:ID>S</cbc:ID>
                 <cbc:Percent>5.00</cbc:Percent>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
-            <cac:AdditionalItemProperty>
-                <cbc:Name>ServiceAccountingCode</cbc:Name>
-                <cbc:Value>SV001</cbc:Value>
-            </cac:AdditionalItemProperty>
         </cac:Item>
         <cac:Price><cbc:PriceAmount currencyID="AED">100.00</cbc:PriceAmount></cac:Price>
     </cac:InvoiceLine>

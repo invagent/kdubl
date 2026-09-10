@@ -60,25 +60,32 @@
             <cac:PartyLegalEntity><cbc:RegistrationName>Burj Holdings PJSC</cbc:RegistrationName><cbc:CompanyID schemeID="AE:TL">CN-1001003</cbc:CompanyID></cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
+        <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>AE070331234567890123456</cbc:ID>
+            <cac:FinancialInstitutionBranch><cbc:ID>EBILAEAD</cbc:ID></cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="AED">-50.00</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="AED">-1000.00</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="AED">-50.00</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="AED">1000.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
             <cac:TaxCategory><cbc:ID>S</cbc:ID><cbc:Percent>5.00</cbc:Percent><cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme></cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
-        <cbc:LineExtensionAmount currencyID="AED">-1000.00</cbc:LineExtensionAmount>
-        <cbc:TaxExclusiveAmount currencyID="AED">-1000.00</cbc:TaxExclusiveAmount>
-        <cbc:TaxInclusiveAmount currencyID="AED">-1050.00</cbc:TaxInclusiveAmount>
-        <cbc:PayableAmount currencyID="AED">-1050.00</cbc:PayableAmount>
+        <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="AED">1000.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="AED">1050.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="AED">1050.00</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>
-        <cbc:InvoicedQuantity unitCode="EA">-10</cbc:InvoicedQuantity>
-        <cbc:LineExtensionAmount currencyID="AED">-1000.00</cbc:LineExtensionAmount>
-        <cac:TaxTotal><cbc:TaxAmount currencyID="AED">-50.00</cbc:TaxAmount></cac:TaxTotal>
+        <cbc:InvoicedQuantity unitCode="EA">10</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
+        <cac:TaxTotal><cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount></cac:TaxTotal>
         <cac:Item>
             <cbc:Name>Industrial pump return</cbc:Name>
             <cac:CommodityClassification><cbc:CommodityCode>G</cbc:CommodityCode><cbc:ItemClassificationCode listID="HS">8413.70.10</cbc:ItemClassificationCode></cac:CommodityClassification>

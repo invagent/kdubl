@@ -55,15 +55,22 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
+        <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>30</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>AE070331234567890123456</cbc:ID>
+            <cac:FinancialInstitutionBranch><cbc:ID>EBILAEAD</cbc:ID></cac:FinancialInstitutionBranch>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="AED">0.00</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
         <cac:TaxSubtotal>
             <cbc:TaxableAmount currencyID="AED">1000.00</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="AED">0.00</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount>
             <cac:TaxCategory>
                 <!-- IBT-118: AE = Reverse charge -->
                 <cbc:ID>AE</cbc:ID>
-                <cbc:Percent>0</cbc:Percent>
+                <cbc:Percent>5.00</cbc:Percent>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
@@ -71,14 +78,14 @@
     <cac:LegalMonetaryTotal>
         <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
         <cbc:TaxExclusiveAmount currencyID="AED">1000.00</cbc:TaxExclusiveAmount>
-        <cbc:TaxInclusiveAmount currencyID="AED">1000.00</cbc:TaxInclusiveAmount>
-        <cbc:PayableAmount currencyID="AED">1000.00</cbc:PayableAmount>
+        <cbc:TaxInclusiveAmount currencyID="AED">1050.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="AED">1050.00</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>
         <cbc:InvoicedQuantity unitCode="EA">10</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="AED">1000.00</cbc:LineExtensionAmount>
-        <cac:TaxTotal><cbc:TaxAmount currencyID="AED">0.00</cbc:TaxAmount></cac:TaxTotal>
+        <cac:TaxTotal><cbc:TaxAmount currencyID="AED">50.00</cbc:TaxAmount></cac:TaxTotal>
         <cac:Item>
             <cbc:Name>Industrial machinery</cbc:Name>
             <!-- IBT-157/157-1: Standard item identifier GTIN scheme=0160 -->
@@ -90,7 +97,7 @@
                 <cbc:ItemClassificationCode listID="HS">8413.70.10</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
             <cac:ClassifiedTaxCategory>
-                <cbc:ID>AE</cbc:ID><cbc:Percent>0</cbc:Percent>
+                <cbc:ID>AE</cbc:ID><cbc:Percent>5.00</cbc:Percent>
                 <cac:TaxScheme><cbc:ID>VAT</cbc:ID></cac:TaxScheme>
             </cac:ClassifiedTaxCategory>
             <!-- BTAE-09: RCM nature code (AdditionalItemProperty after ClassifiedTaxCategory per UBL 2.1 XSD) -->
