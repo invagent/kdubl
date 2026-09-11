@@ -23,13 +23,21 @@
         <cbc:ID>PT-ORDER-2026-001</cbc:ID>
     </cac:OrderReference>
 
+<!--    default is NA-->
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">B2B</cbc:ID>
-        <cbc:DocumentType>InvoiceContext</cbc:DocumentType>
+        <cbc:ID schemeName="InvoiceTag">BIS30</cbc:ID>
+        <cbc:DocumentType>Protocol</cbc:DocumentType>
     </cac:AdditionalDocumentReference>
+
     <cac:AdditionalDocumentReference>
-        <cbc:ID schemeName="InvoiceTag">false</cbc:ID>
-        <cbc:DocumentType>SelfBilled</cbc:DocumentType>
+        <cbc:ID schemeName="PT">CSDF7T5H-0001</cbc:ID>
+        <cbc:DocumentType>ATCUD</cbc:DocumentType>
+    </cac:AdditionalDocumentReference>
+
+    <cac:AdditionalDocumentReference>
+        <!-- 完整的 A:xxxx*B:xxxx*...*R:xxxx 字符串 -->
+        <cbc:ID>A:599999990*B:999999990*...*R:9999</cbc:ID>
+        <cbc:DocumentTypeCode>QRCode</cbc:DocumentTypeCode>
     </cac:AdditionalDocumentReference>
 
     <!-- Supplier: Kingdee Test Supplier PT -->
